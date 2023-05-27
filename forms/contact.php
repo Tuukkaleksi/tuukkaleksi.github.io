@@ -26,16 +26,21 @@
   // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
   
   $contact->smtp = array(
-    'host' => 'ssl://smtp.gmail.com',
+    'host' => 'smtp.gmail.com',
     'username' => 'janialeksi22@gmail.com',
     'password' => 'Janialeksi1',
-    'port' => '465'
+    'port' => '587'
   );
   
 
   $contact->add_message( $_POST['name'], 'From');
   $contact->add_message( $_POST['email'], 'Email');
   $contact->add_message( $_POST['message'], 'Message', 10);
+  $contact->recaptcha_secret_key = '6LeJkkYmAAAAAHMdE00eeuGLL7_EQRDj9eyzY4Q3';
+
+  if($_POST['privacy'] !='accept') {
+    die('Please, accept our terms of service and privacy acy policy');
+  }
 
   echo $contact->send();
 ?>

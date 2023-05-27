@@ -415,28 +415,33 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form" data-recaptcha-site-key="6LeJkkYmAAAAAHMdE00eeuGLL7_EQRDj9eyzY4Q3"></form>>
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Nimesi" required disabled>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Nimesi" required>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Sähköposti osoitteesi" required disabled>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Sähköposti osoitteesi" required>
                 </div>
               </div>
               <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Aihe" required disabled>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Aihe" required>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Viestisi" required disabled></textarea>
+                <textarea class="form-control" name="message" rows="5" placeholder="Viestisi" required></textarea>
               </div>
               <div class="my-3">
                 <div class="loading">Ladataan</div>
                 <div class="error-message"></div>
                 <div class="sent-message">Viestisi on lähetetty, Kiitos!</div>
               </div>
-              <div class="text-center"><i>HUOM: Viestisi läheteään erillisellä sähköpostilla, <u style="color:red;">sekä on tällä hetkellä pois käytöstä</u>.</i></div>
-              <div class="text-center"><button disabled>Lähetä</button></div>
+<!--               <div class="form-check form-group">
+                <input id="privacy-policy" type="checkbox" name="privacy" value="accept" required>
+                <label class="form-check-label ps-1" for="privacy-policy">
+                  <a>Accept</a>
+                </label>
+              </div> -->
+              <div class="text-center"><button>Lähetä</button></div>
             </form>
 
           </div>
@@ -479,6 +484,7 @@
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
+  <script src="https://www.google.com/recaptcha/api.js?render=6LeJkkYmAAAAAHMdE00eeuGLL7_EQRDj9eyzY4Q3"></script>
   <script src="assets/js/main.js"></script>
 
 </body>
