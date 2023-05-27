@@ -27,8 +27,8 @@
   
   $contact->smtp = array(
     'host' => 'smtp-mail.outlook.com',
-    'username' => 'trashtude@outlook.com',
-    'password' => 'kakkakasa2',
+    'username' => 'tuukkaleksi22@outlook.com',
+    'password' => 'Mikael97!',
     'port' => '587',
     'encryption' => 'STARTTLS'
   );
@@ -38,10 +38,6 @@
   $contact->add_message( $_POST['email'], 'Email');
   $contact->add_message( $_POST['message'], 'Message', 10);
   $contact->recaptcha_secret_key = '6LeJkkYmAAAAAHMdE00eeuGLL7_EQRDj9eyzY4Q3';
-
-  if($_POST['privacy'] !='accept') {
-    die('Please, accept our terms of service and privacy acy policy');
-  }
 
   echo $contact->send();
 ?>
