@@ -40,7 +40,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #0563bb;
+  background: #bb0505;
   width: 40px;
   height: 40px;
   border-radius: 50px;
@@ -54,7 +54,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #0678e3;
+  background: #e30606;
   color: #fff;
 }
 
