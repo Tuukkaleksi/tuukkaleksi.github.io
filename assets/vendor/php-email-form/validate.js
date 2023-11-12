@@ -113,11 +113,14 @@
       headers: {'X-Requested-With': 'XMLHttpRequest'}
     })
     .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       return response.text();
     })
     .then(data => {
       thisForm.querySelector('.loading').classList.remove('d-block');
-      if (response.ok) {
+      if (data.trim() == 'OK') {
         thisForm.querySelector('.sent-message').classList.add('d-block');
         thisForm.reset(); 
       } else {
