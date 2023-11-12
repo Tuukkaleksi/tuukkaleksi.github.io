@@ -114,6 +114,8 @@
     })
     .then(response => {
       if (!response.ok) {
+        console.log('Response status:', response.status);
+        console.log('Status text:', response.statusText);
         throw new Error('Network response was not ok');
       }
       return response.text();
