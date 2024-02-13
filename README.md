@@ -10,7 +10,7 @@ Welcome to my portfolio! Feel free to explore the projects trhough my website an
 ---
 
 ### Website URL
-[https://tuukkaleksi.github.io/](https://tuukkaleksi.github.io/)
+[https://portfoliobytuukka.net/](https://portfoliobytuukka.net/)
 
 
 Thank you for visiting my portfolio! :rocket:
