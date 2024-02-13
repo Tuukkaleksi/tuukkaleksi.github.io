@@ -26,7 +26,7 @@
   // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
   
   $contact->smtp = array(
-    'host' => 'mailout.one.com',
+    'host' => 'send.one.com',//'mailout.one.com',
     'username' => 'info@portfoliobytuukka.net',
     'password' => 'Monipeli2#',
     'port' => '587',
