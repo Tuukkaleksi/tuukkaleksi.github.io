@@ -30,7 +30,7 @@
     'username' => 'info@portfoliobytuukka.net',
     'password' => 'Monipeli2#',
     'port' => '465',
-    'encryption' => 'TLS'
+    'encryption' => 'SSLTLS'
   );
   
 
