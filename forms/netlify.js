@@ -14,6 +14,11 @@ const handleSubmit = (event) => {
       .catch((error) => alert(error));
   };
   
-  document
-    .querySelector("form")
-    .addEventListener("submit", handleSubmit);
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form[data-netlify='true']");
+    if (form) {
+        form.addEventListener("submit", handleSubmit);
+    } else {
+        console.error("No form with data-netlify='true' attribute found.");
+    }
+});
