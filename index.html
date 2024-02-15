@@ -26,7 +26,26 @@
 <!--   <script src="https://www.google.com/recaptcha/api.js?render=6LeJkkYmAAAAAHMdE00eeuGLL7_EQRDj9eyzY4Q3"></script> -->
 
   <!-- Script to handle submit to netlify forms -->
-  <script src="./forms/netlify.js"></script>
+  <script>
+    const handleSubmit = (event) => {
+      event.preventDefault();
+
+      const myForm = event.target;
+      const formData = new FormData(myForm);
+      
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      })
+        .then(() => console.log("Form successfully submitted"))
+        .catch((error) => alert(error));
+    };
+
+    document
+      .querySelector("form")
+      .addEventListener("submit", handleSubmit);
+  </script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
