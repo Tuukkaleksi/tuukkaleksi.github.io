@@ -42,9 +42,9 @@
         .catch((error) => alert(error));
     };
 
-    document
-      .querySelector("form")
-      .addEventListener("submit", handleSubmit);
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelector("form").addEventListener("submit", handleSubmit);
+    });
   </script>
 
   <!-- Template Main CSS File -->
