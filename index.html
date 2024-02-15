@@ -25,6 +25,9 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 <!--   <script src="https://www.google.com/recaptcha/api.js?render=6LeJkkYmAAAAAHMdE00eeuGLL7_EQRDj9eyzY4Q3"></script> -->
 
+  <!-- Script to handle submit to netlify forms -->
+  <script src="./forms/netlify.js"></script>
+
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
@@ -432,7 +435,7 @@
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="./forms/contact.php" method="post" role="form" class="php-email-form" netlify>
+            <form action="./forms/contact.php" method="post" role="form" class="php-email-form" data-netlify="true">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Nimesi *" required>
