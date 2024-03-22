@@ -56,7 +56,7 @@ class PHP_Email_Form {
         return;
       }
     }
-    $this->message .= !empty( $label ) ? '<strong>' . $label . ':</strong> ' . $message : $message;
+    $this->message .= !empty( $label ) ? '<strong>' . $label . ':</strong> <br></br>' . $message : $message;
   }
 
   public function option($name, $val) {
