@@ -357,8 +357,8 @@ h6 {
   }
 
 	.img-fluid {
-		height: auto;
-		width: 50%;
+		height: 25%;
+		width: 40%;
 		border-radius: 35px;
 	}
 }
