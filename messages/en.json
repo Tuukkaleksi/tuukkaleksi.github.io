@@ -1,0 +1,238 @@
+{
+  "site": {
+    "name": "Tuukka Pitkänen",
+    "title": "Tuukka Pitkänen — Portfolio",
+    "description": "Portfolio of Tuukka Pitkänen: web development, React, programming projects, and collaboration details.",
+    "location": "Oulu, Finland",
+    "typedRoles": ["Enthusiastic", "Designer", "Developer"]
+  },
+  "nav": {
+    "hero": "Home",
+    "about": "About",
+    "resume": "Résumé",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
+    "mainMenu": "Main menu",
+    "openMenu": "Open menu",
+    "home": "Home"
+  },
+  "preferences": {
+    "language": "Language",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "switchToEnglish": "English",
+    "switchToFinnish": "Suomi"
+  },
+  "hero": {
+    "eyebrow": "Portfolio",
+    "cta": "Explore my work"
+  },
+  "about": {
+    "title": "About",
+    "role": "Web designer & developer",
+    "tagline": "Energetic, social, self-taught, and attentive.",
+    "facts": {
+      "birthYear": { "label": "Birth year", "value": "2000" },
+      "city": { "label": "City", "value": "Oulu, Finland" },
+      "age": { "label": "Age", "value": "25" },
+      "degree": { "label": "Degree", "value": "Business graduate — Software developer" }
+    },
+    "paragraphs": [
+      "I am a 25-year-old from Oulu with a strong passion for programming. My social skills and ability to listen help me understand people's needs and turn them into working digital solutions.",
+      "I am a diligent builder who sees projects through to completion. I am self-taught and have worked with React, React Native, JavaScript, HTML, CSS, and Java — with React and React Native at the center of my focus.",
+      "In my free time I listen to music, play games, and create my own music. Below is one of my tracks on SoundCloud."
+    ],
+    "soundcloudTitle": "SoundCloud — FIN DE SEMANA"
+  },
+  "skills": {
+    "title": "Skills",
+    "description": "My current programming and tool skills."
+  },
+  "resume": {
+    "title": "Résumé",
+    "profile": "Profile",
+    "education": "Education",
+    "experience": "Experience",
+    "summary": "25 years old, originally from Kemijärvi, military service completed. Business graduate by education. Strengths include self-directed learning, diligence, and teamwork. Interested in game and website development.",
+    "educationItems": [
+      {
+        "title": "Business studies (vocational)",
+        "period": "2016 — 2018",
+        "organization": "Kemijärvi Vocational College REDU"
+      },
+      {
+        "title": "Software developer",
+        "period": "2022 — May 2024",
+        "organization": "Oulu Vocational College OSAO",
+        "description": "GPA: 4.59"
+      },
+      {
+        "title": "Information and communications technology (Engineering)",
+        "period": "2024 — Ongoing",
+        "organization": "Oulu University of Applied Sciences (OAMK)"
+      }
+    ],
+    "experienceItems": [
+      {
+        "title": "Smarket Kemijärvi",
+        "period": "2017 — 2018",
+        "details": ["Retail sales", "Customer service", "Stocking and cleaning shelves"]
+      },
+      {
+        "title": "Lidl Kemijärvi",
+        "period": "2022",
+        "details": ["Retail sales", "Customer service", "Stocking and cleaning shelves"]
+      },
+      {
+        "title": "Client project — Website",
+        "period": "November 2023 — December 2023",
+        "details": [
+          "Website planning",
+          "WordPress implementation",
+          "Custom CSS files",
+          "Logo design and implementation"
+        ]
+      },
+      {
+        "title": "Talvea",
+        "period": "September 2023 — Ongoing",
+        "details": [
+          "Continued development project work",
+          "TypeScript / API",
+          "Interfaces",
+          "Planning and implementation",
+          "OpenAI"
+        ]
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "description": "Choose a category or open a project page for details and images.",
+    "filters": { "all": "All", "projects": "Projects", "react": "React" },
+    "readMore": "Read more"
+  },
+  "contact": {
+    "title": "Contact",
+    "detailsTitle": "Contact details",
+    "locationLabel": "Location",
+    "socialHint": "You can also reach me on social media — links below.",
+    "formTitle": "Contact form",
+    "formDisabled": "The form is temporarily disabled during the new site rollout. A secure server-side email form will be added later — without mailto links in the browser.",
+    "formStatus": "Status:",
+    "formStatusValue": "Unavailable",
+    "formStatusHint": "— please use LinkedIn or GitHub for now."
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "projectPage": {
+    "back": "Back to portfolio",
+    "details": "Project details",
+    "description": "Description",
+    "notFound": "Project not found"
+  },
+  "gallery": {
+    "openImage": "Open image: {title}",
+    "imageAlt": "{title} — image {index}",
+    "enlargedAlt": "{title} — enlarged",
+    "previous": "Previous image",
+    "next": "Next image",
+    "slide": "Image {index}",
+    "dialog": "Image gallery",
+    "close": "Close"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "home": "Back to home"
+  },
+  "projects": {
+    "items": {
+      "eternal-cry": {
+        "title": "Eternal-Cry",
+        "subtitle": "Video game",
+        "descriptionTitle": "Eternal-Cry — overview",
+        "description": "An action platformer with a rich story, action, secrets, and enemies. Built with GameMaker Studio. I also started a website for the project. Currently on hold.",
+        "meta": [
+          { "label": "Category", "value": "Game development" },
+          { "label": "Languages", "value": "C++ / Java / Script" },
+          { "label": "Project URL", "value": "eternalcry.000webhostapp.com" }
+        ]
+      },
+      "asiakasprojekti": {
+        "title": "Client project",
+        "subtitle": "Website",
+        "description": "Website design and implementation with WordPress. Used plugins, custom images, and separate CSS files.",
+        "meta": [
+          { "label": "Category", "value": "Web design & development" },
+          { "label": "Languages", "value": "WordPress / HTML / CSS" },
+          { "label": "Client", "value": "Heikkilän Tila" },
+          { "label": "Started", "value": "November 2022" },
+          { "label": "URL", "value": "heikkilanmarja.fi" }
+        ]
+      },
+      "tic-tac-toe": {
+        "title": "Tic-Tac-Toe",
+        "subtitle": "React app",
+        "description": "My first React project: designed and built by myself. Responsive on mobile. Source code available on GitHub via the link.",
+        "meta": [
+          { "label": "Category", "value": "React app" },
+          { "label": "Languages", "value": "React" },
+          { "label": "Date", "value": "31 March 2023" },
+          { "label": "Demo", "value": "tuukkaleksi.github.io/tic-tac-toe" }
+        ]
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "subtitle": "JavaScript game",
+        "description": "Sudoku project built with HTML, CSS, and JavaScript. Not fully responsive yet. Source code on GitHub.",
+        "meta": [
+          { "label": "Category", "value": "Web game" },
+          { "label": "Languages", "value": "HTML, CSS, JavaScript" },
+          { "label": "Date", "value": "10 April 2023" },
+          { "label": "Demo", "value": "tuukkaleksi.github.io/sudoku" },
+          { "label": "Source", "value": "github.com/Tuukkaleksi/sudoku" }
+        ]
+      },
+      "vectorama": {
+        "title": "Vectorama",
+        "subtitle": "Web game",
+        "description": "A Kahoot-style browser game for the Vectorama event where players guess who is the AI. Uses OpenAI API and Firebase. Chat room still in progress.",
+        "meta": [
+          { "label": "Category", "value": "HTML / web game" },
+          { "label": "Languages", "value": "TypeScript, JavaScript, CSS, Node.js" },
+          { "label": "Date", "value": "20 April 2023" },
+          { "label": "Source", "value": "Github — Mielihurjaus" },
+          { "label": "Demo", "value": "poetic-otter-e26763.netlify.app" }
+        ]
+      },
+      "text-adventure": {
+        "title": "Text Adventure",
+        "subtitle": "AI story game",
+        "descriptionTitle": "Vite React — overview",
+        "description": "Practice project for React modules. A text adventure where AI starts and continues the story; the user can steer direction. Still being improved.",
+        "meta": [
+          { "label": "Category", "value": "Vite + React" },
+          { "label": "Languages", "value": "React / CSS" },
+          { "label": "Started", "value": "July 2023" },
+          { "label": "Source", "value": "github.com/Tuukkaleksi/text-adventure" }
+        ]
+      },
+      "wordle": {
+        "title": "Wordle",
+        "subtitle": "React / React Native",
+        "description": "A Wordle-style game: the player guesses a word in five attempts. Goal is a web and mobile app with React and React Native.",
+        "meta": [
+          { "label": "Category", "value": "React / React Native" },
+          { "label": "Languages", "value": "React / React Native" },
+          { "label": "Started", "value": "November 2022" },
+          { "label": "Source", "value": "github.com/Tuukkaleksi/wordle-project" }
+        ]
+      }
+    }
+  }
+}

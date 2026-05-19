@@ -1,6 +1,5 @@
+import { getTranslations } from "next-intl/server";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { education, experience, profileSummary } from "@/content/site-data";
-import { siteConfig } from "@/lib/site";
 import type { ResumeEntry } from "@/types";
 
 function TimelineColumn({ title, items }: { title: string; items: ResumeEntry[] }) {
@@ -37,21 +36,26 @@ function TimelineColumn({ title, items }: { title: string; items: ResumeEntry[] 
   );
 }
 
-export function Resume() {
+export async function Resume() {
+  const t = await getTranslations("resume");
+  const tSite = await getTranslations("site");
+  const education = t.raw("educationItems") as ResumeEntry[];
+  const experience = t.raw("experienceItems") as ResumeEntry[];
+
   return (
     <section id="resume" className="section-padding scroll-mt-20">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading title="Ansioluettelo" />
+        <SectionHeading title={t("title")} />
         <div className="section-card space-y-10 p-6 sm:p-10">
           <div className="rounded-xl border border-border bg-surface-muted/50 p-6">
-            <h3 className="font-display text-lg font-semibold">Profiili</h3>
-            <p className="mt-2 font-medium text-foreground">{siteConfig.name}</p>
-            <p className="mt-3 text-sm leading-relaxed text-secondary">{profileSummary}</p>
-            <p className="mt-3 text-sm text-secondary">{siteConfig.location}</p>
+            <h3 className="font-display text-lg font-semibold">{t("profile")}</h3>
+            <p className="mt-2 font-medium text-foreground">{tSite("name")}</p>
+            <p className="mt-3 text-sm leading-relaxed text-secondary">{t("summary")}</p>
+            <p className="mt-3 text-sm text-secondary">{tSite("location")}</p>
           </div>
           <div className="grid gap-10 lg:grid-cols-2">
-            <TimelineColumn title="Koulutus" items={education} />
-            <TimelineColumn title="Kokemus" items={experience} />
+            <TimelineColumn title={t("education")} items={education} />
+            <TimelineColumn title={t("experience")} items={experience} />
           </div>
         </div>
       </div>

@@ -5,8 +5,16 @@ import { Hero } from "@/components/sections/Hero";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { Resume } from "@/components/sections/Resume";
 import { Skills } from "@/components/sections/Skills";
+import { setRequestLocale } from "next-intl/server";
 
-export default function HomePage() {
+type PageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function HomePage({ params }: PageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <main>

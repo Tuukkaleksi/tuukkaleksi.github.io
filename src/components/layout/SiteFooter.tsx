@@ -1,9 +1,10 @@
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { SocialLinks } from "@/components/ui/SocialLinks";
-import { socialLinks } from "@/content/site-data";
-import { siteConfig } from "@/lib/site";
+import { socialLinks } from "@/content/social-links";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const t = await getTranslations("footer");
+  const tSite = await getTranslations("site");
   const year = new Date().getFullYear();
 
   return (
@@ -12,15 +13,15 @@ export function SiteFooter() {
         <SocialLinks links={socialLinks} />
         <p className="text-sm text-secondary">
           &copy; {year}{" "}
-          <Link
+          <a
             href="https://github.com/Tuukkaleksi/tuukkaleksi.github.io"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-foreground hover:text-primary"
           >
-            {siteConfig.name}
-          </Link>
-          . Kaikki oikeudet pidätetään.
+            {tSite("name")}
+          </a>
+          . {t("rights")}
         </p>
       </div>
     </footer>

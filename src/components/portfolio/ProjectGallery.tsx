@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -10,6 +11,7 @@ type ProjectGalleryProps = {
 };
 
 export function ProjectGallery({ images, title }: ProjectGalleryProps) {
+  const t = useTranslations("gallery");
   const [index, setIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -24,11 +26,11 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
           type="button"
           className="absolute inset-0 z-10 cursor-zoom-in"
           onClick={() => setLightboxOpen(true)}
-          aria-label={`Avaa kuva: ${title}`}
+          aria-label={t("openImage", { title })}
         />
         <Image
           src={images[index]}
-          alt={`${title} — kuva ${index + 1}`}
+          alt={t("imageAlt", { title, index: index + 1 })}
           fill
           className="object-contain p-2"
           sizes="(max-width: 1024px) 100vw, 66vw"
@@ -43,7 +45,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
                 go(-1);
               }}
               className="absolute left-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-foreground shadow hover:bg-primary hover:text-white"
-              aria-label="Edellinen kuva"
+              aria-label={t("previous")}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -54,7 +56,7 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
                 go(1);
               }}
               className="absolute right-3 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-foreground shadow hover:bg-primary hover:text-white"
-              aria-label="Seuraava kuva"
+              aria-label={t("next")}
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -68,9 +70,9 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
                     setIndex(i);
                   }}
                   className={`h-2 w-2 rounded-full transition ${
-                    i === index ? "bg-primary w-6" : "bg-white/80"
+                    i === index ? "bg-primary w-6" : "bg-white/80 dark:bg-white/40"
                   }`}
-                  aria-label={`Kuva ${i + 1}`}
+                  aria-label={t("slide", { index: i + 1 })}
                 />
               ))}
             </div>
@@ -83,20 +85,20 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
           role="dialog"
           aria-modal="true"
-          aria-label="Kuvagalleria"
+          aria-label={t("dialog")}
         >
           <button
             type="button"
             className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
             onClick={() => setLightboxOpen(false)}
-            aria-label="Sulje"
+            aria-label={t("close")}
           >
             <X className="h-5 w-5" />
           </button>
           <div className="relative h-[80vh] w-full max-w-5xl">
             <Image
               src={images[index]}
-              alt={`${title} — suurennettu`}
+              alt={t("enlargedAlt", { title })}
               fill
               className="object-contain"
               sizes="100vw"

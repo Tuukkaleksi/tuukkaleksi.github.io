@@ -1,0 +1,238 @@
+{
+  "site": {
+    "name": "Tuukka Pitkänen",
+    "title": "Tuukka Pitkänen — Portfolio",
+    "description": "Tuukka Pitkäsen portfolio: web-kehitys, React, ohjelmointiprojektit ja yhteistyöhön liittyvät tiedot.",
+    "location": "Oulu, Suomi",
+    "typedRoles": ["Innokas", "Suunnittelija", "Ohjelmoija"]
+  },
+  "nav": {
+    "hero": "Etusivu",
+    "about": "Tietoa",
+    "resume": "Ansioluettelo",
+    "portfolio": "Portfolio",
+    "contact": "Ota yhteyttä",
+    "mainMenu": "Päävalikko",
+    "openMenu": "Avaa valikko",
+    "home": "Etusivu"
+  },
+  "preferences": {
+    "language": "Kieli",
+    "theme": "Teema",
+    "themeLight": "Vaalea",
+    "themeDark": "Tumma",
+    "themeSystem": "Järjestelmä",
+    "switchToEnglish": "English",
+    "switchToFinnish": "Suomi"
+  },
+  "hero": {
+    "eyebrow": "Portfolio",
+    "cta": "Tutustu työhöni"
+  },
+  "about": {
+    "title": "Tietoa",
+    "role": "Web-suunnittelija & ohjelmoija",
+    "tagline": "Energinen, sosiaalinen, itseoppivainen ja kuunteleva.",
+    "facts": {
+      "birthYear": { "label": "Syntymävuosi", "value": "2000" },
+      "city": { "label": "Kaupunki", "value": "Oulu, Suomi" },
+      "age": { "label": "Ikä", "value": "25" },
+      "degree": { "label": "Tutkinto", "value": "Merkonomi — Ohjelmistokehittäjä" }
+    },
+    "paragraphs": [
+      "Olen 25-vuotias oululainen, joka suhtautuu ohjelmointiin intohimoisesti. Sosiaalisuuteni ja kuuntelevaisuuteni auttavat minua ymmärtämään ihmisten tarpeita ja kääntämään ne toimiviksi digitaalisiksi ratkaisuiksi.",
+      "Olen ahkera tekijä, joka vie projektit päätökseen. Olen itseoppinut ohjelmoija ja olen tehnyt projekteja Reactilla, React Nativella, JavaScriptillä, HTML:llä, CSS:llä ja Java:lla — erityisesti React ja React Native ovat olleet keskiössä.",
+      "Vapaa-ajalla kuuntelen musiikkia, pelaan pelejä ja teen omaa musiikkia. Alla yksi kappaleistani SoundCloudista."
+    ],
+    "soundcloudTitle": "SoundCloud — FIN DE SEMANA"
+  },
+  "skills": {
+    "title": "Taidot",
+    "description": "Ohjelmointi- ja työkalutaitoni tällä hetkellä."
+  },
+  "resume": {
+    "title": "Ansioluettelo",
+    "profile": "Profiili",
+    "education": "Koulutus",
+    "experience": "Kokemus",
+    "summary": "25-vuotias Kemijärveltä kotoisin, armeija käytynä. Koulutukseltaan merkonomi. Vahvuuksina itseoppiminen, ahkeruus ja sosiaalisuus ryhmäprojekteissa. Kiinnostunut pelien ja verkkosivujen toteutuksesta.",
+    "educationItems": [
+      {
+        "title": "Liiketalouden perustutkinto",
+        "period": "2016 — 2018",
+        "organization": "Kemijärven Ammattikoulu REDU"
+      },
+      {
+        "title": "Ohjelmistokehittäjä",
+        "period": "2022 — Toukokuu 2024",
+        "organization": "Oulun Ammattikoulu OSAO",
+        "description": "Keskiarvo: 4,59"
+      },
+      {
+        "title": "Tieto- ja viestintätekniikka (Insinööri)",
+        "period": "2024 — Jatkuu",
+        "organization": "Oulun Ammattikorkeakoulu (OAMK)"
+      }
+    ],
+    "experienceItems": [
+      {
+        "title": "Smarket Kemijärvi",
+        "period": "2017 — 2018",
+        "details": ["Myyjänä toimiminen", "Asiakaspalvelu", "Hyllyjen täyttö ja siivoaminen"]
+      },
+      {
+        "title": "Lidl Kemijärvi",
+        "period": "2022",
+        "details": ["Myyjänä toimiminen", "Asiakaspalvelu", "Hyllyjen täyttö ja siivoaminen"]
+      },
+      {
+        "title": "Asiakasprojekti — Nettisivusto",
+        "period": "Marraskuu 2023 — Joulukuu 2023",
+        "details": [
+          "Suunnitelma nettisivustosta",
+          "WordPressin käyttö ja toteutus",
+          "Erilliset CSS-tiedostot",
+          "Logon suunnittelu ja toteutus"
+        ]
+      },
+      {
+        "title": "Talvea",
+        "period": "Syyskuu 2023 — Jatkuu",
+        "details": [
+          "Kehitysprojektin jatkokehitys",
+          "TypeScript / API",
+          "Rajapintoja",
+          "Suunnitelmia ja toteutuksia",
+          "OpenAI"
+        ]
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "description": "Valitse kategoria tai avaa projektin sivu nähdäksesi lisätiedot ja kuvat.",
+    "filters": { "all": "Kaikki", "projects": "Projektit", "react": "React" },
+    "readMore": "Lue lisää"
+  },
+  "contact": {
+    "title": "Ota yhteyttä",
+    "detailsTitle": "Yhteystiedot",
+    "locationLabel": "Asuinpaikka",
+    "socialHint": "Voit ottaa yhteyttä myös sosiaalisen median kautta — linkit alla.",
+    "formTitle": "Yhteydenottolomake",
+    "formDisabled": "Lomake on tilapäisesti poissa käytöstä uuden sivuston käyttöönoton aikana. Sähköpostilomake otetaan käyttöön turvallisella palvelimella myöhemmin — ilman sähköpostilinkkejä selaimessa.",
+    "formStatus": "Tila:",
+    "formStatusValue": "Ei käytössä",
+    "formStatusHint": "— käytä toistaiseksi LinkedIn- tai GitHub-linkkiä yhteydenottoon."
+  },
+  "footer": {
+    "rights": "Kaikki oikeudet pidätetään."
+  },
+  "projectPage": {
+    "back": "Takaisin portfolioon",
+    "details": "Projektin tiedot",
+    "description": "Kuvaus",
+    "notFound": "Projektia ei löytynyt"
+  },
+  "gallery": {
+    "openImage": "Avaa kuva: {title}",
+    "imageAlt": "{title} — kuva {index}",
+    "enlargedAlt": "{title} — suurennettu",
+    "previous": "Edellinen kuva",
+    "next": "Seuraava kuva",
+    "slide": "Kuva {index}",
+    "dialog": "Kuvagalleria",
+    "close": "Sulje"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Sivua ei löytynyt",
+    "description": "Etsimääsi sivua ei ole tai se on siirretty uuteen osoitteeseen.",
+    "home": "Etusivulle"
+  },
+  "projects": {
+    "items": {
+      "eternal-cry": {
+        "title": "Eternal-Cry",
+        "subtitle": "Videopeli",
+        "descriptionTitle": "Eternal-Cry — selostus",
+        "description": "Toimintatasohyppelypeli, jossa on laaja tarina, toimintaa, salaisuuksia ja vihollisia. Pelin toteutukseen on käytetty GameMaker Studioa. Olen aloittanut myös projektin nettisivuston. Projekti on tällä hetkellä tauolla.",
+        "meta": [
+          { "label": "Kategoria", "value": "Peliohjelmointi" },
+          { "label": "Koodikielet", "value": "C++ / Java / Script" },
+          { "label": "Projektin URL", "value": "eternalcry.000webhostapp.com" }
+        ]
+      },
+      "asiakasprojekti": {
+        "title": "Asiakasprojekti",
+        "subtitle": "Nettisivusto",
+        "description": "Nettisivuston suunnittelu ja toteutus WordPressillä. Projektissa käytetty plugineja, itse tehtyjä kuvia ja erillisiä CSS-tiedostoja.",
+        "meta": [
+          { "label": "Kategoria", "value": "Web-suunnittelu ja toteutus" },
+          { "label": "Koodikielet", "value": "WordPress / HTML / CSS" },
+          { "label": "Asiakas", "value": "Heikkilän Tila" },
+          { "label": "Aloitettu", "value": "Marraskuu 2022" },
+          { "label": "URL", "value": "heikkilanmarja.fi" }
+        ]
+      },
+      "tic-tac-toe": {
+        "title": "Tic-Tac-Toe",
+        "subtitle": "React-sovellus",
+        "description": "Ensimmäinen React-projektini: suunnittelu ja toteutus itse. Responsiivinen mobiilille. Koodi saatavilla GitHubissa linkin kautta.",
+        "meta": [
+          { "label": "Kategoria", "value": "React App" },
+          { "label": "Koodikielet", "value": "React" },
+          { "label": "Päivämäärä", "value": "31. maaliskuuta 2023" },
+          { "label": "Demo", "value": "tuukkaleksi.github.io/tic-tac-toe" }
+        ]
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "subtitle": "JavaScript-peli",
+        "description": "Sudoku-projekti toteutettu HTML:llä, CSS:llä ja JavaScriptillä. Ei vielä täysin responsiivinen. Lähdekoodi GitHubissa.",
+        "meta": [
+          { "label": "Kategoria", "value": "Web-peli" },
+          { "label": "Koodikielet", "value": "HTML, CSS, JavaScript" },
+          { "label": "Päivämäärä", "value": "10. huhtikuuta 2023" },
+          { "label": "Demo", "value": "tuukkaleksi.github.io/sudoku" },
+          { "label": "Lähdekoodi", "value": "github.com/Tuukkaleksi/sudoku" }
+        ]
+      },
+      "vectorama": {
+        "title": "Vectorama",
+        "subtitle": "Verkkopeli",
+        "description": "Vectorama-tapahtumaan tehty Kahoot-tyylinen selainpeli, jossa pelaajien tarkoitus on arvata kuka on tekoäly. OpenAI API ja Firebase. Chat-huone työn alla.",
+        "meta": [
+          { "label": "Kategoria", "value": "HTML / Web Game" },
+          { "label": "Koodikielet", "value": "TypeScript, JavaScript, CSS, Node.js" },
+          { "label": "Päivämäärä", "value": "20. huhtikuuta 2023" },
+          { "label": "Lähdekoodi", "value": "Github — Mielihurjaus" },
+          { "label": "Demo", "value": "poetic-otter-e26763.netlify.app" }
+        ]
+      },
+      "text-adventure": {
+        "title": "Text Adventure",
+        "subtitle": "AI-tarinapeli",
+        "descriptionTitle": "Vite React — selostus",
+        "description": "Harjoitusprojekti React-moduuleihin. Tekstiseikkailu, jossa tekoäly aloittaa ja jatkaa tarinaa; käyttäjä voi ohjata suuntaa. Kehitystä jatketaan.",
+        "meta": [
+          { "label": "Kategoria", "value": "Vite + React" },
+          { "label": "Koodikielet", "value": "React / CSS" },
+          { "label": "Aloitettu", "value": "Heinäkuu 2023" },
+          { "label": "Lähdekoodi", "value": "github.com/Tuukkaleksi/text-adventure" }
+        ]
+      },
+      "wordle": {
+        "title": "Wordle",
+        "subtitle": "React / React Native",
+        "description": "Wordle-tyylinen peli: pelaaja arvaa sanan viidessä yrityksessä. Tavoitteena web- ja mobiilisovellus Reactilla ja React Nativella.",
+        "meta": [
+          { "label": "Kategoria", "value": "React / React Native" },
+          { "label": "Koodikielet", "value": "React / React Native" },
+          { "label": "Aloitettu", "value": "Marraskuu 2022" },
+          { "label": "Lähdekoodi", "value": "github.com/Tuukkaleksi/wordle-project" }
+        ]
+      }
+    }
+  }
+}

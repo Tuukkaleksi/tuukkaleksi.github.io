@@ -1,24 +1,35 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { ProjectGallery } from "@/components/portfolio/ProjectGallery";
-import { getAllProjectSlugs, getProjectBySlug } from "@/content/projects";
+import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
+import { getMessagesForLocale } from "@/i18n/messages";
+import type { Locale } from "@/i18n/routing";
+import { getAllProjectSlugs, getProjectsFromMessages } from "@/lib/projects";
 
 type PageProps = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return getAllProjectSlugs().map((slug) => ({ slug }));
+  return routing.locales.flatMap((locale) =>
+    getAllProjectSlugs().map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const project = getProjectBySlug(slug);
-  if (!project) return { title: "Projektia ei löytynyt" };
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const messages = getMessagesForLocale(locale as Locale);
+  const projects = getProjectsFromMessages(messages);
+  const project = projects.find((p) => p.slug === slug);
+  const t = await getTranslations({ locale, namespace: "projectPage" });
+
+  if (!project) return { title: t("notFound") };
 
   return {
     title: project.title,
@@ -32,9 +43,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProjectPage({ params }: PageProps) {
-  const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
+  const messages = getMessagesForLocale(locale as Locale);
+  const projects = getProjectsFromMessages(messages);
+  const project = projects.find((p) => p.slug === slug);
+
   if (!project) notFound();
+
+  const t = await getTranslations("projectPage");
 
   return (
     <>
@@ -44,7 +62,7 @@ export default async function ProjectPage({ params }: PageProps) {
           className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-hover"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden />
-          Takaisin portfolioon
+          {t("back")}
         </Link>
 
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
@@ -61,7 +79,7 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
 
             <div className="section-card p-6">
-              <h2 className="font-display text-lg font-semibold">Projektin tiedot</h2>
+              <h2 className="font-display text-lg font-semibold">{t("details")}</h2>
               <dl className="mt-4 space-y-3">
                 {project.meta.map((row) => (
                   <div key={row.label} className="border-b border-border pb-3 last:border-0 last:pb-0">
@@ -90,7 +108,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
             <div className="section-card p-6">
               <h2 className="font-display text-lg font-semibold">
-                {project.descriptionTitle ?? "Kuvaus"}
+                {project.descriptionTitle ?? t("description")}
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-secondary sm:text-base">
                 {project.description}

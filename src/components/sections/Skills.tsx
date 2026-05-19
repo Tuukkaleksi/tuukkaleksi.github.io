@@ -1,8 +1,9 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { skills } from "@/content/site-data";
+import { skills } from "@/content/skills";
 
 function SkillBar({ name, level, animate }: { name: string; level: number; animate: boolean }) {
   return (
@@ -27,6 +28,7 @@ function SkillBar({ name, level, animate }: { name: string; level: number; anima
 }
 
 export function Skills() {
+  const t = useTranslations("skills");
   const ref = useRef<HTMLDivElement>(null);
   const [animate, setAnimate] = useState(false);
 
@@ -54,10 +56,7 @@ export function Skills() {
   return (
     <section id="skills" className="section-padding scroll-mt-20 bg-surface-muted/50">
       <div ref={ref} className="mx-auto max-w-6xl">
-        <SectionHeading
-          title="Taidot"
-          description="Ohjelmointi- ja työkalutaitoni tällä hetkellä."
-        />
+        <SectionHeading title={t("title")} description={t("description")} />
         <div className="section-card grid gap-8 p-6 sm:p-10 md:grid-cols-2">
           {columns.map((column, colIndex) => (
             <div key={colIndex} className="space-y-6">

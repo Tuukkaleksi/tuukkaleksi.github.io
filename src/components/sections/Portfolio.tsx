@@ -1,33 +1,34 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useMessages, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { projects } from "@/content/projects";
+import { Link } from "@/i18n/navigation";
+import { getProjectsFromMessages } from "@/lib/projects";
 import type { ProjectCategory } from "@/types";
 
-const filters: { id: "all" | ProjectCategory; label: string }[] = [
-  { id: "all", label: "Kaikki" },
-  { id: "projects", label: "Projektit" },
-  { id: "react", label: "React" },
-];
-
 export function Portfolio() {
+  const t = useTranslations("portfolio");
+  const messages = useMessages() as Parameters<typeof getProjectsFromMessages>[0];
+  const projects = useMemo(() => getProjectsFromMessages(messages), [messages]);
   const [activeFilter, setActiveFilter] = useState<"all" | ProjectCategory>("all");
+
+  const filters: { id: "all" | ProjectCategory; label: string }[] = [
+    { id: "all", label: t("filters.all") },
+    { id: "projects", label: t("filters.projects") },
+    { id: "react", label: t("filters.react") },
+  ];
 
   const filtered = useMemo(() => {
     if (activeFilter === "all") return projects;
     return projects.filter((p) => p.category === activeFilter);
-  }, [activeFilter]);
+  }, [activeFilter, projects]);
 
   return (
     <section id="portfolio" className="section-padding scroll-mt-20 bg-surface-muted/50">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading
-          title="Portfolio"
-          description="Valitse kategoria tai avaa projektin sivu nähdäksesi lisätiedot ja kuvat."
-        />
+        <SectionHeading title={t("title")} description={t("description")} />
         <div className="mb-10 flex flex-wrap justify-center gap-2">
           {filters.map((filter) => (
             <button
@@ -66,7 +67,7 @@ export function Portfolio() {
                     href={`/portfolio/${project.slug}`}
                     className="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:text-primary-hover"
                   >
-                    Lue lisää
+                    {t("readMore")}
                     <span className="ml-1 transition group-hover:translate-x-0.5" aria-hidden>
                       →
                     </span>

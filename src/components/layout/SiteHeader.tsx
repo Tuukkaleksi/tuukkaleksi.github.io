@@ -10,9 +10,11 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { navItems } from "@/content/site-data";
+import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
+import { LocaleSwitcher } from "@/components/preferences/LocaleSwitcher";
+import { ThemeToggle } from "@/components/preferences/ThemeToggle";
+import { Link } from "@/i18n/navigation";
 
 const navIcons: Record<string, LucideIcon> = {
   hero: Home,
@@ -22,9 +24,23 @@ const navIcons: Record<string, LucideIcon> = {
   contact: Mail,
 };
 
+const navIds = ["hero", "about", "resume", "portfolio", "contact"] as const;
+
 export function SiteHeader() {
+  const tNav = useTranslations("nav");
+  const tSite = useTranslations("site");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeId, setActiveId] = useState("hero");
+
+  const navItems = useMemo(
+    () =>
+      navIds.map((id) => ({
+        id,
+        label: tNav(id),
+        href: `#${id}`,
+      })),
+    [tNav],
+  );
 
   useEffect(() => {
     const sections = navItems
@@ -45,32 +61,35 @@ export function SiteHeader() {
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [navItems]);
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
     const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-surface/90 backdrop-blur-md lg:hidden">
-        <div className="flex h-14 items-center justify-between px-4">
-          <Link href="/" className="font-display text-sm font-semibold tracking-wide">
-            Tuukka Pitkänen
+        <div className="flex h-14 items-center justify-between gap-2 px-4">
+          <Link href="/" className="min-w-0 truncate font-display text-sm font-semibold tracking-wide">
+            {tSite("name")}
           </Link>
-          <button
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-nav"
-            onClick={() => setMobileOpen((o) => !o)}
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            <span className="sr-only">Valikko</span>
-          </button>
+          <div className="flex shrink-0 items-center gap-2">
+            <LocaleSwitcher compact />
+            <ThemeToggle />
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
+              onClick={() => setMobileOpen((o) => !o)}
+            >
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              <span className="sr-only">{tNav("openMenu")}</span>
+            </button>
+          </div>
         </div>
         {mobileOpen ? (
           <nav id="mobile-nav" className="border-t border-border bg-surface px-2 pb-4">
@@ -103,15 +122,15 @@ export function SiteHeader() {
         ) : null}
       </header>
 
-      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-20 flex-col items-center border-r border-border bg-surface py-8 lg:flex xl:w-24">
+      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-20 flex-col items-center border-r border-border bg-surface py-6 lg:flex xl:w-24">
         <Link
           href="/"
-          className="mb-10 flex h-10 w-10 items-center justify-center rounded-xl bg-primary font-display text-sm font-bold text-white"
-          title="Etusivu"
+          className="mb-8 flex h-10 w-10 items-center justify-center rounded-xl bg-primary font-display text-sm font-bold text-white"
+          title={tNav("home")}
         >
           TP
         </Link>
-        <nav className="flex flex-1 flex-col items-center gap-2" aria-label="Päävalikko">
+        <nav className="flex flex-1 flex-col items-center gap-2" aria-label={tNav("mainMenu")}>
           {navItems.map((item) => {
             const Icon = navIcons[item.id] ?? Home;
             const isActive = activeId === item.id;
@@ -131,13 +150,17 @@ export function SiteHeader() {
                 }`}
               >
                 <Icon className="h-5 w-5" aria-hidden />
-                <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-foreground px-2 py-1 text-xs text-white opacity-0 transition group-hover:opacity-100 xl:block">
+                <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-foreground px-2 py-1 text-xs text-background opacity-0 transition group-hover:opacity-100 xl:block">
                   {item.label}
                 </span>
               </a>
             );
           })}
         </nav>
+        <div className="mt-auto flex flex-col items-center gap-3 pb-2">
+          <LocaleSwitcher compact />
+          <ThemeToggle />
+        </div>
       </aside>
     </>
   );
