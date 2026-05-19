@@ -6,10 +6,20 @@ import {
 import type { GameWorld } from "@/lib/arcade/game/world";
 import { createBgCache, type BgGradientCache } from "@/lib/arcade/render/bg-cache";
 import { drawBackground, decayShake, getShakeOffset } from "@/lib/arcade/render/drawBackground";
+import { drawMenuScene } from "@/lib/arcade/render/drawMenu";
 import { drawChromaticShip, drawShip } from "@/lib/arcade/render/drawShip";
 import { drawOverlays, drawWorldLayer } from "@/lib/arcade/render/drawWorld";
 import { BloomPass } from "@/lib/arcade/render/postfx/bloom";
 import { parseColor } from "@/lib/arcade/utils/color";
+import type { GamePhase } from "@/lib/arcade/types";
+
+export type DrawProfile = "full" | "menu" | "snapshot";
+
+function profileForPhase(phase: GamePhase): DrawProfile {
+  if (phase === "ready") return "menu";
+  if (phase === "draft" || phase === "paused" || phase === "gameover") return "snapshot";
+  return "full";
+}
 
 export class Renderer {
   private bloom = new BloomPass();
@@ -17,7 +27,6 @@ export class Renderer {
   private qualitySetting: VisualQuality = "auto";
   private resolvedQuality: Exclude<VisualQuality, "auto"> = "medium";
   private bgCache: BgGradientCache | null = null;
-  private dpr = 1;
 
   constructor() {
     this.qualitySetting = loadVisualQuality();
@@ -41,7 +50,6 @@ export class Renderer {
   }
 
   resize(world: GameWorld, dpr = 1) {
-    this.dpr = dpr;
     this.resolvedQuality = resolveVisualQuality(
       this.qualitySetting,
       world.w,
@@ -52,15 +60,22 @@ export class Renderer {
       this.bloom.setTier(this.resolvedQuality);
       this.bloom.resize(world.w, world.h);
     }
-    const cacheCtx = this.bloom.getSceneCtx();
-    this.bgCache = createBgCache(cacheCtx, world.w, world.h);
+    const cacheCtx =
+      this.resolvedQuality === "off"
+        ? null
+        : this.bloom.getSceneCtx();
+    if (cacheCtx) this.bgCache = createBgCache(cacheCtx, world.w, world.h);
+    else {
+      const tmp = document.createElement("canvas").getContext("2d");
+      if (tmp) this.bgCache = createBgCache(tmp, world.w, world.h);
+    }
   }
 
-  private drawScene(
-    ctx: CanvasRenderingContext2D,
-    world: GameWorld,
-    dt: number,
-  ) {
+  getProfile(phase: GamePhase) {
+    return profileForPhase(phase);
+  }
+
+  private drawFullScene(ctx: CanvasRenderingContext2D, world: GameWorld, dt: number) {
     decayShake(world, dt);
     const shake = getShakeOffset(world);
     const pulse = world.beat.pulse();
@@ -91,25 +106,34 @@ export class Renderer {
     drawOverlays(ctx, world, primary, fg, showWorld, playing);
     ctx.restore();
 
-    const bloomIntensity =
-      this.resolvedQuality === "off" ? 0 : 0.28 + pulse * 0.2 + bass * 0.12;
-    return bloomIntensity;
+    return this.resolvedQuality === "off" ? 0 : 0.28 + pulse * 0.2 + bass * 0.12;
   }
 
-  /** Draw frame; composites to `target` when bloom is enabled. */
-  draw(world: GameWorld, dt: number, target: CanvasRenderingContext2D) {
-    if (this.resolvedQuality === "off") {
-      const intensity = this.drawScene(target, world, dt);
-      return intensity;
+  /**
+   * @param profile `snapshot` = one gameplay frame (draft/pause overlay). `menu` = static cheap UI bg.
+   */
+  draw(
+    world: GameWorld,
+    dt: number,
+    target: CanvasRenderingContext2D,
+    profile: DrawProfile = "full",
+  ) {
+    if (this.documentHidden && profile !== "menu") return;
+
+    if (profile === "menu") {
+      drawMenuScene(target, world, this.bgCache);
+      return;
+    }
+
+    const useBloom = this.resolvedQuality !== "off" && profile === "full";
+
+    if (!useBloom) {
+      this.drawFullScene(target, world, dt);
+      return;
     }
 
     const scene = this.bloom.getSceneCtx();
-    const intensity = this.drawScene(scene, world, dt);
-    if (this.documentHidden) {
-      target.drawImage(this.bloom.getSceneCanvas(), 0, 0, world.w, world.h);
-    } else {
-      this.bloom.composite(target, intensity, false);
-    }
-    return intensity;
+    const intensity = this.drawFullScene(scene, world, dt);
+    this.bloom.composite(target, intensity, false);
   }
 }

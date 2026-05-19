@@ -5,8 +5,11 @@ import { useMessages, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Link } from "@/i18n/navigation";
+import { NeonDriftPortfolioCard } from "@/components/portfolio/neon-drift/NeonDriftPortfolioCard";
 import { getProjectsFromMessages } from "@/lib/projects";
 import type { ProjectCategory } from "@/types";
+
+const NEON_DRIFT_SLUG = "neon-drift";
 
 export function Portfolio() {
   const t = useTranslations("portfolio");
@@ -48,6 +51,9 @@ export function Portfolio() {
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((project) => (
             <li key={project.slug}>
+              {project.slug === NEON_DRIFT_SLUG ? (
+                <NeonDriftPortfolioCard project={project} />
+              ) : (
               <article className="group overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                 <div className="relative aspect-[4/3] overflow-hidden bg-surface-muted">
                   <Image
@@ -74,6 +80,7 @@ export function Portfolio() {
                   </Link>
                 </div>
               </article>
+              )}
             </li>
           ))}
         </ul>

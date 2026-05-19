@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { NeonDriftProjectPage } from "@/components/portfolio/neon-drift/NeonDriftProjectPage";
 import { ProjectGallery } from "@/components/portfolio/ProjectGallery";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -53,6 +54,17 @@ export default async function ProjectPage({ params }: PageProps) {
   if (!project) notFound();
 
   const t = await getTranslations("projectPage");
+
+  if (slug === "neon-drift") {
+    return (
+      <>
+        <main className="section-padding mx-auto max-w-6xl">
+          <NeonDriftProjectPage project={project} />
+        </main>
+        <SiteFooter />
+      </>
+    );
+  }
 
   return (
     <>

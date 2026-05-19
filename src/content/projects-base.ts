@@ -9,6 +9,15 @@ export type ProjectBase = {
 
 export const projectBases: ProjectBase[] = [
   {
+    slug: "neon-drift",
+    category: "projects",
+    coverImage: "/images/portfolio/neon-drift-cover.svg",
+    images: [
+      "/images/portfolio/neon-drift-cover.svg",
+      "/images/portfolio/neon-drift-cover.svg",
+    ],
+  },
+  {
     slug: "eternal-cry",
     category: "projects",
     coverImage: "/images/portfolio/Eternal-Cry.webp",
@@ -72,6 +81,7 @@ export const projectMetaLinks: Record<
   string,
   { href?: string; value: string }[]
 > = {
+  "neon-drift": [],
   "eternal-cry": [
     { value: "eternalcry.000webhostapp.com", href: "https://eternalcry.000webhostapp.com" },
   ],

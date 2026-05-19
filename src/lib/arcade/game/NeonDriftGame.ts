@@ -41,8 +41,12 @@ export class NeonDriftGame {
   private cb: NeonDriftCallbacks;
   private highScore = 0;
   private raf = 0;
+  private idleTimer = 0;
   private last = 0;
   private acc = 0;
+  /** Skip redraw while draft/pause overlay is up (canvas frozen). */
+  private overlayFrozen = false;
+  private renderDirty = true;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -168,6 +172,7 @@ export class NeonDriftGame {
     this.canvas.width = Math.floor(this.world.w * dpr);
     this.canvas.height = Math.floor(this.world.h * dpr);
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this.renderDirty = true;
     this.renderer.resize(this.world, dpr);
     if (this.world.phase === "ready") {
       this.world.player.x = this.world.w / 2;
@@ -258,39 +263,51 @@ export class NeonDriftGame {
     this.start();
   }
 
+  private scheduleLoop() {
+    const profile = this.renderer.getProfile(this.world.phase);
+    const idle = (profile === "menu" || profile === "snapshot") && !this.renderDirty;
+    if (idle) {
+      this.idleTimer = window.setTimeout(() => this.loopFrame(performance.now()), 400);
+    } else {
+      this.raf = requestAnimationFrame(() => this.loopFrame(performance.now()));
+    }
+  }
+
+  private loopFrame(now: number) {
+    let dt = (now - this.last) / 1000;
+    this.last = now;
+    dt = Math.min(dt, 0.05);
+    const simulating =
+      this.world.phase === "playing" ||
+      this.world.phase === "bossFight" ||
+      this.world.phase === "bossIntro";
+    if (simulating && this.world.phase !== "bossIntro") {
+      const slow = this.world.hitSlowTimer > 0 ? 0.32 : 1;
+      if (this.world.hitSlowTimer > 0)
+        this.world.hitSlowTimer = Math.max(0, this.world.hitSlowTimer - dt);
+      const simDt = dt * slow;
+      this.world.audio.tick(simDt);
+      this.acc += simDt;
+      while (this.acc >= SIM_STEP) {
+        this.simTick(SIM_STEP);
+        this.acc -= SIM_STEP;
+      }
+    } else if (this.world.phase === "bossIntro") {
+      this.world.audio.tick(dt);
+      this.simTick(dt);
+    }
+    this.paintFrame(dt);
+    this.scheduleLoop();
+  }
+
   run() {
     this.last = performance.now();
-    const loop = (now: number) => {
-      this.raf = requestAnimationFrame(loop);
-      let dt = (now - this.last) / 1000;
-      this.last = now;
-      dt = Math.min(dt, 0.05);
-      const simulating =
-        this.world.phase === "playing" ||
-        this.world.phase === "bossFight" ||
-        this.world.phase === "bossIntro";
-      if (simulating && this.world.phase !== "bossIntro") {
-        const slow = this.world.hitSlowTimer > 0 ? 0.32 : 1;
-        if (this.world.hitSlowTimer > 0)
-          this.world.hitSlowTimer = Math.max(0, this.world.hitSlowTimer - dt);
-        const simDt = dt * slow;
-        this.world.audio.tick(simDt);
-        this.acc += simDt;
-        while (this.acc >= SIM_STEP) {
-          this.simTick(SIM_STEP);
-          this.acc -= SIM_STEP;
-        }
-      } else if (this.world.phase === "bossIntro") {
-        this.world.audio.tick(dt);
-        this.simTick(dt);
-      }
-      this.renderer.draw(this.world, dt, this.ctx);
-    };
-    this.raf = requestAnimationFrame(loop);
+    this.scheduleLoop();
   }
 
   destroy() {
     cancelAnimationFrame(this.raf);
+    if (this.idleTimer) window.clearTimeout(this.idleTimer);
     this.resetWorld();
   }
 
@@ -305,8 +322,38 @@ export class NeonDriftGame {
   }
 
   private emit() {
+    const wasFrozen = this.overlayFrozen;
+    const profile = this.renderer.getProfile(this.world.phase);
+    this.overlayFrozen = profile === "snapshot";
+    if (profile === "snapshot" && !wasFrozen) this.renderDirty = true;
+    if (profile === "menu" || profile === "full") this.renderDirty = true;
     this.cb.onStats(this.getStats());
     this.cb.onPhase(this.world.phase);
+  }
+
+  private paintFrame(dt: number) {
+    const profile = this.renderer.getProfile(this.world.phase);
+
+    if (profile === "snapshot") {
+      if (this.renderDirty) {
+        this.renderer.draw(this.world, dt, this.ctx, "full");
+        this.renderDirty = false;
+      }
+      return;
+    }
+
+    this.overlayFrozen = false;
+
+    if (profile === "menu") {
+      if (this.renderDirty) {
+        this.renderer.draw(this.world, dt, this.ctx, "menu");
+        this.renderDirty = false;
+      }
+      return;
+    }
+
+    this.renderDirty = true;
+    this.renderer.draw(this.world, dt, this.ctx, "full");
   }
 
   private addScore(n: number) {

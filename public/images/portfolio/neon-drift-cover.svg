@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none" role="img" aria-label="Neon Drift">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="55%">
+      <stop offset="0%" stop-color="#1a4a7a" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#07080c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ship" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5ec4ff"/>
+      <stop offset="100%" stop-color="#0563bb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="#07080c"/>
+  <rect width="1200" height="900" fill="url(#glow)"/>
+  <g stroke="#1e3a5f" stroke-width="1" opacity="0.35">
+    <path d="M0 150H1200M0 300H1200M0 450H1200M0 600H1200M0 750H1200"/>
+    <path d="M150 0V900M300 0V900M450 0V900M600 0V900M750 0V900M900 0V900M1050 0V900"/>
+  </g>
+  <circle cx="600" cy="400" r="180" stroke="#2a6cb8" stroke-width="1" opacity="0.25"/>
+  <circle cx="600" cy="400" r="120" stroke="#3b9eff" stroke-width="1" opacity="0.18"/>
+  <path d="M600 280 L640 420 L600 520 L560 420 Z" fill="url(#ship)" opacity="0.9"/>
+  <path d="M600 520 L600 560" stroke="#5ec4ff" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <text x="600" y="720" text-anchor="middle" fill="#5ec4ff" font-family="system-ui,sans-serif" font-size="28" font-weight="600" letter-spacing="0.35em" opacity="0.85">NEON DRIFT</text>
+</svg>
