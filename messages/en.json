@@ -117,14 +117,48 @@
   },
   "contact": {
     "title": "Contact",
+    "sectionDescription": "Send a message — I typically reply within a few business days.",
     "detailsTitle": "Contact details",
     "locationLabel": "Location",
     "socialHint": "You can also reach me on social media — links below.",
     "formTitle": "Contact form",
-    "formDisabled": "The form is temporarily disabled during the new site rollout. A secure server-side email form will be added later — without mailto links in the browser.",
-    "formStatus": "Status:",
-    "formStatusValue": "Unavailable",
-    "formStatusHint": "— please use LinkedIn or GitHub for now."
+    "form": {
+      "intro": "Tell me about your project, collaboration idea, or question. All fields are required.",
+      "name": "Your name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "privacy": "Your message is sent securely via email. No mailto links — spam protection is enabled.",
+      "successTitle": "Message sent",
+      "successBody": "Thanks for reaching out. I will get back to you as soon as I can.",
+      "sendAnother": "Send another message",
+      "notConfigured": "The contact form is not configured on the server yet (missing API keys).",
+      "errors": {
+        "UNKNOWN": "Something went wrong. Please try again later.",
+        "NETWORK": "Could not reach the server. Check your connection and try again.",
+        "VALIDATION": "Please check the form fields and try again.",
+        "RATE_LIMIT": "Too many messages sent. Please wait an hour and try again.",
+        "BOT_DETECTED": "Submission blocked.",
+        "TOKEN_INVALID": "Session expired. Refresh the page and try again.",
+        "TIMING_INVALID": "Please wait a moment before sending.",
+        "SPAM_DETECTED": "Your message could not be sent. Remove extra links or promotional content.",
+        "TURNSTILE_FAILED": "Security check failed. Please try again.",
+        "TURNSTILE_REQUIRED": "Complete the security check before sending.",
+        "EMAIL_NOT_CONFIGURED": "Email is not configured on the server. Please use social links instead.",
+        "SEND_FAILED": "Could not deliver your message. Please try again or use LinkedIn/GitHub.",
+        "NAME_TOO_SHORT": "Name must be at least 2 characters.",
+        "NAME_TOO_LONG": "Name is too long.",
+        "EMAIL_INVALID": "Enter a valid email address.",
+        "EMAIL_TOO_LONG": "Email address is too long.",
+        "SUBJECT_TOO_SHORT": "Subject must be at least 2 characters.",
+        "SUBJECT_TOO_LONG": "Subject is too long.",
+        "MESSAGE_TOO_SHORT": "Message must be at least 20 characters.",
+        "MESSAGE_TOO_LONG": "Message is too long (max 2000 characters)."
+      },
+      "messageMinHint": "At least 20 characters"
+    }
   },
   "footer": {
     "rights": "All rights reserved."

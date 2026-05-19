@@ -117,14 +117,48 @@
   },
   "contact": {
     "title": "Ota yhteyttä",
+    "sectionDescription": "Lähetä viesti — vastaan yleensä muutaman arkipäivän sisällä.",
     "detailsTitle": "Yhteystiedot",
     "locationLabel": "Asuinpaikka",
     "socialHint": "Voit ottaa yhteyttä myös sosiaalisen median kautta — linkit alla.",
     "formTitle": "Yhteydenottolomake",
-    "formDisabled": "Lomake on tilapäisesti poissa käytöstä uuden sivuston käyttöönoton aikana. Sähköpostilomake otetaan käyttöön turvallisella palvelimella myöhemmin — ilman sähköpostilinkkejä selaimessa.",
-    "formStatus": "Tila:",
-    "formStatusValue": "Ei käytössä",
-    "formStatusHint": "— käytä toistaiseksi LinkedIn- tai GitHub-linkkiä yhteydenottoon."
+    "form": {
+      "intro": "Kerro projektistasi, yhteistyöideastasi tai kysymyksestäsi. Kaikki kentät ovat pakollisia.",
+      "name": "Nimesi",
+      "email": "Sähköposti",
+      "subject": "Aihe",
+      "message": "Viesti",
+      "submit": "Lähetä viesti",
+      "sending": "Lähetetään…",
+      "privacy": "Viesti lähetetään turvallisesti sähköpostilla. Ei mailto-linkkejä — roskapostisuoja on käytössä.",
+      "successTitle": "Viesti lähetetty",
+      "successBody": "Kiitos yhteydenotosta. Palaan asiaan mahdollisimman pian.",
+      "sendAnother": "Lähetä toinen viesti",
+      "notConfigured": "Lomaketta ei ole vielä konfiguroitu palvelimella (API-avaimet puuttuvat).",
+      "errors": {
+        "UNKNOWN": "Jokin meni pieleen. Yritä myöhemmin uudelleen.",
+        "NETWORK": "Palvelimeen ei saatu yhteyttä. Tarkista yhteys ja yritä uudelleen.",
+        "VALIDATION": "Tarkista lomakkeen kentät ja yritä uudelleen.",
+        "RATE_LIMIT": "Liian monta viestiä. Odota tunti ja yritä uudelleen.",
+        "BOT_DETECTED": "Lähetys estettiin.",
+        "TOKEN_INVALID": "Istunto vanhentui. Päivitä sivu ja yritä uudelleen.",
+        "TIMING_INVALID": "Odota hetki ennen lähettämistä.",
+        "SPAM_DETECTED": "Viestiä ei voitu lähettää. Poista ylimääräiset linkit tai mainossisältö.",
+        "TURNSTILE_FAILED": "Turvatarkistus epäonnistui. Yritä uudelleen.",
+        "TURNSTILE_REQUIRED": "Suorita turvatarkistus ennen lähettämistä.",
+        "EMAIL_NOT_CONFIGURED": "Sähköpostia ei ole konfiguroitu palvelimella. Käytä sosiaalisen median linkkejä.",
+        "SEND_FAILED": "Viestiä ei voitu toimittaa. Yritä uudelleen tai käytä LinkedIniä/GitHubia.",
+        "NAME_TOO_SHORT": "Nimen on oltava vähintään 2 merkkiä.",
+        "NAME_TOO_LONG": "Nimi on liian pitkä.",
+        "EMAIL_INVALID": "Anna kelvollinen sähköpostiosoite.",
+        "EMAIL_TOO_LONG": "Sähköpostiosoite on liian pitkä.",
+        "SUBJECT_TOO_SHORT": "Aiheen on oltava vähintään 2 merkkiä.",
+        "SUBJECT_TOO_LONG": "Aihe on liian pitkä.",
+        "MESSAGE_TOO_SHORT": "Viestin on oltava vähintään 20 merkkiä.",
+        "MESSAGE_TOO_LONG": "Viesti on liian pitkä (enintään 2000 merkkiä)."
+      },
+      "messageMinHint": "Vähintään 20 merkkiä"
+    }
   },
   "footer": {
     "rights": "Kaikki oikeudet pidätetään."

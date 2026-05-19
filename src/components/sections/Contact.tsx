@@ -1,17 +1,21 @@
-import { MapPin, MessageSquareOff } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { ContactForm } from "@/components/contact/ContactForm";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import { socialLinks } from "@/content/social-links";
+import { createContactFormToken } from "@/lib/contact/token";
 
 export async function Contact() {
   const t = await getTranslations("contact");
   const tSite = await getTranslations("site");
+  const formToken = createContactFormToken();
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   return (
     <section id="contact" className="section-padding scroll-mt-20">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading title={t("title")} />
+        <SectionHeading title={t("title")} description={t("sectionDescription")} />
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="section-card p-6 sm:p-8">
             <h3 className="font-display text-lg font-semibold">{t("detailsTitle")}</h3>
@@ -30,17 +34,15 @@ export async function Contact() {
             <SocialLinks links={socialLinks} className="mt-6" />
           </div>
 
-          <div className="section-card flex flex-col justify-center p-6 sm:p-8">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-surface-muted text-secondary">
-              <MessageSquareOff className="h-6 w-6" aria-hidden />
+          <div className="section-card relative overflow-hidden p-6 sm:p-8">
+            <div
+              className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-primary/10 blur-3xl"
+              aria-hidden
+            />
+            <h3 className="relative font-display text-lg font-semibold">{t("formTitle")}</h3>
+            <div className="relative mt-6">
+              <ContactForm formToken={formToken} turnstileSiteKey={turnstileSiteKey} />
             </div>
-            <h3 className="mt-4 font-display text-lg font-semibold">{t("formTitle")}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-secondary">{t("formDisabled")}</p>
-            <p className="mt-4 rounded-lg border border-dashed border-border bg-surface-muted/60 px-4 py-3 text-xs text-secondary">
-              {t("formStatus")}{" "}
-              <span className="font-semibold text-foreground">{t("formStatusValue")}</span>{" "}
-              {t("formStatusHint")}
-            </p>
           </div>
         </div>
       </div>
