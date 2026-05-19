@@ -12,10 +12,11 @@ export class BeatClock {
     this.musicTime = fn;
   }
 
-  /** 0–1 pulse, peaks on beats. */
+  /** 0–1 pulse, peaks on beats (smooth, not stuttery). */
   pulse(): number {
     const phase = this.phase();
-    return 0.5 + 0.5 * Math.cos(phase * Math.PI * 2);
+    const c = 0.5 + 0.5 * Math.cos(phase * Math.PI * 2);
+    return c * c;
   }
 
   /** True near beat downbeat (spawn window). */

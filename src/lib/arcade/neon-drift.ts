@@ -966,6 +966,15 @@ export class NeonDriftGame {
     const bass = this.audio.getBassEnergy();
     const playing = this.phase === "playing";
 
+    if (playing) {
+      const pump = 1 + pulse * 0.014 + bass * 0.006;
+      const cx = this.w / 2;
+      const cy = this.h / 2;
+      ctx.translate(cx, cy);
+      ctx.scale(pump, pump);
+      ctx.translate(-cx, -cy);
+    }
+
     const bgTint = `hsl(${this.bgHue}, 22%, ${7 + this.overloadTier * 1.2}%)`;
     ctx.fillStyle = bgTint;
     ctx.fillRect(0, 0, this.w, this.h);
@@ -984,7 +993,7 @@ export class NeonDriftGame {
       ctx.fillRect(px, py, s.s, s.s);
     }
 
-    const flicker = 0.03 + pulse * 0.045;
+    const flicker = 0.028 + pulse * 0.062;
     const vignette = ctx.createRadialGradient(
       this.w / 2,
       this.h / 2,
@@ -998,7 +1007,7 @@ export class NeonDriftGame {
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, this.w, this.h);
 
-    const gridAlpha = 0.028 + pulse * 0.022;
+    const gridAlpha = 0.026 + pulse * 0.034;
     ctx.strokeStyle = `rgba(90, 140, 200, ${gridAlpha})`;
     ctx.lineWidth = 1;
     const grid = 48;

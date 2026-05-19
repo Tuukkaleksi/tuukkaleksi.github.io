@@ -8,22 +8,13 @@ function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v));
 }
 
-type MediaElementWithCapture = HTMLAudioElement & {
-  captureStream?: () => MediaStream;
-  mozCaptureStream?: () => MediaStream;
-};
-
 export class ArcadeAudio {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
   private muted = false;
   private musicVolume = 0.28;
-  private overclockDuck = false;
 
-  private musicEl: MediaElementWithCapture | null = null;
-  private analyser: AnalyserNode | null = null;
-  private freqBuf: Uint8Array<ArrayBuffer> | null = null;
-  private analyserWired = false;
+  private musicEl: HTMLAudioElement | null = null;
 
   private sfxBuffers = new Map<string, AudioBuffer>();
   private nearMissCd = 0;
@@ -49,13 +40,8 @@ export class ArcadeAudio {
     this.applyMusicVolume();
   }
 
-  private effectiveMusicVolume() {
-    const base = this.muted ? 0 : this.musicVolume;
-    return this.overclockDuck ? base * 0.72 : base;
-  }
-
   private applyMusicVolume() {
-    if (this.musicEl) this.musicEl.volume = this.effectiveMusicVolume();
+    if (this.musicEl) this.musicEl.volume = this.muted ? 0 : this.musicVolume;
   }
 
   private ensure() {
@@ -66,7 +52,7 @@ export class ArcadeAudio {
     if (!Ctx) return null;
     this.ctx = new Ctx();
     this.master = this.ctx.createGain();
-    this.master.gain.value = 0.2;
+    this.master.gain.value = 0.38;
     this.master.connect(this.ctx.destination);
     void this.preloadPlaceholders();
     return this.ctx;
@@ -102,35 +88,12 @@ export class ArcadeAudio {
 
   private ensureMusic() {
     if (this.musicEl) return this.musicEl;
-    const track = new Audio(MUSIC_URL) as MediaElementWithCapture;
+    const track = new Audio(MUSIC_URL);
     track.loop = true;
     track.preload = "auto";
     track.setAttribute("playsinline", "");
     this.musicEl = track;
     return track;
-  }
-
-  /** Tap music for bass analyser without hijacking element output. */
-  private wireAnalyser() {
-    if (this.analyserWired || !this.musicEl) return;
-    const ctx = this.ensure();
-    if (!ctx) return;
-
-    const capture = this.musicEl.captureStream ?? this.musicEl.mozCaptureStream;
-    if (!capture) return;
-
-    try {
-      const stream = capture.call(this.musicEl);
-      const src = ctx.createMediaStreamSource(stream);
-      this.analyser = ctx.createAnalyser();
-      this.analyser.fftSize = 256;
-      this.analyser.smoothingTimeConstant = 0.75;
-      this.freqBuf = new Uint8Array(this.analyser.frequencyBinCount);
-      src.connect(this.analyser);
-      this.analyserWired = true;
-    } catch {
-      /* analyser optional */
-    }
   }
 
   /** Unlock Web Audio for SFX — call from a user gesture. */
@@ -180,7 +143,6 @@ export class ArcadeAudio {
 
     try {
       if (track.paused) await track.play();
-      this.wireAnalyser();
     } catch (err) {
       console.warn("[Neon Drift] Music playback blocked — click Start again.", err);
     }
@@ -195,13 +157,12 @@ export class ArcadeAudio {
     this.musicEl.pause();
     this.musicEl.currentTime = 0;
     this.musicEl.playbackRate = 1;
-    this.overclockDuck = false;
     this.applyMusicVolume();
   }
 
   setMuted(m: boolean) {
     this.muted = m;
-    if (this.master) this.master.gain.value = m ? 0 : 0.2;
+    if (this.master) this.master.gain.value = m ? 0 : 0.38;
     this.applyMusicVolume();
   }
 
@@ -209,29 +170,21 @@ export class ArcadeAudio {
     return this.muted;
   }
 
-  /** 0–1 bass energy from music analyser (or beat pulse fallback). */
+  /** 0–1 bass pulse synced to beat (stable — does not touch music playback). */
   getBassEnergy(): number {
-    if (this.analyser && this.freqBuf && this.musicEl && !this.musicEl.paused) {
-      this.analyser.getByteFrequencyData(this.freqBuf);
-      let sum = 0;
-      const n = Math.min(10, this.freqBuf.length);
-      for (let i = 0; i < n; i++) sum += this.freqBuf[i]!;
-      const measured = clamp(sum / (n * 255), 0, 1);
-      if (measured > 0.02) return measured;
-    }
-    const t = this.musicEl?.currentTime ?? 0;
+    const t = this.musicEl?.currentTime ?? performance.now() / 1000;
     const phase = (t * (128 / 60)) % 1;
-    return 0.25 + 0.45 * Math.max(0, 1 - phase * 3);
+    return 0.22 + 0.5 * Math.max(0, 1 - phase * 3);
   }
 
-  setMusicIntensity(tier: number) {
-    if (!this.musicEl) return;
-    this.musicEl.playbackRate = clamp(1 + tier * 0.04, 1, 1.2);
+  /** Overload tiers — visuals only; never change music speed. */
+  setMusicIntensity(_tier: number) {
+    if (this.musicEl) this.musicEl.playbackRate = 1;
   }
 
   applyDeathLowPass() {
     if (!this.musicEl) return;
-    this.musicEl.volume = this.effectiveMusicVolume() * 0.35;
+    this.musicEl.volume = (this.muted ? 0 : this.musicVolume) * 0.35;
   }
 
   tick(dt: number) {
@@ -278,7 +231,7 @@ export class ArcadeAudio {
   }
 
   shoot() {
-    if (!this.playBuffer("shoot", 0.08)) this.tone(880, 0.04, "square", 0.05, -400);
+    if (!this.playBuffer("shoot", 0.22)) this.tone(880, 0.04, "square", 0.1, -400);
   }
 
   hit() {
@@ -287,8 +240,8 @@ export class ArcadeAudio {
 
   enemyDeath() {
     const bass = this.getBassEnergy();
-    if (!this.playBuffer("explosion", 0.1 + bass * 0.06, 0.95 + bass * 0.1)) {
-      this.tone(320, 0.08, "triangle", 0.09, 200);
+    if (!this.playBuffer("explosion", 0.26 + bass * 0.08, 0.95 + bass * 0.1)) {
+      this.tone(320, 0.08, "triangle", 0.14, 200);
     }
   }
 
@@ -304,10 +257,8 @@ export class ArcadeAudio {
     this.tone(90, 0.2, "sawtooth", 0.15, -40);
   }
 
-  setOverclock(on: boolean) {
-    this.overclockDuck = on;
-    this.applyMusicVolume();
-  }
+  /** Overclock is gameplay-only — music stays clean at normal speed/volume. */
+  setOverclock(_on: boolean) {}
 
   gameOver() {
     this.applyDeathLowPass();
