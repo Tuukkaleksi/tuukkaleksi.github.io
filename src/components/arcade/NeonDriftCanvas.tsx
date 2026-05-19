@@ -289,7 +289,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   let overlay: React.ReactNode = null;
   if (phase === "ready") {
     overlay = (
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/55 px-6 text-center backdrop-blur-[2px]">
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0a0b0f]/88 px-6 text-center">
         <p className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">{t("title")}</p>
         <p className="max-w-sm text-sm text-white/70">{t("tagline")}</p>
         <button

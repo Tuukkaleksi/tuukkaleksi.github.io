@@ -12,7 +12,7 @@ export function PowerUpDraft({ choices, onPick }: PowerUpDraftProps) {
   const t = useTranslations("arcade.powerUps");
 
   return (
-    <div className="pointer-events-auto absolute inset-0 flex flex-col items-center justify-center gap-6 bg-black/65 px-4 backdrop-blur-sm">
+    <div className="pointer-events-auto absolute inset-0 flex flex-col items-center justify-center gap-6 bg-[#0a0b0f]/92 px-4">
       <p className="font-display text-xl font-bold tracking-wide text-fuchsia-200 sm:text-2xl">
         {t("draftTitle")}
       </p>

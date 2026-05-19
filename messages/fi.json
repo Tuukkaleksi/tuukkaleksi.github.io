@@ -112,7 +112,8 @@
     "title": "Portfolio",
     "description": "Valitse kategoria tai avaa projektin sivu nähdäksesi lisätiedot ja kuvat.",
     "filters": { "all": "Kaikki", "projects": "Projektit", "react": "React" },
-    "readMore": "Lue lisää"
+    "readMore": "Lue lisää",
+    "neonDriftHint": "Saatavilla myös sivustolla: Shift + P"
   },
   "contact": {
     "title": "Ota yhteyttä",
@@ -242,6 +243,33 @@
   },
   "projects": {
     "items": {
+      "neon-drift": {
+        "title": "Neon Drift",
+        "subtitle": "Upotettu arcade-prototyyppi",
+        "descriptionTitle": "Tehtäväselostus",
+        "description": "Neon Drift on selainpohjainen selviytymisshooter, joka on kudottu tähän portfolioon—ei navigaatiossa, ei muualla mainittuna. Se on tekninen toteutus canvas-renderöinnistä, kevyestä jälkikäsittelystä ja reaaliaikaisesta äänestä tuotantovalmiissa Next.js-sivustossa.",
+        "teaser": "Luokiteltu signaali portfolion sisällä. Ei julkista reittiä—vain ne, jotka katsovat tarkemmin.",
+        "badge": "Luottamuksellinen",
+        "cardCta": "Avaa tiedosto",
+        "signalId": "Signaali · ND-Σ7",
+        "lede": "Selviydy parvesta. Rakenna synergioita. Kestä aaltoja, jotka eivät anna epäröidä.",
+        "briefingTitle": "Selostus",
+        "briefingExtra": "Kokemus toimii easter egginä: huomaamaton ohjaus jokaisen sivun kulmassa ja suora käynnistys tästä tiedostosta. Edistyminen, huipputulokset ja saavutukset pysyvät laitteella.",
+        "capabilitiesTitle": "Järjestelmät käytössä",
+        "feature0": "Modulaarinen peliarkkitehtuuri (simulaatio, taistelu, aallot, pomot) laadun mukaan skaalautuvalla renderöinnillä",
+        "feature1": "Seitsemän vihutyyppiä, kierros-pohjainen eskalaatio ja pomotaistelut ennakoiduilla kuvioilla",
+        "feature2": "Roguelike-päivitysvalinnat, build-synergiat, paikalliset saavutukset ja run-yhteenveto",
+        "feature3": "Mukautuvat grafiikat ja HTML5-ääni, viritetty vakaaseen suorituskykyyn avoimessa verkossa",
+        "accessLabel": "Lupa myönnetty",
+        "launch": "Käynnistä Neon Drift",
+        "launchHint": "WASD · hiiren tähtäys · Shift dash · P tai Esc tauolle",
+        "meta": [
+          { "label": "Kategoria", "value": "Selainarcade / portfolio-easter egg" },
+          { "label": "Teknologia", "value": "TypeScript · Canvas 2D · Next.js" },
+          { "label": "Tila", "value": "Live sivustolla · upotettu" },
+          { "label": "Pääsy", "value": "Shift + P missä tahansa · tai käynnistä alta" }
+        ]
+      },
       "eternal-cry": {
         "title": "Eternal-Cry",
         "subtitle": "Videopeli",

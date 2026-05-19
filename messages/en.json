@@ -112,7 +112,8 @@
     "title": "Portfolio",
     "description": "Choose a category or open a project page for details and images.",
     "filters": { "all": "All", "projects": "Projects", "react": "React" },
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "neonDriftHint": "Also reachable site-wide via Shift + P"
   },
   "contact": {
     "title": "Contact",
@@ -242,6 +243,33 @@
   },
   "projects": {
     "items": {
+      "neon-drift": {
+        "title": "Neon Drift",
+        "subtitle": "Embedded arcade prototype",
+        "descriptionTitle": "Mission briefing",
+        "description": "Neon Drift is a browser-native survival shooter woven into this portfolio—not listed in navigation, not promoted elsewhere. It exists as a technical exercise in canvas rendering, lightweight post-processing, and real-time audio inside a production Next.js site.",
+        "teaser": "A classified signal inside the portfolio. No public route—only those who look closer.",
+        "badge": "Classified",
+        "cardCta": "Open dossier",
+        "signalId": "Signal · ND-Σ7",
+        "lede": "Survive the swarm. Build synergies. Outlast waves that never forgive hesitation.",
+        "briefingTitle": "Briefing",
+        "briefingExtra": "The experience ships as an easter egg: a discreet control in the corner of every page, and a direct launch from this dossier. Progress, high scores, and achievements stay on-device.",
+        "capabilitiesTitle": "Systems online",
+        "feature0": "Modular game architecture (simulation, combat, waves, bosses) with quality-scaled rendering",
+        "feature1": "Seven enemy archetypes, round-based escalation, and boss encounters with telegraphed patterns",
+        "feature2": "Roguelike draft upgrades, build synergies, local achievements, and run recap",
+        "feature3": "Adaptive visuals and HTML5 audio tuned for stable performance on the open web",
+        "accessLabel": "Clearance granted",
+        "launch": "Launch Neon Drift",
+        "launchHint": "WASD · mouse aim · Shift dash · P or Esc to pause",
+        "meta": [
+          { "label": "Category", "value": "Browser arcade / portfolio easter egg" },
+          { "label": "Stack", "value": "TypeScript · Canvas 2D · Next.js" },
+          { "label": "Status", "value": "Live on site · embedded" },
+          { "label": "Access", "value": "Shift + P anywhere · or launch below" }
+        ]
+      },
       "eternal-cry": {
         "title": "Eternal-Cry",
         "subtitle": "Video game",
