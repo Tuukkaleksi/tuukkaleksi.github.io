@@ -55,6 +55,8 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
     document.head.appendChild(script);
 
     return () => {
+      script.onload = null;
+      script.remove();
       if (turnstileWidgetId.current && window.turnstile) {
         window.turnstile.remove(turnstileWidgetId.current);
         turnstileWidgetId.current = null;

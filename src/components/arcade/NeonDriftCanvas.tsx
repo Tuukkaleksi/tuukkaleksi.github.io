@@ -12,6 +12,7 @@ import type { GamePhase } from "@/lib/arcade/types";
 import { ArcadeMenu } from "@/components/arcade/ArcadeMenu";
 import { GameOverOverlay } from "@/components/arcade/GameOverOverlay";
 import { PowerUpDraft } from "@/components/arcade/PowerUpDraft";
+import { statsHudEqual } from "@/lib/arcade/stats-equality";
 
 const MOVE_KEYS = new Set([
   "ArrowLeft",
@@ -44,6 +45,10 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<NeonDriftGame | null>(null);
   const audioRef = useRef<ArcadeAudio | null>(null);
+  const onCloseRef = useRef(onClose);
+  const visualQualityRef = useRef<VisualQuality>("auto");
+  const mountedRef = useRef(false);
+  const uiTimersRef = useRef<number[]>([]);
   const [stats, setStats] = useState<GameStats | null>(null);
   const [phase, setPhase] = useState<GamePhase>("ready");
   const [muted, setMuted] = useState(false);
@@ -60,6 +65,26 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     null,
   );
   const [submitDismissed, setSubmitDismissed] = useState(false);
+
+  onCloseRef.current = onClose;
+  visualQualityRef.current = visualQuality;
+
+  const scheduleUi = useCallback((fn: () => void, ms: number) => {
+    const id = window.setTimeout(() => {
+      uiTimersRef.current = uiTimersRef.current.filter((t) => t !== id);
+      if (mountedRef.current) fn();
+    }, ms);
+    uiTimersRef.current.push(id);
+  }, []);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      for (const id of uiTimersRef.current) window.clearTimeout(id);
+      uiTimersRef.current = [];
+    };
+  }, []);
 
   const visualQualityLabel = (q: VisualQuality) => {
     switch (q) {
@@ -106,7 +131,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         sync();
         if (e.key === "Escape") {
           e.preventDefault();
-          onClose();
+          onCloseRef.current();
         } else if (e.key === "Enter") {
           e.preventDefault();
           void beginRunRef.current?.();
@@ -177,7 +202,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
       window.removeEventListener("keyup", onKeyUp);
       window.removeEventListener("blur", onBlur);
     };
-  }, [onClose]);
+  }, []);
 
   const fetchRunSession = useCallback(async () => {
     try {
@@ -199,14 +224,17 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const beginRunRef = useRef<(() => Promise<void>) | null>(null);
 
   const beginRun = useCallback(async () => {
+    if (!mountedRef.current) return;
     const audio = audioRef.current;
     await audio?.resume();
+    if (!mountedRef.current) return;
     setSubmitDismissed(false);
     const session = await fetchRunSession();
+    if (!mountedRef.current) return;
     setRunSession(session);
-    gameRef.current?.setVisualQuality(visualQuality);
+    gameRef.current?.setVisualQuality(visualQualityRef.current);
     gameRef.current?.start();
-  }, [fetchRunSession, visualQuality]);
+  }, [fetchRunSession]);
 
   beginRunRef.current = beginRun;
 
@@ -230,8 +258,8 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
       returnToHub();
       return;
     }
-    onClose();
-  }, [onClose, phase, returnToHub]);
+    onCloseRef.current();
+  }, [phase, returnToHub]);
 
   const handlePhase = useCallback((p: GamePhase) => {
     setPhase(p);
@@ -244,20 +272,20 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
       setBossLabel(null);
     }
     if (p === "ready") {
-      gameRef.current?.setVisualQuality(visualQuality);
+      gameRef.current?.setVisualQuality(visualQualityRef.current);
     }
     if (p === "bossFight") setBossLabel(null);
-  }, [visualQuality]);
+  }, []);
 
   const handleScorePop = useCallback(() => {
     setScorePop(true);
-    window.setTimeout(() => setScorePop(false), 360);
-  }, []);
+    scheduleUi(() => setScorePop(false), 360);
+  }, [scheduleUi]);
 
   const handleOverload = useCallback(() => {
     setOverloadPulse(true);
-    window.setTimeout(() => setOverloadPulse(false), 2400);
-  }, []);
+    scheduleUi(() => setOverloadPulse(false), 2400);
+  }, [scheduleUi]);
 
   const handleDraft = useCallback((choices: PowerUpId[]) => {
     setDraftChoices(choices);
@@ -266,14 +294,31 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const handleAchievement = useCallback(
     (id: string) => {
       setAchievementToast(id);
-      window.setTimeout(() => setAchievementToast(null), 3200);
+      scheduleUi(() => setAchievementToast(null), 3200);
     },
-    [],
+    [scheduleUi],
   );
 
   const handleBossTelegraph = useCallback((bossId: string) => {
     setBossLabel(bossId);
   }, []);
+
+  const callbacksRef = useRef({
+    handlePhase,
+    handleScorePop,
+    handleOverload,
+    handleDraft,
+    handleAchievement,
+    handleBossTelegraph,
+  });
+  callbacksRef.current = {
+    handlePhase,
+    handleScorePop,
+    handleOverload,
+    handleDraft,
+    handleAchievement,
+    handleBossTelegraph,
+  };
 
   useEffect(() => {
     if (!active || !canvasRef.current) return;
@@ -285,18 +330,21 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     setMusicVolume(audio.getMusicVolume());
 
     const game = new NeonDriftGame(canvas, readThemeColors(), audio, {
-      onStats: setStats,
-      onPhase: handlePhase,
-      onScorePop: handleScorePop,
-      onOverload: handleOverload,
-      onDraft: handleDraft,
-      onAchievement: handleAchievement,
-      onBossTelegraph: handleBossTelegraph,
+      onStats: (s) => {
+        setStats((prev) => (prev && statsHudEqual(prev, s) ? prev : s));
+      },
+      onPhase: (p) => callbacksRef.current.handlePhase(p),
+      onScorePop: () => callbacksRef.current.handleScorePop(),
+      onOverload: () => callbacksRef.current.handleOverload(),
+      onDraft: (choices) => callbacksRef.current.handleDraft(choices),
+      onAchievement: (id) => callbacksRef.current.handleAchievement(id),
+      onBossTelegraph: (id) => callbacksRef.current.handleBossTelegraph(id),
     });
     gameRef.current = game;
     setStats(game.getStats());
     setPhase("ready");
-    setVisualQuality(game.getVisualQuality());
+    const initialQuality = game.getVisualQuality();
+    setVisualQuality((prev) => (prev === initialQuality ? prev : initialQuality));
 
     game.run();
     const unbindKeys = bindKeys(game);
@@ -322,22 +370,16 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
       canvas.removeEventListener("pointerenter", onPointerAim);
       canvas.removeEventListener("pointerleave", onPointerLeave);
       canvas.removeEventListener("pointercancel", onPointerLeave);
-      audio.stopMusic();
+      audio.dispose();
+      audioRef.current = null;
       game.destroy();
       gameRef.current = null;
-      setPhase("ready");
-      setStats(null);
+      if (mountedRef.current) {
+        setPhase("ready");
+        setStats(null);
+      }
     };
-  }, [
-    active,
-    bindKeys,
-    handlePhase,
-    handleScorePop,
-    handleOverload,
-    handleDraft,
-    handleAchievement,
-    handleBossTelegraph,
-  ]);
+  }, [active, bindKeys]);
 
   useEffect(() => {
     if (!active || !ACTIVE_PHASES.includes(phase)) return;

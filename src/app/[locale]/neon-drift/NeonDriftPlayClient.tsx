@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useCallback } from "react";
 import { useRouter } from "@/i18n/navigation";
 
 const NeonDriftCanvas = dynamic(
@@ -10,10 +11,13 @@ const NeonDriftCanvas = dynamic(
 
 export function NeonDriftPlayClient() {
   const router = useRouter();
+  const onClose = useCallback(() => {
+    router.push("/#portfolio");
+  }, [router]);
 
   return (
     <div className="relative h-full min-h-0 flex-1">
-      <NeonDriftCanvas active onClose={() => router.push("/#portfolio")} />
+      <NeonDriftCanvas active onClose={onClose} />
     </div>
   );
 }

@@ -47,6 +47,7 @@ export class NeonDriftGame {
   /** Skip redraw while draft/pause overlay is up (canvas frozen). */
   private overlayFrozen = false;
   private renderDirty = true;
+  private alive = false;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -264,6 +265,7 @@ export class NeonDriftGame {
   }
 
   private scheduleLoop() {
+    if (!this.alive) return;
     const profile = this.renderer.getProfile(this.world.phase);
     const idle = (profile === "menu" || profile === "snapshot") && !this.renderDirty;
     if (idle) {
@@ -274,6 +276,7 @@ export class NeonDriftGame {
   }
 
   private loopFrame(now: number) {
+    if (!this.alive) return;
     let dt = (now - this.last) / 1000;
     this.last = now;
     dt = Math.min(dt, 0.05);
@@ -301,14 +304,19 @@ export class NeonDriftGame {
   }
 
   run() {
+    this.alive = true;
     this.last = performance.now();
     this.scheduleLoop();
   }
 
   destroy() {
+    this.alive = false;
     cancelAnimationFrame(this.raf);
+    this.raf = 0;
     if (this.idleTimer) window.clearTimeout(this.idleTimer);
-    this.resetWorld();
+    this.idleTimer = 0;
+    this.world.audio.pauseMusic();
+    this.renderer.destroy();
   }
 
   pointerAim(clientX: number, clientY: number, canvasRect: DOMRect) {
@@ -321,6 +329,8 @@ export class NeonDriftGame {
     this.world.input.pointerY = null;
   }
 
+  private lastEmittedPhase: GamePhase | null = null;
+
   private emit() {
     const wasFrozen = this.overlayFrozen;
     const profile = this.renderer.getProfile(this.world.phase);
@@ -328,7 +338,10 @@ export class NeonDriftGame {
     if (profile === "snapshot" && !wasFrozen) this.renderDirty = true;
     if (profile === "menu" || profile === "full") this.renderDirty = true;
     this.cb.onStats(this.getStats());
-    this.cb.onPhase(this.world.phase);
+    if (this.world.phase !== this.lastEmittedPhase) {
+      this.lastEmittedPhase = this.world.phase;
+      this.cb.onPhase(this.world.phase);
+    }
   }
 
   private paintFrame(dt: number) {

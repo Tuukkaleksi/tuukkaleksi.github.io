@@ -27,14 +27,22 @@ export class Renderer {
   private qualitySetting: VisualQuality = "auto";
   private resolvedQuality: Exclude<VisualQuality, "auto"> = "medium";
   private bgCache: BgGradientCache | null = null;
+  private readonly onVisibilityChange = () => {
+    this.documentHidden = document.hidden;
+  };
 
   constructor() {
     this.qualitySetting = loadVisualQuality();
     if (typeof document !== "undefined") {
-      document.addEventListener("visibilitychange", () => {
-        this.documentHidden = document.hidden;
-      });
+      document.addEventListener("visibilitychange", this.onVisibilityChange);
     }
+  }
+
+  destroy() {
+    if (typeof document !== "undefined") {
+      document.removeEventListener("visibilitychange", this.onVisibilityChange);
+    }
+    this.bgCache = null;
   }
 
   setQuality(setting: VisualQuality) {

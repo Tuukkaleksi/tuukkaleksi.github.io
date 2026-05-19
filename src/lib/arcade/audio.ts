@@ -4,6 +4,21 @@ const PLACEHOLDER_SHOOT = "/sound/placeholder-shoot.mp3";
 const PLACEHOLDER_EXPLOSION = "/sound/placeholder-explosion.mp3";
 const MUSIC_VOLUME_KEY = "neon-drift-music-vol";
 
+/** One shared element — browsers cap WebMediaPlayer count (~16). */
+let sharedMusicEl: HTMLAudioElement | null = null;
+
+function getSharedMusicEl() {
+  if (typeof window === "undefined") return null;
+  if (!sharedMusicEl) {
+    const track = new Audio(MUSIC_URL);
+    track.loop = true;
+    track.preload = "auto";
+    track.setAttribute("playsinline", "");
+    sharedMusicEl = track;
+  }
+  return sharedMusicEl;
+}
+
 function clamp(v: number, min: number, max: number) {
   return Math.max(min, Math.min(max, v));
 }
@@ -13,13 +28,24 @@ export class ArcadeAudio {
   private master: GainNode | null = null;
   private muted = false;
   private musicVolume = 0.28;
+  private disposed = false;
+  private pendingTimers: number[] = [];
 
   private musicEl: HTMLAudioElement | null = null;
 
   private sfxBuffers = new Map<string, AudioBuffer>();
   private nearMissCd = 0;
 
+  private scheduleTone(fn: () => void, delayMs: number) {
+    const id = window.setTimeout(() => {
+      this.pendingTimers = this.pendingTimers.filter((t) => t !== id);
+      if (!this.disposed) fn();
+    }, delayMs);
+    this.pendingTimers.push(id);
+  }
+
   constructor() {
+    this.disposed = false;
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem(MUSIC_VOLUME_KEY);
       if (saved != null) this.musicVolume = clamp(Number(saved), 0, 1);
@@ -83,17 +109,30 @@ export class ArcadeAudio {
   /** Call when the arcade opens so the track is ready on Start. */
   preloadMusic() {
     const track = this.ensureMusic();
+    if (!track) return;
     if (track.networkState === HTMLMediaElement.NETWORK_EMPTY) track.load();
   }
 
   private ensureMusic() {
-    if (this.musicEl) return this.musicEl;
-    const track = new Audio(MUSIC_URL);
-    track.loop = true;
-    track.preload = "auto";
-    track.setAttribute("playsinline", "");
+    const track = getSharedMusicEl();
+    if (!track) return null;
     this.musicEl = track;
     return track;
+  }
+
+  /** Release Web Audio; pause shared music (element is reused). */
+  dispose() {
+    this.disposed = true;
+    for (const id of this.pendingTimers) window.clearTimeout(id);
+    this.pendingTimers = [];
+    this.stopMusic();
+    this.musicEl = null;
+    if (this.ctx) {
+      void this.ctx.close().catch(() => {});
+      this.ctx = null;
+      this.master = null;
+    }
+    this.sfxBuffers.clear();
   }
 
   /** Unlock Web Audio for SFX — call from a user gesture. */
@@ -130,6 +169,7 @@ export class ArcadeAudio {
 
   async playMusic() {
     const track = this.ensureMusic();
+    if (!track) return;
     this.applyMusicVolume();
 
     try {
@@ -213,7 +253,7 @@ export class ArcadeAudio {
   }
 
   private tone(freq: number, dur: number, type: OscillatorType, gain = 0.12, slide = 0) {
-    if (this.muted) return;
+    if (this.disposed || this.muted) return;
     const ctx = this.ensure();
     if (!ctx || !this.master) return;
     const t = ctx.currentTime;
@@ -262,8 +302,8 @@ export class ArcadeAudio {
 
   bossDefeated() {
     this.tone(330, 0.08, "sine", 0.12);
-    setTimeout(() => this.tone(660, 0.12, "sine", 0.14), 60);
-    setTimeout(() => this.tone(990, 0.15, "triangle", 0.1), 140);
+    this.scheduleTone(() => this.tone(660, 0.12, "sine", 0.14), 60);
+    this.scheduleTone(() => this.tone(990, 0.15, "triangle", 0.1), 140);
   }
 
   gameOver() {
@@ -273,6 +313,6 @@ export class ArcadeAudio {
 
   start() {
     this.tone(523, 0.1, "sine", 0.09);
-    setTimeout(() => this.tone(784, 0.1, "sine", 0.09), 80);
+    this.scheduleTone(() => this.tone(784, 0.1, "sine", 0.09), 80);
   }
 }
