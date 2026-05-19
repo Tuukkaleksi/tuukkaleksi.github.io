@@ -224,6 +224,74 @@
       "nearMiss10": "Läheltä piti -kunkku",
       "survive5min": "Selviytyjä"
     },
+    "menu": {
+      "eyebrow": "Arcade-terminaali",
+      "title": "Neon Drift",
+      "tagline": "Selviydy parvesta. Vältä joka suunnasta, ammu, combo.",
+      "navLabel": "Päävalikko",
+      "play": "Aloita juoksu",
+      "leaderboard": "Tulostaulu",
+      "shop": "Kauppa",
+      "signIn": "Kirjaudu",
+      "register": "Rekisteröidy",
+      "leaderboardPageHint": "Parhaat juoksut maailmanlaajuisesti. Pelaa juoksu ja tallenna tulos pelin lopussa.",
+      "soon": "Tulossa",
+      "localBest": "Paikallinen ennätys",
+      "controls": "WASD liiku · Hiiri tähtää · Shift dash · Tauko P/Esc",
+      "back": "Takaisin",
+      "leaderboardEyebrow": "Globaali signaali",
+      "leaderboardTitle": "Huippupilotit",
+      "loading": "Ladataan signaaleja…",
+      "loadError": "Tulostaulua ei voitu ladata.",
+      "empty": "Ei tuloksia vielä — ole ensimmäinen listalla.",
+      "shopTitle": "Varasto",
+      "shopSoon": "Päivitykset ja kosmetiikka tulossa myöhemmin."
+    },
+    "shell": {
+      "title": "Neon Drift",
+      "back": "Takaisin"
+    },
+    "pages": {
+      "shop": {
+        "eyebrow": "Varasto",
+        "title": "Kauppa",
+        "description": "Käytä drift-krediittejä päivityksiin, ulkoasuun ja varustemuutoksiin. Varasto avautuu myöhemmin.",
+        "badge": "Tulossa"
+      },
+      "signin": {
+        "eyebrow": "Pääsy",
+        "title": "Kirjaudu",
+        "description": "Yhdistä pilottiprofiilisi synkronoidaksesi edistymisen. Kirjautuminen ei ole vielä käytössä.",
+        "badge": "Tulossa"
+      },
+      "register": {
+        "eyebrow": "Uusi pilotti",
+        "title": "Rekisteröidy",
+        "description": "Luo tunnus ja liity globaaliin drift-verkkoon. Rekisteröityminen avautuu myöhemmin.",
+        "badge": "Tulossa"
+      }
+    },
+    "leaderboard": {
+      "submitTitle": "Lähetä globaalille listalle",
+      "submitHint": "2–4 kirjainta tai numeroa · vähintään 500 pistettä",
+      "initialsLabel": "Tunnus",
+      "initialsPlaceholder": "ABC",
+      "submit": "Tallenna tulos",
+      "submitting": "Lähetetään…",
+      "submitted": "Signaali tallennettu",
+      "submittedHint": "Juoksusi on globaalilla listalla.",
+      "skip": "Vain paikallinen",
+      "errors": {
+        "SUBMIT_FAILED": "Tulosta ei voitu tallentaa. Yritä uudelleen.",
+        "RATE_LIMIT": "Liian monta lähetystä. Odota hetki.",
+        "VALIDATION": "Virheellinen lähetys.",
+        "INITIALS_INVALID": "Käytä 2–4 kirjainta tai numeroa.",
+        "TOKEN_INVALID": "Istunto vanhentui. Pelaa uudestaan.",
+        "TIMING_INVALID": "Ajoitus ei täsmää. Pelaa uudestaan.",
+        "RUN_IMPLAUSIBLE": "Juoksua ei voitu varmistaa.",
+        "LEADERBOARD_DISABLED": "Lista ei ole käytössä."
+      }
+    },
     "powerUps": {
       "draftTitle": "Valitse päivitys",
       "draftHint": "Näppäimet 1 · 2 · 3",
@@ -288,18 +356,29 @@
         "signalId": "Signaali · ND-Σ7",
         "lede": "Selviydy parvesta. Rakenna synergioita. Kestä aaltoja, jotka eivät anna epäröidä.",
         "briefingTitle": "Selostus",
-        "briefingExtra": "Kokemus toimii easter egginä: huomaamaton ohjaus jokaisen sivun kulmassa ja suora käynnistys tästä tiedostosta. Edistyminen, huipputulokset ja saavutukset pysyvät laitteella.",
+        "briefingExtra": "Kokemus toimii easter egginä: huomaamaton ohjaus jokaisen sivun kulmassa ja suora käynnistys tästä tiedostosta. Saavutukset ja paikallinen ennätys pysyvät laitteella; kelvolliset juoksut voi tallentaa Neon Postgres -pohjaiselle globaalille listalle.",
         "capabilitiesTitle": "Järjestelmät käytössä",
         "feature0": "Modulaarinen peliarkkitehtuuri (simulaatio, taistelu, aallot, pomot) laadun mukaan skaalautuvalla renderöinnillä",
         "feature1": "Seitsemän vihutyyppiä, kierros-pohjainen eskalaatio ja pomotaistelut ennakoiduilla kuvioilla",
-        "feature2": "Roguelike-päivitysvalinnat, build-synergiat, paikalliset saavutukset ja run-yhteenveto",
+        "feature2": "Roguelike-päivitysvalinnat, build-synergiat, paikalliset saavutukset, run-yhteenveto ja Neon-pohjainen globaali lista",
         "feature3": "Mukautuvat grafiikat ja HTML5-ääni, viritetty vakaaseen suorituskykyyn avoimessa verkossa",
+        "leaderboard": {
+          "eyebrow": "Globaali signaali",
+          "title": "Tulostaulu",
+          "subtitle": "Parhaat juoksut arcade-pelistä. Vähintään 500 pistettä, varmennettu istunto.",
+          "empty": "Ei tallennettuja signaaleja — ole ensimmäinen listalla.",
+          "offline": "Tulostaulu vaatii tietokantayhteyden.",
+          "colInitials": "Tunnus",
+          "colScore": "Pisteet",
+          "colWave": "Aalto",
+          "colTime": "Aika"
+        },
         "accessLabel": "Lupa myönnetty",
         "launch": "Käynnistä Neon Drift",
         "launchHint": "WASD · hiiren tähtäys · Shift dash · P tai Esc tauolle",
         "meta": [
           { "label": "Kategoria", "value": "Selainarcade / portfolio-easter egg" },
-          { "label": "Teknologia", "value": "TypeScript · Canvas 2D · Next.js" },
+          { "label": "Teknologia", "value": "TypeScript · Canvas 2D · Next.js · Neon · Drizzle" },
           { "label": "Tila", "value": "Live sivustolla · upotettu" },
           { "label": "Pääsy", "value": "Shift + P missä tahansa · tai käynnistä alta" }
         ]

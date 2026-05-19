@@ -224,6 +224,74 @@
       "nearMiss10": "Close call king",
       "survive5min": "Survivor"
     },
+    "menu": {
+      "eyebrow": "Arcade terminal",
+      "title": "Neon Drift",
+      "tagline": "Survive the swarm. Dodge from every direction, shoot, combo.",
+      "navLabel": "Main menu",
+      "play": "Start run",
+      "leaderboard": "Leaderboard",
+      "shop": "Shop",
+      "signIn": "Sign in",
+      "register": "Register",
+      "leaderboardPageHint": "Top runs from pilots worldwide. Play a run and log your score from the game-over screen.",
+      "soon": "Soon",
+      "localBest": "Local best",
+      "controls": "WASD move · Mouse aim · Shift dash · Pause P/Esc",
+      "back": "Back",
+      "leaderboardEyebrow": "Global signal",
+      "leaderboardTitle": "Top pilots",
+      "loading": "Loading signals…",
+      "loadError": "Could not load leaderboard.",
+      "empty": "No scores yet — be the first on the board.",
+      "shopTitle": "Supply depot",
+      "shopSoon": "Upgrades and cosmetics are coming in a future patch."
+    },
+    "shell": {
+      "title": "Neon Drift",
+      "back": "Back"
+    },
+    "pages": {
+      "shop": {
+        "eyebrow": "Supply depot",
+        "title": "Shop",
+        "description": "Spend drift credits on upgrades, skins, and loadout modifiers. The depot opens in a future update.",
+        "badge": "Coming soon"
+      },
+      "signin": {
+        "eyebrow": "Pilot access",
+        "title": "Sign in",
+        "description": "Link your pilot profile to sync progress and appear on seasonal boards. Authentication is not live yet.",
+        "badge": "Coming soon"
+      },
+      "register": {
+        "eyebrow": "New pilot",
+        "title": "Register",
+        "description": "Create a callsign and join the global drift network. Registration opens in a future update.",
+        "badge": "Coming soon"
+      }
+    },
+    "leaderboard": {
+      "submitTitle": "Transmit to global board",
+      "submitHint": "2–4 letters or numbers · score 500+",
+      "initialsLabel": "Initials",
+      "initialsPlaceholder": "ABC",
+      "submit": "Log score",
+      "submitting": "Transmitting…",
+      "submitted": "Signal logged",
+      "submittedHint": "Your run is on the global board.",
+      "skip": "Keep local only",
+      "errors": {
+        "SUBMIT_FAILED": "Could not log score. Try again.",
+        "RATE_LIMIT": "Too many submissions. Wait a moment.",
+        "VALIDATION": "Invalid submission.",
+        "INITIALS_INVALID": "Use 2–4 letters or numbers.",
+        "TOKEN_INVALID": "Session expired. Play again.",
+        "TIMING_INVALID": "Run timing mismatch. Play again.",
+        "RUN_IMPLAUSIBLE": "Run could not be verified.",
+        "LEADERBOARD_DISABLED": "Leaderboard is offline."
+      }
+    },
     "powerUps": {
       "draftTitle": "Choose an upgrade",
       "draftHint": "Keys 1 · 2 · 3",
@@ -288,18 +356,29 @@
         "signalId": "Signal · ND-Σ7",
         "lede": "Survive the swarm. Build synergies. Outlast waves that never forgive hesitation.",
         "briefingTitle": "Briefing",
-        "briefingExtra": "The experience ships as an easter egg: a discreet control in the corner of every page, and a direct launch from this dossier. Progress, high scores, and achievements stay on-device.",
+        "briefingExtra": "The experience ships as an easter egg: a discreet control in the corner of every page, and a direct launch from this dossier. Achievements and personal bests stay on-device; qualifying runs can be logged to a global board backed by Neon Postgres.",
         "capabilitiesTitle": "Systems online",
         "feature0": "Modular game architecture (simulation, combat, waves, bosses) with quality-scaled rendering",
         "feature1": "Seven enemy archetypes, round-based escalation, and boss encounters with telegraphed patterns",
-        "feature2": "Roguelike draft upgrades, build synergies, local achievements, and run recap",
+        "feature2": "Roguelike draft upgrades, build synergies, local achievements, run recap, and Neon-backed global leaderboard",
         "feature3": "Adaptive visuals and HTML5 audio tuned for stable performance on the open web",
+        "leaderboard": {
+          "eyebrow": "Global signal",
+          "title": "Leaderboard",
+          "subtitle": "Top runs logged from the arcade. Scores 500+ with verified sessions.",
+          "empty": "No signals logged yet — be the first pilot on the board.",
+          "offline": "Leaderboard requires database configuration.",
+          "colInitials": "ID",
+          "colScore": "Score",
+          "colWave": "Wave",
+          "colTime": "Time"
+        },
         "accessLabel": "Clearance granted",
         "launch": "Launch Neon Drift",
         "launchHint": "WASD · mouse aim · Shift dash · P or Esc to pause",
         "meta": [
           { "label": "Category", "value": "Browser arcade / portfolio easter egg" },
-          { "label": "Stack", "value": "TypeScript · Canvas 2D · Next.js" },
+          { "label": "Stack", "value": "TypeScript · Canvas 2D · Next.js · Neon · Drizzle" },
           { "label": "Status", "value": "Live on site · embedded" },
           { "label": "Access", "value": "Shift + P anywhere · or launch below" }
         ]

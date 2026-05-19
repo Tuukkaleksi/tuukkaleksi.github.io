@@ -9,8 +9,9 @@ import type { PowerUpId } from "@/lib/arcade/power-ups";
 import { readThemeColors } from "@/lib/arcade/theme";
 import type { VisualQuality } from "@/lib/arcade/config/visual";
 import type { GamePhase } from "@/lib/arcade/types";
+import { ArcadeMenu } from "@/components/arcade/ArcadeMenu";
+import { GameOverOverlay } from "@/components/arcade/GameOverOverlay";
 import { PowerUpDraft } from "@/components/arcade/PowerUpDraft";
-import { RunRecap } from "@/components/arcade/RunRecap";
 
 const MOVE_KEYS = new Set([
   "ArrowLeft",
@@ -26,6 +27,12 @@ const MOVE_KEYS = new Set([
 ]);
 
 const ACTIVE_PHASES: GamePhase[] = ["playing", "bossFight", "bossIntro"];
+
+function isTypingTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || target.isContentEditable;
+}
 
 type NeonDriftCanvasProps = {
   active: boolean;
@@ -49,6 +56,10 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const [achievementToast, setAchievementToast] = useState<string | null>(null);
   const [bossLabel, setBossLabel] = useState<string | null>(null);
   const [visualQuality, setVisualQuality] = useState<VisualQuality>("auto");
+  const [runSession, setRunSession] = useState<{ runToken: string; startedAt: number } | null>(
+    null,
+  );
+  const [submitDismissed, setSubmitDismissed] = useState(false);
 
   const visualQualityLabel = (q: VisualQuality) => {
     switch (q) {
@@ -86,7 +97,31 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
+      if (isTypingTarget(e.target)) return;
+
       const p = game.getStats().phase;
+
+      if (p === "gameover") {
+        held.clear();
+        sync();
+        if (e.key === "Escape") {
+          e.preventDefault();
+          onClose();
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          void beginRunRef.current?.();
+        }
+        return;
+      }
+
+      if (p === "ready") {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          void beginRunRef.current?.();
+        }
+        return;
+      }
+
       if (p === "draft") {
         if (e.key === "1" || e.key === "2" || e.key === "3") {
           e.preventDefault();
@@ -98,8 +133,6 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         if (p === "playing" || p === "paused" || p === "bossFight") {
           e.preventDefault();
           game.togglePause();
-        } else if (p === "gameover") {
-          onClose();
         }
         return;
       }
@@ -115,14 +148,6 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         held.add(e.code);
         sync();
       }
-      if (e.key === "Enter" && game.getStats().phase === "ready") {
-        e.preventDefault();
-        void audioRef.current?.resume().then(() => game.start());
-      }
-      if (e.key === "Enter" && game.getStats().phase === "gameover") {
-        e.preventDefault();
-        void audioRef.current?.resume().then(() => game.restart());
-      }
       if (e.key === "p" || e.key === "P") {
         const ph = game.getStats().phase;
         if (ph === "playing" || ph === "paused" || ph === "bossFight") {
@@ -133,6 +158,8 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     };
 
     const onKeyUp = (e: KeyboardEvent) => {
+      if (isTypingTarget(e.target)) return;
+      if (game.getStats().phase === "gameover") return;
       held.delete(e.code);
       sync();
     };
@@ -152,15 +179,75 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     };
   }, [onClose]);
 
+  const fetchRunSession = useCallback(async () => {
+    try {
+      const res = await fetch("/api/neon-drift/session", { method: "POST" });
+      const data = (await res.json()) as {
+        ok: boolean;
+        runToken?: string;
+        startedAt?: number;
+      };
+      if (data.ok && data.runToken && data.startedAt) {
+        return { runToken: data.runToken, startedAt: data.startedAt };
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const beginRunRef = useRef<(() => Promise<void>) | null>(null);
+
+  const beginRun = useCallback(async () => {
+    const audio = audioRef.current;
+    await audio?.resume();
+    setSubmitDismissed(false);
+    const session = await fetchRunSession();
+    setRunSession(session);
+    gameRef.current?.setVisualQuality(visualQuality);
+    gameRef.current?.start();
+  }, [fetchRunSession, visualQuality]);
+
+  beginRunRef.current = beginRun;
+
+  const returnToHub = useCallback(() => {
+    setRunSession(null);
+    setSubmitDismissed(false);
+    setDraftChoices([]);
+    setBossLabel(null);
+    gameRef.current?.resetWorld();
+  }, []);
+
+  const handleClose = useCallback(() => {
+    const p = gameRef.current?.getStats().phase ?? phase;
+    const inActiveRun =
+      p === "playing" ||
+      p === "paused" ||
+      p === "bossFight" ||
+      p === "bossIntro" ||
+      p === "draft";
+    if (inActiveRun) {
+      returnToHub();
+      return;
+    }
+    onClose();
+  }, [onClose, phase, returnToHub]);
+
   const handlePhase = useCallback((p: GamePhase) => {
     setPhase(p);
-    if (p === "gameover") setDeathKey(pickDeathMessageKey());
+    if (p === "gameover") {
+      setDeathKey(pickDeathMessageKey());
+      gameRef.current?.setVisualQuality("off");
+    }
     if (p === "playing") {
       setDraftChoices([]);
       setBossLabel(null);
     }
+    if (p === "ready") {
+      gameRef.current?.setVisualQuality(visualQuality);
+    }
     if (p === "bossFight") setBossLabel(null);
-  }, []);
+  }, [visualQuality]);
 
   const handleScorePop = useCallback(() => {
     setScorePop(true);
@@ -272,12 +359,6 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     };
   }, [active]);
 
-  const startGame = async () => {
-    const audio = audioRef.current;
-    await audio?.resume();
-    gameRef.current?.start();
-  };
-
   const onMusicVolume = (v: number) => {
     setMusicVolume(v);
     audioRef.current?.setMusicVolume(v);
@@ -287,20 +368,11 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const showStats = stats && (showHud || phase === "paused");
 
   let overlay: React.ReactNode = null;
+  const hideCanvas = phase === "gameover";
+
   if (phase === "ready") {
     overlay = (
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0a0b0f]/88 px-6 text-center">
-        <p className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">{t("title")}</p>
-        <p className="max-w-sm text-sm text-white/70">{t("tagline")}</p>
-        <button
-          type="button"
-          onClick={startGame}
-          className="pointer-events-auto mt-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/40 transition hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
-          {t("start")}
-        </button>
-        <p className="text-xs text-white/45">{t("controls")}</p>
-      </div>
+      <ArcadeMenu onPlay={() => void beginRun()} highScore={stats?.highScore ?? 0} />
     );
   } else if (phase === "draft") {
     overlay = (
@@ -330,40 +402,26 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     );
   } else if (phase === "gameover" && stats) {
     overlay = (
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/50 px-6 text-center">
-        <p className="font-display text-2xl font-bold tracking-wide text-rose-300 drop-shadow-[0_0_12px_rgba(251,113,133,0.5)]">
-          {t(deathKey)}
-        </p>
-        <p className="text-lg text-white/80">
-          {t("score")}: <span className="font-semibold text-primary">{stats.score}</span>
-        </p>
-        {stats.score >= stats.highScore && stats.score > 0 && (
-          <p className="text-sm font-medium text-amber-300">{t("newRecord")}</p>
-        )}
-        <RunRecap stats={stats} />
-        <div className="pointer-events-auto mt-2 flex gap-3">
-          <button
-            type="button"
-            onClick={() => gameRef.current?.restart()}
-            className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white hover:bg-primary-hover"
-          >
-            {t("retry")}
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full border border-white/25 px-6 py-2.5 text-sm font-medium text-white/90 hover:bg-white/10"
-          >
-            {t("exit")}
-          </button>
-        </div>
-      </div>
+      <GameOverOverlay
+        stats={stats}
+        deathKey={deathKey}
+        runSession={runSession}
+        submitDismissed={submitDismissed}
+        onDismissSubmit={() => setSubmitDismissed(true)}
+        onRetry={() => void beginRun()}
+        onExit={onClose}
+      />
     );
   }
 
   return (
     <div className="relative h-full w-full touch-none select-none">
-      <canvas ref={canvasRef} className="block h-full w-full" aria-label={t("title")} />
+      <canvas
+        ref={canvasRef}
+        className={`block h-full w-full ${hideCanvas ? "pointer-events-none opacity-0" : ""}`}
+        aria-label={t("title")}
+        aria-hidden={hideCanvas}
+      />
       {overloadPulse && (
         <div
           className="arcade-overload-flash pointer-events-none absolute inset-0 flex items-start justify-center pt-[18vh]"
@@ -380,7 +438,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         </div>
       )}
       {overlay}
-      <header className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 p-4 sm:p-6">
+      <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start justify-between gap-4 p-4 sm:p-6">
         <div className="pointer-events-auto flex flex-col gap-1 text-white">
           <span className="font-display text-lg font-bold tracking-wide sm:text-xl">{t("title")}</span>
           {showStats && (
@@ -455,7 +513,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
           </button>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="rounded-lg border border-white/15 px-3 py-1.5 text-xs text-white/70 hover:bg-white/10"
           >
             {t("close")}

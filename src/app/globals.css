@@ -184,6 +184,50 @@ body {
   animation: arcade-overload-flash 2.4s ease-out forwards;
 }
 
+.arcade-menu-panel {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(59, 158, 255, 0.18);
+  background: rgba(10, 11, 15, 0.92);
+  padding: 1.5rem;
+  box-shadow: 0 0 48px -12px rgba(59, 158, 255, 0.22);
+}
+
+.arcade-gameover-panel {
+  position: relative;
+}
+
+.arcade-gameover-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 1.25rem;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 158, 255, 0.35),
+    rgba(251, 113, 133, 0.15) 45%,
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.arcade-gameover-body {
+  position: relative;
+}
+
+.arcade-leaderboard-submit input[data-leaderboard-initials]:focus {
+  outline: none;
+}
+
 /* Neon Drift portfolio visuals */
 @keyframes neon-drift-ring {
   0%,

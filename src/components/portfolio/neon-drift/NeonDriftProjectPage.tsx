@@ -1,17 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { ArrowLeft, Radio } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useCallback, useState } from "react";
 import { NeonDriftArt } from "@/components/portfolio/neon-drift/NeonDriftArt";
 import { Link } from "@/i18n/navigation";
 import type { ProjectMeta } from "@/types";
-
-const NeonDriftCanvas = dynamic(
-  () => import("@/components/arcade/NeonDriftCanvas").then((m) => m.NeonDriftCanvas),
-  { ssr: false, loading: () => null },
-);
 
 type NeonDriftProjectPageProps = {
   project: ProjectMeta;
@@ -20,10 +13,6 @@ type NeonDriftProjectPageProps = {
 export function NeonDriftProjectPage({ project }: NeonDriftProjectPageProps) {
   const t = useTranslations("projects.items.neon-drift");
   const tPage = useTranslations("projectPage");
-  const [open, setOpen] = useState(false);
-
-  const launch = useCallback(() => setOpen(true), []);
-  const close = useCallback(() => setOpen(false), []);
 
   const features = ["feature0", "feature1", "feature2", "feature3"] as const;
 
@@ -101,28 +90,16 @@ export function NeonDriftProjectPage({ project }: NeonDriftProjectPageProps) {
 
           <div className="rounded-2xl border border-primary/20 bg-[#0a0b0f] p-6 text-center">
             <p className="text-xs uppercase tracking-[0.2em] text-sky-400/70">{t("accessLabel")}</p>
-            <button
-              type="button"
-              onClick={launch}
-              className="mt-4 w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md shadow-primary/30 transition hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            <Link
+              href="/neon-drift"
+              className="mt-4 inline-block w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md shadow-primary/30 transition hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               {t("launch")}
-            </button>
+            </Link>
             <p className="mt-3 text-xs text-white/45">{t("launchHint")}</p>
           </div>
         </aside>
       </div>
-
-      {open && (
-        <div
-          className="dark fixed inset-0 z-[100] bg-[#0a0b0d]"
-          role="dialog"
-          aria-modal="true"
-          aria-label={project.title}
-        >
-          <NeonDriftCanvas active={open} onClose={close} />
-        </div>
-      )}
     </>
   );
 }
