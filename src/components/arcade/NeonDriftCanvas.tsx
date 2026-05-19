@@ -13,6 +13,7 @@ import { ArcadeMenu } from "@/components/arcade/ArcadeMenu";
 import { GameOverOverlay } from "@/components/arcade/GameOverOverlay";
 import { PowerUpDraft } from "@/components/arcade/PowerUpDraft";
 import { statsHudEqual } from "@/lib/arcade/stats-equality";
+import { isGlobalLeaderboardSubmitEnabled } from "@/lib/neon-drift/feature-flags";
 
 const MOVE_KEYS = new Set([
   "ArrowLeft",
@@ -229,7 +230,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     await audio?.resume();
     if (!mountedRef.current) return;
     setSubmitDismissed(false);
-    const session = await fetchRunSession();
+    const session = isGlobalLeaderboardSubmitEnabled() ? await fetchRunSession() : null;
     if (!mountedRef.current) return;
     setRunSession(session);
     gameRef.current?.setVisualQuality(visualQualityRef.current);
@@ -451,7 +452,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         submitDismissed={submitDismissed}
         onDismissSubmit={() => setSubmitDismissed(true)}
         onRetry={() => void beginRun()}
-        onExit={onClose}
+        onMenu={returnToHub}
       />
     );
   }

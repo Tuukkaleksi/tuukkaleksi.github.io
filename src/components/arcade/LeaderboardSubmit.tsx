@@ -88,11 +88,6 @@ export function LeaderboardSubmit({ stats, session, onDismiss }: LeaderboardSubm
     }
   }, [normalized, valid, state, stats, session]);
 
-  const onInputChange = (value: string) => {
-    setInitials(value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, SLOT_COUNT));
-    if (state === "error") setState("idle");
-  };
-
   const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     e.stopPropagation();
     if (e.key === "Enter" && valid && state !== "submitting") {
@@ -107,43 +102,24 @@ export function LeaderboardSubmit({ stats, session, onDismiss }: LeaderboardSubm
 
   if (state === "success" && rank !== null) {
     return (
-      <section className="arcade-leaderboard-submit border-t border-white/[0.06] pt-4">
-        <div className="rounded-xl border border-amber-400/25 bg-gradient-to-b from-amber-400/10 to-transparent px-4 py-4 text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-300/80">
-            {t("submitted")}
-          </p>
-          <p className="mt-1 font-display text-3xl font-bold text-amber-100">#{rank}</p>
-          <p className="mt-1 text-xs text-white/45">{t("submittedHint")}</p>
-        </div>
+      <section className="mt-6 rounded-xl border border-amber-400/20 bg-amber-400/[0.06] px-4 py-4 text-center">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-300/80">
+          {t("submitted")}
+        </p>
+        <p className="mt-1 font-display text-3xl font-bold tabular-nums text-amber-100">#{rank}</p>
+        <p className="mt-1 text-xs text-white/45">{t("submittedHint")}</p>
       </section>
     );
   }
 
-  const chars = normalized.padEnd(SLOT_COUNT, " ").split("");
-
   return (
-    <section className="arcade-leaderboard-submit border-t border-sky-400/15 pt-4">
-      <div>
-        <h3 className="font-display text-sm font-semibold text-sky-200">{t("submitTitle")}</h3>
-        <p className="mt-1 text-[11px] leading-relaxed text-white/40">{t("submitHint")}</p>
-      </div>
+    <section className="mt-6 border-t border-white/[0.06] pt-5">
+      <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+        {t("submitTitle")}
+      </h3>
+      <p className="mt-1 text-xs text-white/35">{t("submitHint")}</p>
 
-      <div className="mt-4 space-y-3">
-        <div className="flex justify-center gap-1.5 sm:gap-2" aria-hidden>
-          {chars.map((ch, i) => (
-            <span
-              key={i}
-              className={`flex h-11 w-9 items-center justify-center rounded-lg border font-mono text-base font-bold sm:h-12 sm:w-10 sm:text-lg ${
-                ch.trim()
-                  ? "border-primary/40 bg-primary/10 text-white shadow-[0_0_12px_-4px_rgba(59,158,255,0.5)]"
-                  : "border-white/10 bg-black/40 text-white/25"
-              }`}
-            >
-              {ch.trim() || "·"}
-            </span>
-          ))}
-        </div>
-
+      <div className="mt-3 flex gap-2">
         <input
           id="leaderboard-initials"
           data-leaderboard-initials
@@ -154,30 +130,28 @@ export function LeaderboardSubmit({ stats, session, onDismiss }: LeaderboardSubm
           autoCorrect="off"
           spellCheck={false}
           value={initials}
-          onChange={(e) => onInputChange(e.target.value)}
+          onChange={(e) => {
+            setInitials(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, SLOT_COUNT));
+            if (state === "error") setState("idle");
+          }}
           onKeyDown={onInputKeyDown}
           maxLength={SLOT_COUNT}
           placeholder={t("initialsPlaceholder")}
-          className="mx-auto block w-full max-w-[14rem] rounded-xl border border-white/15 bg-black/50 py-3 text-center font-mono text-xl font-bold tracking-[0.45em] text-white uppercase placeholder:tracking-normal placeholder:text-white/20 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+          className="min-w-0 flex-1 rounded-xl border border-white/12 bg-black/40 px-4 py-2.5 text-center font-mono text-lg font-bold tracking-[0.35em] text-white uppercase placeholder:tracking-normal placeholder:font-sans placeholder:font-medium placeholder:text-white/25 focus:border-primary/45 focus:outline-none focus:ring-2 focus:ring-primary/15"
           aria-label={t("initialsLabel")}
-          aria-describedby="leaderboard-initials-hint"
         />
-        <p id="leaderboard-initials-hint" className="text-center text-[10px] text-white/30">
-          {t("initialsLabel")} · A–Z, 0–9
-        </p>
+        <button
+          type="button"
+          onClick={() => void submit()}
+          disabled={!valid || state === "submitting"}
+          className="shrink-0 rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {state === "submitting" ? "…" : t("submit")}
+        </button>
       </div>
 
-      <button
-        type="button"
-        onClick={() => void submit()}
-        disabled={!valid || state === "submitting"}
-        className="mt-4 w-full rounded-xl bg-primary py-3 text-sm font-semibold text-white shadow-md shadow-primary/25 transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-35"
-      >
-        {state === "submitting" ? t("submitting") : t("submit")}
-      </button>
-
       {state === "error" && errorCode && (
-        <p className="mt-2 text-center text-xs text-rose-300/90" role="alert">
+        <p className="mt-2 text-xs text-rose-300/90" role="alert">
           {isErrorKey(errorCode) ? t(`errors.${errorCode}`) : t("errors.SUBMIT_FAILED")}
         </p>
       )}
@@ -185,7 +159,7 @@ export function LeaderboardSubmit({ stats, session, onDismiss }: LeaderboardSubm
       <button
         type="button"
         onClick={onDismiss}
-        className="mt-3 w-full text-center text-[11px] text-white/30 transition hover:text-white/55"
+        className="mt-3 text-xs text-white/30 transition hover:text-white/55"
       >
         {t("skip")}
       </button>
