@@ -4,11 +4,13 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArcadeAudio } from "@/lib/arcade/audio";
 import { pickDeathMessageKey, type DeathMessageKey } from "@/lib/arcade/death-messages";
-import { PowerUpDraft } from "@/components/arcade/PowerUpDraft";
-import { NeonDriftGame, type GameStats } from "@/lib/arcade/neon-drift";
+import { NeonDriftGame, type GameStats } from "@/lib/arcade";
 import type { PowerUpId } from "@/lib/arcade/power-ups";
 import { readThemeColors } from "@/lib/arcade/theme";
+import type { VisualQuality } from "@/lib/arcade/config/visual";
 import type { GamePhase } from "@/lib/arcade/types";
+import { PowerUpDraft } from "@/components/arcade/PowerUpDraft";
+import { RunRecap } from "@/components/arcade/RunRecap";
 
 const MOVE_KEYS = new Set([
   "ArrowLeft",
@@ -22,6 +24,8 @@ const MOVE_KEYS = new Set([
   "Space",
   "KeyK",
 ]);
+
+const ACTIVE_PHASES: GamePhase[] = ["playing", "bossFight", "bossIntro"];
 
 type NeonDriftCanvasProps = {
   active: boolean;
@@ -42,6 +46,31 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const [overloadPulse, setOverloadPulse] = useState(false);
   const [draftChoices, setDraftChoices] = useState<PowerUpId[]>([]);
   const [hudPowerId, setHudPowerId] = useState<PowerUpId | null>(null);
+  const [achievementToast, setAchievementToast] = useState<string | null>(null);
+  const [bossLabel, setBossLabel] = useState<string | null>(null);
+  const [visualQuality, setVisualQuality] = useState<VisualQuality>("auto");
+
+  const visualQualityLabel = (q: VisualQuality) => {
+    switch (q) {
+      case "auto":
+        return t("visualAuto");
+      case "high":
+        return t("visualHigh");
+      case "medium":
+        return t("visualMedium");
+      case "low":
+        return t("visualLow");
+      case "off":
+        return t("visualOff");
+    }
+  };
+
+  const cycleVisualQuality = () => {
+    const order: VisualQuality[] = ["auto", "medium", "low", "off", "high"];
+    const next = order[(order.indexOf(visualQuality) + 1) % order.length]!;
+    setVisualQuality(next);
+    gameRef.current?.setVisualQuality(next);
+  };
 
   const bindKeys = useCallback((game: NeonDriftGame) => {
     const held = new Set<string>();
@@ -66,7 +95,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         return;
       }
       if (e.key === "Escape") {
-        if (p === "playing" || p === "paused") {
+        if (p === "playing" || p === "paused" || p === "bossFight") {
           e.preventDefault();
           game.togglePause();
         } else if (p === "gameover") {
@@ -74,7 +103,10 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         }
         return;
       }
-      if ((e.code === "ShiftLeft" || e.code === "ShiftRight") && p === "playing") {
+      if (
+        (e.code === "ShiftLeft" || e.code === "ShiftRight") &&
+        (p === "playing" || p === "bossFight")
+      ) {
         e.preventDefault();
         game.queueDash();
       }
@@ -92,8 +124,8 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         void audioRef.current?.resume().then(() => game.restart());
       }
       if (e.key === "p" || e.key === "P") {
-        const p = game.getStats().phase;
-        if (p === "playing" || p === "paused") {
+        const ph = game.getStats().phase;
+        if (ph === "playing" || ph === "paused" || ph === "bossFight") {
           e.preventDefault();
           game.togglePause();
         }
@@ -123,7 +155,11 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const handlePhase = useCallback((p: GamePhase) => {
     setPhase(p);
     if (p === "gameover") setDeathKey(pickDeathMessageKey());
-    if (p === "playing") setDraftChoices([]);
+    if (p === "playing") {
+      setDraftChoices([]);
+      setBossLabel(null);
+    }
+    if (p === "bossFight") setBossLabel(null);
   }, []);
 
   const handleScorePop = useCallback(() => {
@@ -138,6 +174,18 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
 
   const handleDraft = useCallback((choices: PowerUpId[]) => {
     setDraftChoices(choices);
+  }, []);
+
+  const handleAchievement = useCallback(
+    (id: string) => {
+      setAchievementToast(id);
+      window.setTimeout(() => setAchievementToast(null), 3200);
+    },
+    [],
+  );
+
+  const handleBossTelegraph = useCallback((bossId: string) => {
+    setBossLabel(bossId);
   }, []);
 
   useEffect(() => {
@@ -155,10 +203,13 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
       onScorePop: handleScorePop,
       onOverload: handleOverload,
       onDraft: handleDraft,
+      onAchievement: handleAchievement,
+      onBossTelegraph: handleBossTelegraph,
     });
     gameRef.current = game;
     setStats(game.getStats());
     setPhase("ready");
+    setVisualQuality(game.getVisualQuality());
 
     game.run();
     const unbindKeys = bindKeys(game);
@@ -190,10 +241,19 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
       setPhase("ready");
       setStats(null);
     };
-  }, [active, bindKeys, handlePhase, handleScorePop, handleOverload, handleDraft]);
+  }, [
+    active,
+    bindKeys,
+    handlePhase,
+    handleScorePop,
+    handleOverload,
+    handleDraft,
+    handleAchievement,
+    handleBossTelegraph,
+  ]);
 
   useEffect(() => {
-    if (!active || phase !== "playing") return;
+    if (!active || !ACTIVE_PHASES.includes(phase)) return;
     const tick = () => setHudPowerId(gameRef.current?.getHudPowerId() ?? null);
     tick();
     const id = window.setInterval(tick, 120);
@@ -223,6 +283,9 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     audioRef.current?.setMusicVolume(v);
   };
 
+  const showHud = ACTIVE_PHASES.includes(phase);
+  const showStats = stats && (showHud || phase === "paused");
+
   let overlay: React.ReactNode = null;
   if (phase === "ready") {
     overlay = (
@@ -249,24 +312,35 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         }}
       />
     );
+  } else if (phase === "bossIntro" && bossLabel) {
+    overlay = (
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/50 px-6 text-center">
+        <p className="font-display text-sm tracking-[0.3em] text-fuchsia-300/80">{t("bossIncoming")}</p>
+        <p className="font-display text-2xl font-bold text-white sm:text-3xl">
+          {t(`bosses.${bossLabel}`)}
+        </p>
+        <p className="max-w-md text-sm text-white/55">{t(`bosses.${bossLabel}Intro`)}</p>
+      </div>
+    );
   } else if (phase === "paused") {
     overlay = (
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/40">
         <p className="font-display text-2xl font-semibold text-white">{t("paused")}</p>
       </div>
     );
-  } else if (phase === "gameover") {
+  } else if (phase === "gameover" && stats) {
     overlay = (
       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/50 px-6 text-center">
         <p className="font-display text-2xl font-bold tracking-wide text-rose-300 drop-shadow-[0_0_12px_rgba(251,113,133,0.5)]">
           {t(deathKey)}
         </p>
         <p className="text-lg text-white/80">
-          {t("score")}: <span className="font-semibold text-primary">{stats?.score ?? 0}</span>
+          {t("score")}: <span className="font-semibold text-primary">{stats.score}</span>
         </p>
-        {stats && stats.score >= stats.highScore && stats.score > 0 && (
+        {stats.score >= stats.highScore && stats.score > 0 && (
           <p className="text-sm font-medium text-amber-300">{t("newRecord")}</p>
         )}
+        <RunRecap stats={stats} />
         <div className="pointer-events-auto mt-2 flex gap-3">
           <button
             type="button"
@@ -300,11 +374,16 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
           </span>
         </div>
       )}
+      {achievementToast && (
+        <div className="pointer-events-none absolute left-1/2 top-24 z-10 -translate-x-1/2 rounded-full border border-amber-400/40 bg-black/70 px-4 py-2 text-center text-xs text-amber-200">
+          {t("achievementUnlocked")}: {t(`achievements.${achievementToast}`)}
+        </div>
+      )}
       {overlay}
       <header className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 p-4 sm:p-6">
         <div className="pointer-events-auto flex flex-col gap-1 text-white">
           <span className="font-display text-lg font-bold tracking-wide sm:text-xl">{t("title")}</span>
-          {stats && phase === "playing" && (
+          {showStats && (
             <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-white/65 sm:text-sm">
               <span className={scorePop ? "arcade-score-pop inline-block" : "inline-block"}>
                 {t("score")}: <strong className="text-white">{stats.score}</strong>
@@ -312,14 +391,32 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
               <span>
                 {t("wave")}: {stats.wave}
               </span>
+              <span>
+                {t("round")}: {stats.round}
+              </span>
               {stats.combo > 1 && (
                 <span className="text-amber-300">
                   {t("combo")} x{stats.combo}
                 </span>
               )}
+              {stats.nearMissStreak > 2 && (
+                <span className="text-cyan-300/90">×{stats.nearMissStreak}</span>
+              )}
               <span>
                 {t("lives")}: {"♥".repeat(Math.max(0, stats.lives))}
               </span>
+            </div>
+          )}
+          {showStats && stats.activeSynergies.length > 0 && (
+            <div className="flex flex-wrap gap-1 pt-0.5">
+              {stats.activeSynergies.map((id) => (
+                <span
+                  key={id}
+                  className="rounded bg-primary/20 px-1.5 py-0.5 text-[10px] text-primary/90"
+                >
+                  {t(`synergies.${id}`)}
+                </span>
+              ))}
             </div>
           )}
         </div>
@@ -327,6 +424,14 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
           <span className="hidden text-xs text-white/40 sm:inline">
             {t("highScore")}: {stats?.highScore ?? 0}
           </span>
+          <button
+            type="button"
+            onClick={cycleVisualQuality}
+            className="rounded-lg border border-white/15 px-2 py-1.5 text-[10px] text-white/60 hover:bg-white/10"
+            title={t("visualQuality")}
+          >
+            {visualQualityLabel(visualQuality)}
+          </button>
           <label className="flex items-center gap-1.5 text-[10px] text-white/50">
             <span>{t("musicVolume")}</span>
             <input
@@ -357,7 +462,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
           </button>
         </div>
       </header>
-      {hudPowerId && phase === "playing" && (
+      {hudPowerId && showHud && (
         <footer className="pointer-events-none absolute inset-x-0 bottom-0 pb-5 text-center">
           <p className="font-display text-sm font-semibold tracking-widest text-primary/90">
             {t(`powerUps.${hudPowerId}`)}

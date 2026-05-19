@@ -143,6 +143,7 @@
     "deathTrajectoryBroken": "Rata katkennut",
     "score": "Pisteet",
     "wave": "Aalto",
+    "round": "Kierros",
     "combo": "Combo",
     "lives": "Elämät",
     "highScore": "Ennätys",
@@ -153,7 +154,41 @@
     "mute": "Mykistä",
     "unmute": "Ääni päälle",
     "musicVolume": "Musiikki",
+    "visualQuality": "Grafiikka",
+    "visualAuto": "Auto",
+    "visualHigh": "Korkea",
+    "visualMedium": "Tasapaino",
+    "visualLow": "Nopea",
+    "visualOff": "Pois",
     "driftOverload": "DRIFT OVERLOAD",
+    "bossIncoming": "POMO SAAPUU",
+    "achievementUnlocked": "Saavutus avattu",
+    "runRecap": {
+      "title": "Yhteenveto",
+      "time": "Selviytyi",
+      "kills": "Tappoja",
+      "bestCombo": "Paras combo",
+      "nearMiss": "Läheltä piti -putki",
+      "bosses": "Pomot kaadettu"
+    },
+    "bosses": {
+      "driftColossus": "Drift Colossus",
+      "driftColossusIntro": "Valtava signaali estää reittisi."
+    },
+    "synergies": {
+      "laserWall": "Lasiseinä",
+      "bulletStorm": "Luotitempesti",
+      "greedLoop": "Ahne silmukka",
+      "fortress": "Linnoitus",
+      "orbitKing": "Orbit-kuningas"
+    },
+    "achievements": {
+      "firstBoss": "Ensimmäinen pomo",
+      "score10k": "10K pistettä",
+      "combo15": "Combo-mestari",
+      "nearMiss10": "Läheltä piti -kunkku",
+      "survive5min": "Selviytyjä"
+    },
     "powerUps": {
       "draftTitle": "Valitse päivitys",
       "draftHint": "Näppäimet 1 · 2 · 3",

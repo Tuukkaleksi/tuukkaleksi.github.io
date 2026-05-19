@@ -143,6 +143,7 @@
     "deathTrajectoryBroken": "Trajectory Broken",
     "score": "Score",
     "wave": "Wave",
+    "round": "Round",
     "combo": "Combo",
     "lives": "Lives",
     "highScore": "Best",
@@ -153,7 +154,41 @@
     "mute": "Mute",
     "unmute": "Sound on",
     "musicVolume": "Music",
+    "visualQuality": "Graphics",
+    "visualAuto": "Auto",
+    "visualHigh": "High",
+    "visualMedium": "Balanced",
+    "visualLow": "Fast",
+    "visualOff": "Off",
     "driftOverload": "DRIFT OVERLOAD",
+    "bossIncoming": "BOSS INCOMING",
+    "achievementUnlocked": "Achievement unlocked",
+    "runRecap": {
+      "title": "Run summary",
+      "time": "Survived",
+      "kills": "Kills",
+      "bestCombo": "Best combo",
+      "nearMiss": "Near-miss streak",
+      "bosses": "Bosses defeated"
+    },
+    "bosses": {
+      "driftColossus": "Drift Colossus",
+      "driftColossusIntro": "A massive signal blocks your path."
+    },
+    "synergies": {
+      "laserWall": "Laser wall",
+      "bulletStorm": "Bullet storm",
+      "greedLoop": "Greed loop",
+      "fortress": "Fortress",
+      "orbitKing": "Orbit king"
+    },
+    "achievements": {
+      "firstBoss": "First boss down",
+      "score10k": "10K scorer",
+      "combo15": "Combo master",
+      "nearMiss10": "Close call king",
+      "survive5min": "Survivor"
+    },
     "powerUps": {
       "draftTitle": "Choose an upgrade",
       "draftHint": "Keys 1 · 2 · 3",

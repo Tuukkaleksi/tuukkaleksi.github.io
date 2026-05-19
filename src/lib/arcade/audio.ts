@@ -260,6 +260,12 @@ export class ArcadeAudio {
   /** Overclock is gameplay-only — music stays clean at normal speed/volume. */
   setOverclock(_on: boolean) {}
 
+  bossDefeated() {
+    this.tone(330, 0.08, "sine", 0.12);
+    setTimeout(() => this.tone(660, 0.12, "sine", 0.14), 60);
+    setTimeout(() => this.tone(990, 0.15, "triangle", 0.1), 140);
+  }
+
   gameOver() {
     this.applyDeathLowPass();
     this.tone(180, 0.4, "triangle", 0.1, -120);

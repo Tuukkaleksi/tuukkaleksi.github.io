@@ -1,10 +1,26 @@
 export type Vec2 = { x: number; y: number };
 
-export type EnemyKind = "drifter" | "stalker" | "splitter";
+export type EnemyKind =
+  | "drifter"
+  | "stalker"
+  | "splitter"
+  | "orbiter"
+  | "sniper"
+  | "swarmer"
+  | "tank";
+
+export type BossId = "driftColossus";
 
 export type ParticleKind = "spark" | "trail" | "glow" | "gem" | "explosion" | "shatter";
 
-export type GamePhase = "ready" | "playing" | "paused" | "draft" | "gameover";
+export type GamePhase =
+  | "ready"
+  | "playing"
+  | "paused"
+  | "draft"
+  | "bossIntro"
+  | "bossFight"
+  | "gameover";
 
 export type InputState = {
   left: boolean;
@@ -34,3 +50,13 @@ export type StarLayer = {
 };
 
 export type TrailPoint = { x: number; y: number; life: number };
+
+export type RunStats = {
+  kills: number;
+  timeSurvived: number;
+  bestCombo: number;
+  nearMissStreak: number;
+  bestNearMissStreak: number;
+  picks: string[];
+  bossesDefeated: number;
+};
