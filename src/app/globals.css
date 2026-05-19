@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f6f9;
+  --foreground: #272829;
+  --surface: #ffffff;
+  --surface-muted: #eef1f6;
+  --primary: #0563bb;
+  --primary-hover: #0456a5;
+  --secondary: #45505b;
+  --border: #dde3ec;
+  --hero-overlay: rgba(39, 40, 41, 0.88);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-border: var(--border);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 25%, white);
+}
+
+.section-padding {
+  @apply px-4 py-20 sm:px-6 lg:px-8 lg:py-24;
+}
+
+.section-card {
+  @apply rounded-2xl border border-border bg-surface shadow-sm;
+}
+
+.prose-link {
+  @apply font-medium text-primary underline-offset-4 hover:text-primary-hover hover:underline;
+}
