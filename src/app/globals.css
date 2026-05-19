@@ -78,3 +78,108 @@ body {
 .hero-gradient {
   background: radial-gradient(ellipse at top, var(--hero-gradient), transparent 55%);
 }
+
+/* Hidden arcade easter-egg trigger */
+@keyframes arcade-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes arcade-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    box-shadow: 0 0 0 transparent;
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--primary) 50%, transparent);
+  }
+}
+
+@keyframes arcade-glitch {
+  0%,
+  88%,
+  100% {
+    transform: translate(0);
+    opacity: 0.28;
+    clip-path: inset(0 0 0 0);
+  }
+  90% {
+    transform: translate(-2px, 1px);
+    opacity: 0.55;
+    clip-path: inset(12% 0 58% 0);
+  }
+  92% {
+    transform: translate(2px, -1px);
+    opacity: 0.5;
+    clip-path: inset(62% 0 8% 0);
+  }
+  94% {
+    transform: translate(-1px, 0);
+    opacity: 0.45;
+    clip-path: inset(38% 0 32% 0);
+  }
+}
+
+.arcade-trigger {
+  animation: arcade-glitch 4.5s infinite;
+}
+
+.arcade-trigger:hover,
+.arcade-trigger:focus-visible {
+  animation: none;
+  opacity: 1;
+}
+
+.arcade-trigger-icon {
+  animation: arcade-float 3.2s ease-in-out infinite;
+}
+
+.arcade-trigger:hover .arcade-trigger-icon,
+.arcade-trigger:focus-visible .arcade-trigger-icon {
+  animation: arcade-float 1.6s ease-in-out infinite, arcade-glow-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes score-pop {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.28);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.arcade-score-pop {
+  animation: score-pop 0.35s ease-out;
+}
+
+@keyframes arcade-overload-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  12% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+
+.arcade-overload-flash {
+  animation: arcade-overload-flash 2.4s ease-out forwards;
+}
