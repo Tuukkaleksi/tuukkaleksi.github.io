@@ -2,7 +2,7 @@
 
 Personal portfolio and project showcase for **Tuukka Pitkänen**, software developer based in Oulu, Finland. The site presents background, skills, résumé, and selected work in a single-page layout with dedicated project detail pages.
 
-**Live site:** Coming Soon
+**Live site:** [Portfolio](https://tuukkaleksi-github-io.vercel.app/)
 
 ---
 
