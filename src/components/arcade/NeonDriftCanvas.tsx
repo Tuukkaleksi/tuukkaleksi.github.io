@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArcadeAudio } from "@/lib/arcade/audio";
+import { useArcadeAudio } from "@/components/arcade/NeonDriftAudioProvider";
+import type { ArcadeAudio } from "@/lib/arcade/audio";
 import { pickDeathMessageKey, type DeathMessageKey } from "@/lib/arcade/death-messages";
 import { NeonDriftGame, type GameStats } from "@/lib/arcade";
 import type { PowerUpId } from "@/lib/arcade/power-ups";
@@ -43,9 +44,11 @@ type NeonDriftCanvasProps = {
 
 export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
   const t = useTranslations("arcade");
+  const hubAudio = useArcadeAudio();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<NeonDriftGame | null>(null);
   const audioRef = useRef<ArcadeAudio | null>(null);
+  audioRef.current = hubAudio;
   const onCloseRef = useRef(onClose);
   const visualQualityRef = useRef<VisualQuality>("auto");
   const mountedRef = useRef(false);
@@ -235,6 +238,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     setRunSession(session);
     gameRef.current?.setVisualQuality(visualQualityRef.current);
     gameRef.current?.start();
+    await audio?.playRunMusic();
   }, [fetchRunSession]);
 
   beginRunRef.current = beginRun;
@@ -326,10 +330,9 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     if (!active || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    const audio = new ArcadeAudio();
-    audioRef.current = audio;
+    const audio = hubAudio;
     audio.preloadMusic();
-    void audio.resume().then(() => audio.playMenuMusic());
+    void audio.resume();
     setMusicVolume(audio.getMusicVolume());
 
     const game = new NeonDriftGame(canvas, readThemeColors(), audio, {
@@ -373,8 +376,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
       canvas.removeEventListener("pointerenter", onPointerAim);
       canvas.removeEventListener("pointerleave", onPointerLeave);
       canvas.removeEventListener("pointercancel", onPointerLeave);
-      audio.dispose();
-      audioRef.current = null;
+      audio.releaseFromGame();
       game.destroy();
       gameRef.current = null;
       if (mountedRef.current) {
@@ -382,7 +384,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
         setStats(null);
       }
     };
-  }, [active, bindKeys]);
+  }, [active, bindKeys, hubAudio]);
 
   useEffect(() => {
     if (!active || !ACTIVE_PHASES.includes(phase)) return;

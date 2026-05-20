@@ -242,7 +242,7 @@ export class NeonDriftGame {
     this.world.player.y = this.world.h / 2;
     this.world.phase = "playing";
     this.world.audio.start();
-    void this.world.audio.playRunMusic();
+    void this.world.audio.playRunMusic().catch(() => {});
     this.emit();
   }
 
@@ -323,7 +323,6 @@ export class NeonDriftGame {
     this.raf = 0;
     if (this.idleTimer) window.clearTimeout(this.idleTimer);
     this.idleTimer = 0;
-    this.world.audio.stopAllMusic();
     this.renderer.destroy();
   }
 

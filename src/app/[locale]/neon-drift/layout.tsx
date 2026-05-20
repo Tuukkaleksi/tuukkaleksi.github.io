@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NeonDriftAudioProvider } from "@/components/arcade/NeonDriftAudioProvider";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 type LayoutProps = {
@@ -21,7 +22,7 @@ export default async function NeonDriftLayout({ children, params }: LayoutProps)
 
   return (
     <div className="dark fixed inset-0 z-[90] flex h-dvh flex-col overflow-hidden bg-[#0a0b0d]">
-      {children}
+      <NeonDriftAudioProvider>{children}</NeonDriftAudioProvider>
     </div>
   );
 }
