@@ -38,7 +38,11 @@ export const BOSS_DEFS: Record<BossId, BossDef> = {
   },
 };
 
-export function pickEnemyKind(wave: number, round: number): EnemyKind {
+export function pickEnemyKind(
+  wave: number,
+  round: number,
+  rng: () => number = Math.random,
+): EnemyKind {
   const pool: { kind: EnemyKind; w: number }[] = [];
   for (const [kind, def] of Object.entries(ENEMY_DEFS) as [EnemyKind, EnemyDef][]) {
     if (wave >= def.minWave) {
@@ -47,7 +51,7 @@ export function pickEnemyKind(wave: number, round: number): EnemyKind {
     }
   }
   if (pool.length === 0) return "drifter";
-  let roll = Math.random() * pool.reduce((s, p) => s + p.w, 0);
+  let roll = rng() * pool.reduce((s, p) => s + p.w, 0);
   for (const p of pool) {
     roll -= p.w;
     if (roll <= 0) return p.kind;

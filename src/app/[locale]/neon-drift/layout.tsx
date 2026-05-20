@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "arcade.shell" });
   return {
-    title: t("title"),
+    title: { absolute: t("title") },
     robots: { index: false, follow: true },
   };
 }
@@ -20,6 +20,8 @@ export default async function NeonDriftLayout({ children, params }: LayoutProps)
   setRequestLocale(locale);
 
   return (
-    <div className="dark fixed inset-0 z-[90] flex flex-col bg-[#0a0b0d]">{children}</div>
+    <div className="dark fixed inset-0 z-[90] flex h-dvh flex-col overflow-hidden bg-[#0a0b0d]">
+      {children}
+    </div>
   );
 }

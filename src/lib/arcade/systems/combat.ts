@@ -43,21 +43,21 @@ export function damageEnemy(
   }
   world.shake = 0.08 + world.audio.getBassEnergy() * 0.08;
   hooks.onKill();
-  if (Math.random() < 0.55) {
+  if (world.roll() < 0.55) {
     world.gems.push({ x: e.x, y: e.y, vx: 0, vy: 0, magnet: false });
   }
-  if (Math.random() < 0.04 + world.wave * 0.003) {
+  if (world.roll() < 0.04 + world.wave * 0.003) {
     world.gems.push({ x: e.x, y: e.y, vx: 0, vy: 0, magnet: false, risk: true });
   }
   onEnemyKilledSplit(world, e);
-  if (Math.random() < 0.07 + world.wave * 0.004) {
+  if (world.roll() < 0.07 + world.wave * 0.004) {
     world.powerUps.push({
       x: e.x,
       y: e.y,
       vx: 0,
       vy: 0,
       kind: rollPickupKind(),
-      spin: Math.random() * Math.PI * 2,
+      spin: world.roll() * Math.PI * 2,
     });
   }
 }

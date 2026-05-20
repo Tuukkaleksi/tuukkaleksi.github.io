@@ -215,7 +215,8 @@
       "kills": "Kills",
       "bestCombo": "Best combo",
       "nearMiss": "Near-miss streak",
-      "bosses": "Bosses defeated"
+      "bosses": "Bosses defeated",
+      "berserk": "Berserk activations"
     },
     "bosses": {
       "driftColossus": "Drift Colossus",
@@ -249,6 +250,7 @@
       "leaderboardSubmitPaused": "New entries are paused until sign-in is available. Scores on this device are still tracked locally.",
       "soon": "Soon",
       "localBest": "Local best",
+      "dailyChallenge": "Daily seed",
       "controls": "WASD move · Mouse aim · Shift dash · Pause P/Esc",
       "back": "Back",
       "leaderboardEyebrow": "Global signal",
@@ -259,6 +261,84 @@
       "shopTitle": "Supply depot",
       "shopSoon": "Upgrades and cosmetics are coming in a future patch."
     },
+    "shop": {
+      "eyebrow": "Supply depot",
+      "title": "Pilot loadout",
+      "description": "Browse every cosmetic, preview loadouts, and equip owned gear. Purchases require a pilot account — no gameplay stats for sale.",
+      "depotName": "NEON DRIFT",
+      "depotTag": "Supply depot",
+      "navLabel": "Depot navigation",
+      "sidebarHint": "Cosmetics only · same rules for every pilot",
+      "browseOnly": "Browse freely —",
+      "signInCta": "sign in to purchase",
+      "localOnly": "Owned items equip on this device until cloud sync ships.",
+      "equip": "Equip",
+      "equipped": "Equipped",
+      "locked": "Locked",
+      "starter": "Starter",
+      "credits": "CR",
+      "purchase": "Purchase",
+      "purchaseSignIn": "Sign in to purchase",
+      "itemsCount": "items",
+      "dismiss": "Dismiss",
+      "backToArcade": "Back to Neon Drift",
+      "nav": {
+        "cosmetics": "Cosmetics",
+        "terminal": "Terminal",
+        "play": "Launch game",
+        "leaderboard": "Leaderboard",
+        "signIn": "Sign in",
+        "signedIn": "Pilot signed in",
+        "register": "Register"
+      },
+      "rarity": {
+        "common": "Common",
+        "rare": "Rare",
+        "epic": "Epic"
+      },
+      "notices": {
+        "signInRequired": "Create or sign in to a pilot account before purchasing.",
+        "purchaseSuccess": "Item unlocked — equip it from your loadout.",
+        "purchaseFailed": "Purchase could not be completed."
+      },
+      "categories": {
+        "skin": "Ship skins",
+        "trail": "Trails",
+        "grid": "Grid themes",
+        "deathFx": "Death effects",
+        "berserkFx": "Berserk variants"
+      },
+      "items": {
+        "skinDefault": "Stock hull",
+        "skinDefaultDesc": "Factory neon frame — balanced and clean.",
+        "skinNeonBlue": "Neon blue",
+        "skinNeonBlueDesc": "Ice-cyan plating with a cold cockpit glow.",
+        "skinSynthPink": "Synthwave pink",
+        "skinSynthPinkDesc": "Hot magenta panels tuned for sunset grids.",
+        "skinVoidBlack": "Void black",
+        "skinVoidBlackDesc": "Matte stealth shell that drinks starlight.",
+        "trailDefault": "Standard glow",
+        "trailDefaultDesc": "Soft ion wake — the classic drift read.",
+        "trailLightning": "Lightning trail",
+        "trailLightningDesc": "Staccato arcs that snap on bass hits.",
+        "trailVapor": "Vaporwave trail",
+        "trailVaporDesc": "Wide pastel smear with lazy chroma tails.",
+        "gridDefault": "Cyber grid",
+        "gridDefaultDesc": "Deep blue lattice — the default runway.",
+        "gridSynthwave": "Retro synthwave",
+        "gridSynthwaveDesc": "Pink horizon lines and 80s haze.",
+        "gridMatrix": "Matrix green",
+        "gridMatrixDesc": "Terminal green mesh with digital rain energy.",
+        "deathDefault": "Neon burst",
+        "deathDefaultDesc": "Classic starburst when your run ends.",
+        "deathGlitch": "Glitch collapse",
+        "deathGlitchDesc": "Datamosh implosion with chroma shards.",
+        "berserkDefault": "Red overload",
+        "berserkDefaultDesc": "Crimson rim and vignette when berserk triggers.",
+        "berserkOverload": "Rainbow meltdown",
+        "berserkOverloadDesc": "Full-spectrum pulse for maximum sensory overload."
+      }
+    },
     "shell": {
       "title": "Neon Drift",
       "back": "Back"
@@ -267,19 +347,19 @@
       "shop": {
         "eyebrow": "Supply depot",
         "title": "Shop",
-        "description": "Spend drift credits on upgrades, skins, and loadout modifiers. The depot opens in a future update.",
-        "badge": "Coming soon"
+        "description": "Cosmetics-only depot — equip loadout flair without changing gameplay balance.",
+        "badge": "Open depot"
       },
       "signin": {
         "eyebrow": "Pilot access",
         "title": "Sign in",
-        "description": "Link your pilot profile to sync progress and appear on seasonal boards. Authentication is not live yet.",
+        "description": "Online sync and seasonal boards are coming soon. Cosmetics and scores already work locally on this device.",
         "badge": "Coming soon"
       },
       "register": {
         "eyebrow": "New pilot",
         "title": "Register",
-        "description": "Create a callsign and join the global drift network. Registration opens in a future update.",
+        "description": "Create a callsign when the drift network opens. Until then, equip cosmetics from the shop and chase the daily seed.",
         "badge": "Coming soon"
       }
     },

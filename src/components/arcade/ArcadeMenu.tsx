@@ -18,9 +18,10 @@ const NAV_LINKS: NavLink[] = [
 type ArcadeMenuProps = {
   onPlay: () => void;
   highScore: number;
+  dailySeed?: number;
 };
 
-export function ArcadeMenu({ onPlay, highScore }: ArcadeMenuProps) {
+export function ArcadeMenu({ onPlay, highScore, dailySeed }: ArcadeMenuProps) {
   const t = useTranslations("arcade.menu");
 
   return (
@@ -70,6 +71,12 @@ export function ArcadeMenu({ onPlay, highScore }: ArcadeMenuProps) {
             <span className="font-semibold tabular-nums text-primary/90">
               {highScore.toLocaleString()}
             </span>
+          </p>
+        )}
+        {dailySeed != null && dailySeed > 0 && (
+          <p className="mt-2 text-[11px] text-sky-400/50">
+            {t("dailyChallenge")}:{" "}
+            <span className="font-mono tabular-nums text-sky-300/70">{dailySeed}</span>
           </p>
         )}
         <p className="mt-3 text-[11px] text-white/30">{t("controls")}</p>

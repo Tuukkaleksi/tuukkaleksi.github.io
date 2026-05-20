@@ -1,5 +1,7 @@
 import type { ArcadeAudio } from "@/lib/arcade/audio";
 import type { BeatClock } from "@/lib/arcade/beat";
+import { loadCosmeticProfile, type EquippedCosmetics } from "@/lib/arcade/cosmetics";
+import { combineSeed, mulberry32 } from "@/lib/arcade/rng";
 import type {
   Bullet,
   Enemy,
@@ -28,6 +30,7 @@ export function emptyRunStats(): RunStats {
     bestNearMissStreak: 0,
     picks: [],
     bossesDefeated: 0,
+    berserkActivations: 0,
   };
 }
 
@@ -77,6 +80,9 @@ export class GameWorld {
   overloadFlash = 0;
   hitSlowTimer = 0;
   bgHue = 220;
+  glowHue = 220;
+  glowHueOffset = 0;
+  berserkFlash = 0;
   bossActive = false;
   bossIntroTimer = 0;
   pendingBossId: BossId | null = null;
@@ -86,6 +92,10 @@ export class GameWorld {
   nearMissStreak = 0;
   runStats = emptyRunStats();
   dailySeed = 0;
+  runNonce = 0;
+  dailyMode = true;
+  equipped: EquippedCosmetics = loadCosmeticProfile().equipped;
+  private rngFn: () => number = Math.random;
 
   colors: ThemeColors;
   audio: ArcadeAudio;
@@ -95,6 +105,21 @@ export class GameWorld {
     this.colors = colors;
     this.audio = audio;
     this.beat = beat;
+    this.equipped = loadCosmeticProfile().equipped;
+  }
+
+  /** Seeded during runs when dailyMode is on; otherwise Math.random. */
+  roll() {
+    return this.rngFn();
+  }
+
+  initRunRng() {
+    this.equipped = loadCosmeticProfile().equipped;
+    if (this.dailyMode) {
+      this.rngFn = mulberry32(combineSeed(this.dailySeed, this.runNonce));
+    } else {
+      this.rngFn = Math.random;
+    }
   }
 
   clearEntities() {
@@ -111,6 +136,9 @@ export class GameWorld {
     this.overloadFlash = 0;
     this.hitSlowTimer = 0;
     this.bgHue = 220;
+    this.glowHue = 220;
+    this.glowHueOffset = 0;
+    this.berserkFlash = 0;
     this.bossActive = false;
     this.bossIntroTimer = 0;
     this.pendingBossId = null;

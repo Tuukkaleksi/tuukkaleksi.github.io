@@ -20,6 +20,9 @@ export function RunRecap({ stats, variant = "default" }: RunRecapProps) {
     ...(r.bossesDefeated > 0
       ? [{ label: t("bosses"), value: String(r.bossesDefeated) }]
       : []),
+    ...(r.berserkActivations > 0
+      ? [{ label: t("berserk"), value: String(r.berserkActivations) }]
+      : []),
   ];
 
   if (variant === "panel") {

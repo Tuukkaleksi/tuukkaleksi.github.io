@@ -215,7 +215,8 @@
       "kills": "Tappoja",
       "bestCombo": "Paras combo",
       "nearMiss": "Läheltä piti -putki",
-      "bosses": "Pomot kaadettu"
+      "bosses": "Pomot kaadettu",
+      "berserk": "Berserk-aktivoinnit"
     },
     "bosses": {
       "driftColossus": "Drift Colossus",
@@ -249,6 +250,7 @@
       "leaderboardSubmitPaused": "Uusia tuloksia ei voi vielä lähettää — kirjautuminen tulossa. Oma ennätys tallentuu laitteelle.",
       "soon": "Tulossa",
       "localBest": "Paikallinen ennätys",
+      "dailyChallenge": "Päivän siemen",
       "controls": "WASD liiku · Hiiri tähtää · Shift dash · Tauko P/Esc",
       "back": "Takaisin",
       "leaderboardEyebrow": "Globaali signaali",
@@ -259,6 +261,84 @@
       "shopTitle": "Varasto",
       "shopSoon": "Päivitykset ja kosmetiikka tulossa myöhemmin."
     },
+    "shop": {
+      "eyebrow": "Varasto",
+      "title": "Pilottivarustus",
+      "description": "Selaa kaikkea kosmetiikkaa, esikatsele loadoutit ja varusta omistamasi. Ostot vaativat pilottitilin — ei pelietuja myynnissä.",
+      "depotName": "NEON DRIFT",
+      "depotTag": "Varasto",
+      "navLabel": "Varaston navigointi",
+      "sidebarHint": "Vain kosmetiikkaa · samat säännöt kaikille",
+      "browseOnly": "Selaa vapaasti —",
+      "signInCta": "kirjaudu ostaaksesi",
+      "localOnly": "Omistetut varusteet tälle laitteelle, kunnes pilvisynkronointi on käytössä.",
+      "equip": "Varusta",
+      "equipped": "Varustettu",
+      "locked": "Lukittu",
+      "starter": "Aloitus",
+      "credits": "KR",
+      "purchase": "Osta",
+      "purchaseSignIn": "Kirjaudu ostaaksesi",
+      "itemsCount": "tuotetta",
+      "dismiss": "Sulje",
+      "backToArcade": "Takaisin Neon Driftiin",
+      "nav": {
+        "cosmetics": "Kosmetiikka",
+        "terminal": "Terminaali",
+        "play": "Käynnistä peli",
+        "leaderboard": "Tulostaulu",
+        "signIn": "Kirjaudu",
+        "signedIn": "Pilotti kirjautunut",
+        "register": "Rekisteröidy"
+      },
+      "rarity": {
+        "common": "Yleinen",
+        "rare": "Harvinainen",
+        "epic": "Eeppinen"
+      },
+      "notices": {
+        "signInRequired": "Luo tai kirjaudu pilottitilille ennen ostoa.",
+        "purchaseSuccess": "Tuote avattu — varusta se loadoutista.",
+        "purchaseFailed": "Ostoa ei voitu suorittaa."
+      },
+      "categories": {
+        "skin": "Alukset",
+        "trail": "Jäljet",
+        "grid": "Ruudukot",
+        "deathFx": "Tuhotehosteet",
+        "berserkFx": "Berserk-tyylit"
+      },
+      "items": {
+        "skinDefault": "Vakio",
+        "skinDefaultDesc": "Tehtaan neonrunko — tasapainoinen ja selkeä.",
+        "skinNeonBlue": "Neon sininen",
+        "skinNeonBlueDesc": "Jääsyaaninen panssari ja kylmä ohjaamovalo.",
+        "skinSynthPink": "Synthwave pinkki",
+        "skinSynthPinkDesc": "Kuuma magenta paneelit auringonlaskuruudukkoihin.",
+        "skinVoidBlack": "Tyhjyys musta",
+        "skinVoidBlackDesc": "Mattapintainen kuori, joka nielee tähtivalon.",
+        "trailDefault": "Perus hehku",
+        "trailDefaultDesc": "Pehmeä ionijälki — klassinen drift-luku.",
+        "trailLightning": "Salamajälki",
+        "trailLightningDesc": "Iskeviä kaaria bassoiskuissa.",
+        "trailVapor": "Vaporwave-jälki",
+        "trailVaporDesc": "Leveä pastelliviiru ja laiska kromahäntä.",
+        "gridDefault": "Kyberruudukko",
+        "gridDefaultDesc": "Syvä sininen verkko — oletuskiitorata.",
+        "gridSynthwave": "Retro synthwave",
+        "gridSynthwaveDesc": "Pinkit horisonttiviivat ja 80-luvun sumu.",
+        "gridMatrix": "Matrix vihreä",
+        "gridMatrixDesc": "Terminaalin vihreä verkko ja digitisade-energia.",
+        "deathDefault": "Neon räjähdys",
+        "deathDefaultDesc": "Klassinen tähtipurske kun juoksu päättyy.",
+        "deathGlitch": "Glitch-tuho",
+        "deathGlitchDesc": "Datamosh-romahdus ja kromasirpaleet.",
+        "berserkDefault": "Punainen ylikuorma",
+        "berserkDefaultDesc": "Karmiinin reuna ja vignetti berserkissä.",
+        "berserkOverload": "Sateenkaari-meltdown",
+        "berserkOverloadDesc": "Täysi spektri maksimaaliseen aistiylikuormaan."
+      }
+    },
     "shell": {
       "title": "Neon Drift",
       "back": "Takaisin"
@@ -267,19 +347,19 @@
       "shop": {
         "eyebrow": "Varasto",
         "title": "Kauppa",
-        "description": "Käytä drift-krediittejä päivityksiin, ulkoasuun ja varustemuutoksiin. Varasto avautuu myöhemmin.",
-        "badge": "Tulossa"
+        "description": "Vain kosmetiikkaa — ulkoasu ilman pelitasapainon muutoksia.",
+        "badge": "Avaa varasto"
       },
       "signin": {
         "eyebrow": "Pääsy",
         "title": "Kirjaudu",
-        "description": "Yhdistä pilottiprofiilisi synkronoidaksesi edistymisen. Kirjautuminen ei ole vielä käytössä.",
+        "description": "Synkronointi ja kausilistat tulossa. Kosmetiikka ja pisteet toimivat jo paikallisesti tällä laitteella.",
         "badge": "Tulossa"
       },
       "register": {
         "eyebrow": "Uusi pilotti",
         "title": "Rekisteröidy",
-        "description": "Luo tunnus ja liity globaaliin drift-verkkoon. Rekisteröityminen avautuu myöhemmin.",
+        "description": "Luo tunnus, kun drift-verkko avautuu. Siihen asti varusta ulkoasu kaupasta ja aja päivän siementä.",
         "badge": "Tulossa"
       }
     },

@@ -59,4 +59,5 @@ export type RunStats = {
   bestNearMissStreak: number;
   picks: string[];
   bossesDefeated: number;
+  berserkActivations: number;
 };

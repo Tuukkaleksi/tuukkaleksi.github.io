@@ -245,6 +245,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     setDraftChoices([]);
     setBossLabel(null);
     gameRef.current?.resetWorld();
+    void audioRef.current?.playMenuMusic();
   }, []);
 
   const handleClose = useCallback(() => {
@@ -328,6 +329,7 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
     const audio = new ArcadeAudio();
     audioRef.current = audio;
     audio.preloadMusic();
+    void audio.resume().then(() => audio.playMenuMusic());
     setMusicVolume(audio.getMusicVolume());
 
     const game = new NeonDriftGame(canvas, readThemeColors(), audio, {
@@ -415,7 +417,11 @@ export function NeonDriftCanvas({ active, onClose }: NeonDriftCanvasProps) {
 
   if (phase === "ready") {
     overlay = (
-      <ArcadeMenu onPlay={() => void beginRun()} highScore={stats?.highScore ?? 0} />
+      <ArcadeMenu
+        onPlay={() => void beginRun()}
+        highScore={stats?.highScore ?? 0}
+        dailySeed={gameRef.current?.getDailySeed()}
+      />
     );
   } else if (phase === "draft") {
     overlay = (

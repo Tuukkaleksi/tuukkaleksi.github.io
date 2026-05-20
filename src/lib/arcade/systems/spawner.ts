@@ -12,10 +12,10 @@ export function updateSpawner(world: GameWorld, dt: number) {
   }
 
   const base = spawnIntervalBase(world.wave, world.overloadTier, world.round);
-  world.spawnCd = base * (0.55 + Math.random() * 0.5);
+  world.spawnCd = base * (0.55 + world.roll() * 0.5);
 
   let count = 1;
-  if (world.overloadTier >= 1 && Math.random() < 0.4 + world.overloadTier * 0.12) count += 1;
-  if (world.overloadTier >= 2 && Math.random() < 0.25) count += 1;
+  if (world.overloadTier >= 1 && world.roll() < 0.4 + world.overloadTier * 0.12) count += 1;
+  if (world.overloadTier >= 2 && world.roll() < 0.25) count += 1;
   for (let i = 0; i < count; i++) spawnFromEdge(world);
 }

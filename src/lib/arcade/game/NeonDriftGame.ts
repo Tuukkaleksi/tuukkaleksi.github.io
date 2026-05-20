@@ -23,6 +23,7 @@ import {
   tickPowerTimers,
 } from "@/lib/arcade/systems/powers";
 import { updateDrones, updatePlayer } from "@/lib/arcade/systems/player";
+import { updateAmbience } from "@/lib/arcade/systems/ambience";
 import { updateSpawner } from "@/lib/arcade/systems/spawner";
 import type { GamePhase, InputState, StarLayer, ThemeColors } from "@/lib/arcade/types";
 
@@ -60,7 +61,7 @@ export class NeonDriftGame {
     if (!ctx) throw new Error("Canvas 2D unavailable");
     this.ctx = ctx;
     this.cb = callbacks;
-    const beat = new BeatClock(128, () => audio.getMusicTime());
+    const beat = new BeatClock(audio.getRunBpm(), () => audio.getMusicTime());
     this.world = new GameWorld(colors, audio, beat);
     this.renderer = new Renderer();
     this.highScore = Number(localStorage.getItem(HIGH_SCORE_KEY) ?? 0) || 0;
@@ -121,6 +122,10 @@ export class NeonDriftGame {
 
   getDraftChoices(): PowerUpId[] {
     return this.world.draftChoices;
+  }
+
+  getDailySeed() {
+    return dailySeedFromDate();
   }
 
   pickDraft(index: number) {
@@ -205,6 +210,7 @@ export class NeonDriftGame {
     this.world.runStats = emptyRunStats();
     this.world.nearMissStreak = 0;
     this.acc = 0;
+    void this.world.audio.playMenuMusic();
     this.emit();
   }
 
@@ -230,18 +236,20 @@ export class NeonDriftGame {
     this.world.bossWaveTriggered = 0;
     this.world.runStats = emptyRunStats();
     this.world.dailySeed = dailySeedFromDate();
+    this.world.runNonce += 1;
+    this.world.initRunRng();
     this.world.player.x = this.world.w / 2;
     this.world.player.y = this.world.h / 2;
     this.world.phase = "playing";
     this.world.audio.start();
-    void this.world.audio.playMusic();
+    void this.world.audio.playRunMusic();
     this.emit();
   }
 
   pause() {
     if (this.world.phase === "playing" || this.world.phase === "bossFight") {
       this.world.phase = "paused";
-      this.world.audio.pauseMusic();
+      this.world.audio.pauseRunMusic();
       this.emit();
     }
   }
@@ -250,7 +258,7 @@ export class NeonDriftGame {
     if (this.world.phase === "paused") {
       this.world.phase = this.world.bossActive ? "bossFight" : "playing";
       this.last = performance.now();
-      void this.world.audio.playMusic();
+      void this.world.audio.playRunMusic();
       this.emit();
     }
   }
@@ -315,7 +323,7 @@ export class NeonDriftGame {
     this.raf = 0;
     if (this.idleTimer) window.clearTimeout(this.idleTimer);
     this.idleTimer = 0;
-    this.world.audio.pauseMusic();
+    this.world.audio.stopAllMusic();
     this.renderer.destroy();
   }
 
@@ -445,6 +453,7 @@ export class NeonDriftGame {
     }
 
     if (w.phase === "playing" || w.phase === "bossFight") {
+      updateAmbience(w, dt);
       checkDraft(w, (choices) => {
         this.cb.onDraft?.(choices);
         this.emit();

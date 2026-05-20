@@ -114,7 +114,10 @@ export class Renderer {
     drawOverlays(ctx, world, primary, fg, showWorld, playing);
     ctx.restore();
 
-    return this.resolvedQuality === "off" ? 0 : 0.28 + pulse * 0.2 + bass * 0.12;
+    const berserk = world.powers.isBerserk() ? 1 : 0;
+    return this.resolvedQuality === "off"
+      ? 0
+      : 0.28 + pulse * 0.2 + bass * 0.12 + berserk * 0.14;
   }
 
   /**

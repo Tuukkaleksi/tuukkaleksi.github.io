@@ -1,22 +1,35 @@
-const MUSIC_URL = "/sound/drift-main-music.mp3";
-/** Replace with final assets when ready — synth fallback used if missing. */
+/** BPM for drift-main-music-2 — tune if the track differs. */
+export const RUN_BPM = 128;
+
+const MENU_MUSIC_URL = "/sound/neon-main-menu-song.mp3";
+const RUN_MUSIC_URL = "/sound/drift-main-music-2.mp3";
 const PLACEHOLDER_SHOOT = "/sound/placeholder-shoot.mp3";
 const PLACEHOLDER_EXPLOSION = "/sound/placeholder-explosion.mp3";
 const MUSIC_VOLUME_KEY = "neon-drift-music-vol";
 
-/** One shared element — browsers cap WebMediaPlayer count (~16). */
-let sharedMusicEl: HTMLAudioElement | null = null;
+type MusicMode = "menu" | "run" | "none";
 
-function getSharedMusicEl() {
+let sharedMenuEl: HTMLAudioElement | null = null;
+let sharedRunEl: HTMLAudioElement | null = null;
+
+function createTrack(url: string) {
+  const track = new Audio(url);
+  track.loop = true;
+  track.preload = "auto";
+  track.setAttribute("playsinline", "");
+  return track;
+}
+
+function getMenuEl() {
   if (typeof window === "undefined") return null;
-  if (!sharedMusicEl) {
-    const track = new Audio(MUSIC_URL);
-    track.loop = true;
-    track.preload = "auto";
-    track.setAttribute("playsinline", "");
-    sharedMusicEl = track;
-  }
-  return sharedMusicEl;
+  if (!sharedMenuEl) sharedMenuEl = createTrack(MENU_MUSIC_URL);
+  return sharedMenuEl;
+}
+
+function getRunEl() {
+  if (typeof window === "undefined") return null;
+  if (!sharedRunEl) sharedRunEl = createTrack(RUN_MUSIC_URL);
+  return sharedRunEl;
 }
 
 function clamp(v: number, min: number, max: number) {
@@ -31,10 +44,18 @@ export class ArcadeAudio {
   private disposed = false;
   private pendingTimers: number[] = [];
 
-  private musicEl: HTMLAudioElement | null = null;
+  private menuEl: HTMLAudioElement | null = null;
+  private runEl: HTMLAudioElement | null = null;
+  private mode: MusicMode = "none";
 
   private sfxBuffers = new Map<string, AudioBuffer>();
   private nearMissCd = 0;
+
+  private analyser: AnalyserNode | null = null;
+  private analyserData: Uint8Array | null = null;
+  private analyserReady = false;
+  private bassEnvelope = 0;
+  private sfxGainMul = 1;
 
   private scheduleTone(fn: () => void, delayMs: number) {
     const id = window.setTimeout(() => {
@@ -52,12 +73,18 @@ export class ArcadeAudio {
     }
   }
 
+  getRunBpm() {
+    return RUN_BPM;
+  }
+
   getMusicVolume() {
     return this.musicVolume;
   }
 
+  /** Playback time for beat sync — run track only. */
   getMusicTime() {
-    return this.musicEl?.currentTime ?? 0;
+    if (this.mode !== "run" || !this.runEl) return 0;
+    return this.runEl.currentTime;
   }
 
   setMusicVolume(v: number) {
@@ -66,8 +93,16 @@ export class ArcadeAudio {
     this.applyMusicVolume();
   }
 
+  private activeEl() {
+    if (this.mode === "run") return this.runEl;
+    if (this.mode === "menu") return this.menuEl;
+    return null;
+  }
+
   private applyMusicVolume() {
-    if (this.musicEl) this.musicEl.volume = this.muted ? 0 : this.musicVolume;
+    const vol = this.muted ? 0 : this.musicVolume;
+    if (this.menuEl) this.menuEl.volume = this.mode === "menu" ? vol : 0;
+    if (this.runEl) this.runEl.volume = this.mode === "run" ? vol : 0;
   }
 
   private ensure() {
@@ -82,6 +117,24 @@ export class ArcadeAudio {
     this.master.connect(this.ctx.destination);
     void this.preloadPlaceholders();
     return this.ctx;
+  }
+
+  private setupRunAnalyser() {
+    const ctx = this.ctx;
+    const run = this.runEl;
+    if (!ctx || !run || this.analyserReady) return;
+    try {
+      const source = ctx.createMediaElementSource(run);
+      this.analyser = ctx.createAnalyser();
+      this.analyser.fftSize = 512;
+      this.analyser.smoothingTimeConstant = 0.82;
+      this.analyserData = new Uint8Array(this.analyser.frequencyBinCount);
+      source.connect(this.analyser);
+      this.analyser.connect(ctx.destination);
+      this.analyserReady = true;
+    } catch {
+      /* element already routed — keep synthetic bass */
+    }
   }
 
   private async preloadPlaceholders() {
@@ -102,31 +155,29 @@ export class ArcadeAudio {
       const buf = await res.arrayBuffer();
       this.sfxBuffers.set(key, await ctx.decodeAudioData(buf));
     } catch {
-      /* placeholder missing — synth fallback */
+      /* synth fallback */
     }
   }
 
-  /** Call when the arcade opens so the track is ready on Start. */
   preloadMusic() {
-    const track = this.ensureMusic();
-    if (!track) return;
-    if (track.networkState === HTMLMediaElement.NETWORK_EMPTY) track.load();
+    const menu = getMenuEl();
+    const run = getRunEl();
+    this.menuEl = menu;
+    this.runEl = run;
+    if (menu?.networkState === HTMLMediaElement.NETWORK_EMPTY) menu.load();
+    if (run?.networkState === HTMLMediaElement.NETWORK_EMPTY) run.load();
   }
 
-  private ensureMusic() {
-    const track = getSharedMusicEl();
-    if (!track) return null;
-    this.musicEl = track;
-    return track;
-  }
-
-  /** Release Web Audio; pause shared music (element is reused). */
   dispose() {
     this.disposed = true;
     for (const id of this.pendingTimers) window.clearTimeout(id);
     this.pendingTimers = [];
-    this.stopMusic();
-    this.musicEl = null;
+    this.stopAllMusic();
+    this.menuEl = null;
+    this.runEl = null;
+    this.analyser = null;
+    this.analyserData = null;
+    this.analyserReady = false;
     if (this.ctx) {
       void this.ctx.close().catch(() => {});
       this.ctx = null;
@@ -135,7 +186,6 @@ export class ArcadeAudio {
     this.sfxBuffers.clear();
   }
 
-  /** Unlock Web Audio for SFX — call from a user gesture. */
   async resume() {
     const ctx = this.ensure();
     if (!ctx) return;
@@ -146,6 +196,9 @@ export class ArcadeAudio {
         /* needs gesture */
       }
     }
+    this.menuEl = getMenuEl();
+    this.runEl = getRunEl();
+    this.setupRunAnalyser();
   }
 
   private waitForMusicReady(track: HTMLAudioElement) {
@@ -167,42 +220,72 @@ export class ArcadeAudio {
     });
   }
 
-  async playMusic() {
-    const track = this.ensureMusic();
-    if (!track) return;
+  private async playTrack(track: HTMLAudioElement, url: string, mode: MusicMode) {
+    this.mode = mode;
     this.applyMusicVolume();
-
     try {
       await this.waitForMusicReady(track);
     } catch {
-      console.warn("[Neon Drift] Could not load music:", MUSIC_URL);
+      console.warn("[Neon Drift] Could not load music:", url);
       return;
     }
-
     void this.resume();
-
     try {
       if (track.paused) await track.play();
     } catch (err) {
-      console.warn("[Neon Drift] Music playback blocked — click Start again.", err);
+      console.warn("[Neon Drift] Music playback blocked.", err);
     }
   }
 
-  pauseMusic() {
-    this.musicEl?.pause();
+  async playMenuMusic() {
+    const track = getMenuEl();
+    if (!track) return;
+    this.menuEl = track;
+    this.runEl?.pause();
+    await this.playTrack(track, MENU_MUSIC_URL, "menu");
   }
 
-  stopMusic() {
-    if (!this.musicEl) return;
-    this.musicEl.pause();
-    this.musicEl.currentTime = 0;
-    this.musicEl.playbackRate = 1;
+  async playRunMusic() {
+    const track = getRunEl();
+    if (!track) return;
+    this.runEl = track;
+    this.menuEl?.pause();
+    await this.playTrack(track, RUN_MUSIC_URL, "run");
+  }
+
+  /** @deprecated Use playRunMusic — kept for game loop compatibility. */
+  async playMusic() {
+    return this.playRunMusic();
+  }
+
+  pauseRunMusic() {
+    this.runEl?.pause();
+  }
+
+  pauseMusic() {
+    this.pauseRunMusic();
+  }
+
+  stopRunMusic() {
+    if (!this.runEl) return;
+    this.runEl.pause();
+    this.runEl.currentTime = 0;
+    this.runEl.playbackRate = 1;
+    if (this.mode === "run") this.mode = "none";
+    this.applyMusicVolume();
+  }
+
+  stopAllMusic() {
+    this.menuEl?.pause();
+    this.stopRunMusic();
+    if (this.menuEl) this.menuEl.currentTime = 0;
+    this.mode = "none";
     this.applyMusicVolume();
   }
 
   setMuted(m: boolean) {
     this.muted = m;
-    if (this.master) this.master.gain.value = m ? 0 : 0.38;
+    if (this.master) this.master.gain.value = m ? 0 : 0.38 * this.sfxGainMul;
     this.applyMusicVolume();
   }
 
@@ -210,25 +293,51 @@ export class ArcadeAudio {
     return this.muted;
   }
 
-  /** 0–1 bass pulse synced to beat (stable — does not touch music playback). */
-  getBassEnergy(): number {
-    const t = this.musicEl?.currentTime ?? performance.now() / 1000;
-    const phase = (t * (128 / 60)) % 1;
+  private syntheticBass(): number {
+    const t =
+      this.mode === "run" && this.runEl
+        ? this.runEl.currentTime
+        : performance.now() / 1000;
+    const phase = (t * (RUN_BPM / 60)) % 1;
     return 0.22 + 0.5 * Math.max(0, 1 - phase * 3);
   }
 
-  /** Overload tiers — visuals only; never change music speed. */
+  private sampleAnalyserBass(): number {
+    const an = this.analyser;
+    const data = this.analyserData;
+    if (!an || !data || this.mode !== "run") return 0;
+    an.getByteFrequencyData(data as Uint8Array<ArrayBuffer>);
+    const hzPerBin = (this.ctx?.sampleRate ?? 44100) / 2 / data.length;
+    const maxBin = Math.min(data.length - 1, Math.floor(220 / hzPerBin));
+    let sum = 0;
+    for (let i = 0; i <= maxBin; i++) sum += data[i]!;
+    const raw = sum / ((maxBin + 1) * 255);
+    const target = clamp(raw * 2.2, 0, 1);
+    const attack = target > this.bassEnvelope ? 0.45 : 0.12;
+    this.bassEnvelope += (target - this.bassEnvelope) * attack;
+    return this.bassEnvelope;
+  }
+
+  /** 0–1 bass pulse — hybrid analyser + BPM fallback. */
+  getBassEnergy(): number {
+    const analysed = this.sampleAnalyserBass();
+    const synth = this.syntheticBass();
+    if (this.mode !== "run") return synth * 0.65;
+    return analysed > 0.04 ? analysed * 0.72 + synth * 0.28 : synth;
+  }
+
   setMusicIntensity(_tier: number) {
-    if (this.musicEl) this.musicEl.playbackRate = 1;
+    if (this.runEl) this.runEl.playbackRate = 1;
   }
 
   applyDeathLowPass() {
-    if (!this.musicEl) return;
-    this.musicEl.volume = (this.muted ? 0 : this.musicVolume) * 0.35;
+    if (!this.runEl || this.mode !== "run") return;
+    this.runEl.volume = (this.muted ? 0 : this.musicVolume) * 0.35;
   }
 
   tick(dt: number) {
     if (this.nearMissCd > 0) this.nearMissCd -= dt;
+    if (this.mode === "run") this.sampleAnalyserBass();
   }
 
   nearMiss() {
@@ -271,7 +380,9 @@ export class ArcadeAudio {
   }
 
   shoot() {
-    if (!this.playBuffer("shoot", 0.22)) this.tone(880, 0.04, "square", 0.1, -400);
+    if (!this.playBuffer("shoot", 0.22 * this.sfxGainMul)) {
+      this.tone(880, 0.04, "square", 0.1 * this.sfxGainMul, -400);
+    }
   }
 
   hit() {
@@ -280,7 +391,7 @@ export class ArcadeAudio {
 
   enemyDeath() {
     const bass = this.getBassEnergy();
-    if (!this.playBuffer("explosion", 0.26 + bass * 0.08, 0.95 + bass * 0.1)) {
+    if (!this.playBuffer("explosion", (0.26 + bass * 0.08) * this.sfxGainMul, 0.95 + bass * 0.1)) {
       this.tone(320, 0.08, "triangle", 0.14, 200);
     }
   }
@@ -293,11 +404,18 @@ export class ArcadeAudio {
     this.tone(440, 0.12, "sine", 0.09, 300);
   }
 
+  berserkStart() {
+    this.sfxGainMul = 1.12;
+    if (this.master && !this.muted) this.master.gain.value = 0.38 * this.sfxGainMul;
+    this.tone(220, 0.14, "sawtooth", 0.1, 80);
+    this.scheduleTone(() => this.tone(440, 0.1, "square", 0.08, 120), 70);
+    this.scheduleTone(() => this.tone(880, 0.08, "sine", 0.07, -60), 140);
+  }
+
   damage() {
     this.tone(90, 0.2, "sawtooth", 0.15, -40);
   }
 
-  /** Overclock is gameplay-only — music stays clean at normal speed/volume. */
   setOverclock(_on: boolean) {}
 
   bossDefeated() {
@@ -307,6 +425,8 @@ export class ArcadeAudio {
   }
 
   gameOver() {
+    this.sfxGainMul = 1;
+    if (this.master && !this.muted) this.master.gain.value = 0.38;
     this.applyDeathLowPass();
     this.tone(180, 0.4, "triangle", 0.1, -120);
   }

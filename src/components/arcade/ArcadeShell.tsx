@@ -6,10 +6,16 @@ import { Link } from "@/i18n/navigation";
 
 type ArcadeShellProps = {
   children: React.ReactNode;
+  /** Full-bleed pages (shop) supply their own chrome. */
+  bare?: boolean;
 };
 
-export function ArcadeShell({ children }: ArcadeShellProps) {
+export function ArcadeShell({ children, bare = false }: ArcadeShellProps) {
   const t = useTranslations("arcade.shell");
+
+  if (bare) {
+    return <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">{children}</div>;
+  }
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">

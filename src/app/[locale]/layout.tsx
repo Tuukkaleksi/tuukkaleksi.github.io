@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
     metadataBase: new URL(siteConfig.url),
     title: {
       default: t("title"),
-      template: `%s | ${t("name")}`,
+      template: "%s",
     },
     description: t("description"),
     alternates: {

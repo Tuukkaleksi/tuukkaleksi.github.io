@@ -14,7 +14,7 @@ export function spawnEnemyAt(
 ): Enemy | null {
   if (world.enemies.length >= MAX_ENEMIES) return null;
   const def = ENEMY_DEFS[kind];
-  const speed = (75 + wave * 12 + world.overloadTier * 8 + Math.random() * 25) * def.speedMul;
+  const speed = (75 + wave * 12 + world.overloadTier * 8 + world.roll() * 25) * def.speedMul;
   const e: Enemy = {
     x,
     y,
@@ -24,12 +24,12 @@ export function spawnEnemyAt(
     maxHp: def.hp,
     kind,
     r: def.radius,
-    wobble: Math.random() * Math.PI * 2,
+    wobble: world.roll() * Math.PI * 2,
     speed,
     nearMissed: false,
     isBoss: false,
-    aimCd: 0.5 + Math.random(),
-    orbitAngle: Math.random() * Math.PI * 2,
+    aimCd: 0.5 + world.roll(),
+    orbitAngle: world.roll() * Math.PI * 2,
     patternCd: 0,
     phase: 0,
   };
@@ -174,23 +174,23 @@ export function updateEnemies(world: GameWorld, dt: number) {
 
 export function spawnFromEdge(world: GameWorld) {
   const pad = 36;
-  const side = Math.floor(Math.random() * 4);
+  const side = Math.floor(world.roll() * 4);
   let x = 0;
   let y = 0;
   if (side === 0) {
-    x = pad + Math.random() * (world.w - pad * 2);
+    x = pad + world.roll() * (world.w - pad * 2);
     y = -pad;
   } else if (side === 1) {
     x = world.w + pad;
-    y = pad + Math.random() * (world.h - pad * 2);
+    y = pad + world.roll() * (world.h - pad * 2);
   } else if (side === 2) {
-    x = pad + Math.random() * (world.w - pad * 2);
+    x = pad + world.roll() * (world.w - pad * 2);
     y = world.h + pad;
   } else {
     x = -pad;
-    y = pad + Math.random() * (world.h - pad * 2);
+    y = pad + world.roll() * (world.h - pad * 2);
   }
-  const kind = pickEnemyKind(world.wave, world.round);
+  const kind = pickEnemyKind(world.wave, world.round, () => world.roll());
   spawnEnemyAt(world, x, y, kind, world.wave);
 }
 

@@ -53,6 +53,11 @@ export function applyPower(world: GameWorld, id: PowerUpId, addScore: (n: number
       break;
     case "berserk":
       p.berserk = 7;
+      world.runStats.berserkActivations += 1;
+      world.berserkFlash = 1.4;
+      world.shake = Math.max(world.shake, 0.28);
+      world.chroma = Math.max(world.chroma, 0.75);
+      world.audio.berserkStart();
       break;
     case "shield":
       p.shield = 10;

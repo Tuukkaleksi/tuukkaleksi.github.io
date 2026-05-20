@@ -1,7 +1,14 @@
+import { trailPalette } from "@/lib/arcade/cosmetics";
 import { drawPowerUpIcon } from "@/lib/arcade/power-ups";
 import type { GameWorld } from "@/lib/arcade/game/world";
 import { drawEnemy } from "@/lib/arcade/render/drawEnemy";
 import { clamp } from "@/lib/arcade/utils/math";
+
+function hexToRgb(hex: string) {
+  const h = hex.replace("#", "");
+  if (h.length < 6) return "59, 158, 255";
+  return `${parseInt(h.slice(0, 2), 16)}, ${parseInt(h.slice(2, 4), 16)}, ${parseInt(h.slice(4, 6), 16)}`;
+}
 
 export function drawWorldLayer(
   ctx: CanvasRenderingContext2D,
@@ -23,12 +30,15 @@ export function drawWorldLayer(
   }
 
   if (world.trails.length > 1) {
-    const trailGlow = 0.28 + bass * 0.22 + (world.powers.isBerserk() ? 0.2 : 0);
+    const trail = trailPalette(world.equipped.trail, primary);
+    const trailGlow =
+      (0.28 + bass * 0.22 + (world.powers.isBerserk() ? 0.2 : 0)) * trail.glow;
+    const trailRgb = hexToRgb(trail.core.startsWith("#") ? trail.core : primary);
     for (let i = 1; i < world.trails.length; i++) {
       const a = world.trails[i - 1]!;
       const b = world.trails[i]!;
       const t = b.life / 0.55;
-      ctx.strokeStyle = `rgba(59, 158, 255, ${t * trailGlow})`;
+      ctx.strokeStyle = `rgba(${trailRgb}, ${t * trailGlow})`;
       ctx.lineWidth = 2 + t * 8;
       ctx.lineCap = "round";
       ctx.globalCompositeOperation = "lighter";
@@ -147,6 +157,31 @@ export function drawOverlays(
     ctx.textAlign = "center";
     ctx.fillStyle = "#f0abfc";
     ctx.fillText("DRIFT OVERLOAD", world.w / 2, world.h * 0.2);
+    ctx.restore();
+  }
+
+  if (showWorld && world.powers.isBerserk()) {
+    const rim = 0.12 + Math.sin(performance.now() * 0.012) * 0.06;
+    const grad = ctx.createRadialGradient(
+      world.w / 2,
+      world.h / 2,
+      world.h * 0.35,
+      world.w / 2,
+      world.h / 2,
+      world.h * 0.72,
+    );
+    grad.addColorStop(0, "rgba(0,0,0,0)");
+    grad.addColorStop(1, `rgba(244, 63, 120, ${rim})`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, world.w, world.h);
+  }
+
+  if (showWorld && world.berserkFlash > 0) {
+    const a = clamp(world.berserkFlash, 0, 1) * 0.35;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.fillStyle = `rgba(255, 80, 160, ${a})`;
+    ctx.fillRect(0, 0, world.w, world.h);
     ctx.restore();
   }
 }

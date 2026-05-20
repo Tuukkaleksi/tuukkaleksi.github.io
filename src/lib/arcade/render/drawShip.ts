@@ -1,3 +1,4 @@
+import { skinPalette } from "@/lib/arcade/cosmetics";
 import type { GameWorld } from "@/lib/arcade/game/world";
 import type { GamePhase } from "@/lib/arcade/types";
 
@@ -22,11 +23,12 @@ export function drawShip(
   }
   if (!visible) return;
 
+  const skin = skinPalette(world.equipped.skin, primary, fg);
   const { x, y } = world.player;
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(world.playerAngle + Math.PI / 2);
-  ctx.fillStyle = primary;
+  ctx.fillStyle = skin.hull;
   ctx.beginPath();
   ctx.moveTo(0, -22);
   ctx.lineTo(18, 16);
@@ -34,7 +36,7 @@ export function drawShip(
   ctx.lineTo(-18, 16);
   ctx.closePath();
   ctx.fill();
-  ctx.fillStyle = fg;
+  ctx.fillStyle = skin.accent;
   ctx.globalAlpha = 0.85;
   ctx.beginPath();
   ctx.arc(0, 2, 4, 0, Math.PI * 2);
