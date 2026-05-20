@@ -4,7 +4,11 @@
     "title": "Tuukka Pitkänen — Portfolio",
     "description": "Portfolio of Tuukka Pitkänen: web development, React, programming projects, and collaboration details.",
     "location": "Oulu, Finland",
-    "typedRoles": ["Enthusiastic", "Designer", "Developer"]
+    "typedRoles": [
+      "Enthusiastic",
+      "Designer",
+      "Developer"
+    ]
   },
   "nav": {
     "hero": "Home",
@@ -34,10 +38,22 @@
     "role": "Web designer & developer",
     "tagline": "Energetic, social, self-taught, and attentive.",
     "facts": {
-      "birthYear": { "label": "Birth year", "value": "2000" },
-      "city": { "label": "City", "value": "Oulu, Finland" },
-      "age": { "label": "Age", "value": "25" },
-      "degree": { "label": "Degree", "value": "Business graduate — Software developer" }
+      "birthYear": {
+        "label": "Birth year",
+        "value": "2000"
+      },
+      "city": {
+        "label": "City",
+        "value": "Oulu, Finland"
+      },
+      "age": {
+        "label": "Age",
+        "value": "25"
+      },
+      "degree": {
+        "label": "Degree",
+        "value": "Business graduate — Software developer"
+      }
     },
     "paragraphs": [
       "I am a 25-year-old from Oulu with a strong passion for programming. My social skills and ability to listen help me understand people's needs and turn them into working digital solutions.",
@@ -78,12 +94,20 @@
       {
         "title": "Smarket Kemijärvi",
         "period": "2017 — 2018",
-        "details": ["Retail sales", "Customer service", "Stocking and cleaning shelves"]
+        "details": [
+          "Retail sales",
+          "Customer service",
+          "Stocking and cleaning shelves"
+        ]
       },
       {
         "title": "Lidl Kemijärvi",
         "period": "2022",
-        "details": ["Retail sales", "Customer service", "Stocking and cleaning shelves"]
+        "details": [
+          "Retail sales",
+          "Customer service",
+          "Stocking and cleaning shelves"
+        ]
       },
       {
         "title": "Client project — Website",
@@ -111,7 +135,11 @@
   "portfolio": {
     "title": "Portfolio",
     "description": "Choose a category or open a project page for details and images.",
-    "filters": { "all": "All", "projects": "Projects", "react": "React" },
+    "filters": {
+      "all": "All",
+      "projects": "Projects",
+      "react": "React"
+    },
     "readMore": "Read more"
   },
   "contact": {
@@ -162,402 +190,6 @@
   "footer": {
     "rights": "All rights reserved."
   },
-  "arcade": {
-    "trigger": "?",
-    "triggerLabel": "Launch hidden arcade game",
-    "shortcutHint": "Shift + P",
-    "title": "Neon Drift",
-    "tagline": "Survive the swarm. Dodge from every direction, shoot, combo.",
-    "start": "Launch",
-    "controls": "WASD move · Mouse aim · Shift dash · Pause P/Esc",
-    "paused": "Paused",
-    "deathDriftFailed": "Drift Failed",
-    "deathSignalLost": "Signal Lost",
-    "deathOverheated": "Overheated",
-    "deathTrajectoryBroken": "Trajectory Broken",
-    "score": "Score",
-    "wave": "Wave",
-    "round": "Round",
-    "combo": "Combo",
-    "lives": "Lives",
-    "highScore": "Best",
-    "newRecord": "New personal best!",
-    "retry": "Again",
-    "exit": "Back to portfolio",
-    "gameOver": {
-      "eyebrow": "Run ended",
-      "scoreLabel": "Score",
-      "newRecord": "New personal best",
-      "localBest": "Personal best",
-      "globalPausedTitle": "Global leaderboard",
-      "globalPausedBody": "Online scores will open after sign-in. Your run is saved on this device.",
-      "globalPausedCta": "Sign in (coming soon)",
-      "menu": "Menu",
-      "retry": "Play again"
-    },
-    "close": "Close",
-    "mute": "Mute",
-    "unmute": "Sound on",
-    "musicVolume": "Music",
-    "visualQuality": "Graphics",
-    "visualAuto": "Auto",
-    "visualHigh": "High",
-    "visualMedium": "Balanced",
-    "visualLow": "Fast",
-    "visualOff": "Off",
-    "driftOverload": "DRIFT OVERLOAD",
-    "bossIncoming": "BOSS INCOMING",
-    "achievementUnlocked": "Achievement unlocked",
-    "runRecap": {
-      "title": "Run summary",
-      "time": "Survived",
-      "kills": "Kills",
-      "bestCombo": "Best combo",
-      "nearMiss": "Near-miss streak",
-      "bosses": "Bosses defeated",
-      "berserk": "Berserk activations"
-    },
-    "bosses": {
-      "driftColossus": "Drift Colossus",
-      "driftColossusIntro": "A massive signal blocks your path."
-    },
-    "synergies": {
-      "laserWall": "Laser wall",
-      "bulletStorm": "Bullet storm",
-      "greedLoop": "Greed loop",
-      "fortress": "Fortress",
-      "orbitKing": "Orbit king"
-    },
-    "achievements": {
-      "firstBoss": "First boss down",
-      "score10k": "10K scorer",
-      "combo15": "Combo master",
-      "nearMiss10": "Close call king",
-      "survive5min": "Survivor"
-    },
-    "menu": {
-      "eyebrow": "Arcade terminal",
-      "title": "Neon Drift",
-      "tagline": "Survive the swarm. Dodge from every direction, shoot, combo.",
-      "navLabel": "Main menu",
-      "play": "Start run",
-      "leaderboard": "Leaderboard",
-      "shop": "Shop",
-      "signIn": "Sign in",
-      "register": "Register",
-      "leaderboardPageHint": "Top runs from pilots worldwide.",
-      "leaderboardSubmitPaused": "New entries are paused until sign-in is available. Scores on this device are still tracked locally.",
-      "soon": "Soon",
-      "localBest": "Local best",
-      "dailyChallenge": "Daily seed",
-      "controls": "WASD move · Mouse aim · Shift dash · Pause P/Esc",
-      "back": "Back",
-      "leaderboardEyebrow": "Global signal",
-      "leaderboardTitle": "Top pilots",
-      "loading": "Loading signals…",
-      "loadError": "Could not load leaderboard.",
-      "empty": "No scores yet — be the first on the board.",
-      "shopTitle": "Supply depot",
-      "shopSoon": "Upgrades and cosmetics are coming in a future patch."
-    },
-    "shop": {
-      "eyebrow": "Supply depot",
-      "title": "Pilot loadout",
-      "description": "Browse every cosmetic, preview loadouts, and equip owned gear. Purchases require a pilot account — no gameplay stats for sale.",
-      "depotName": "NEON DRIFT",
-      "depotTag": "Supply depot",
-      "navLabel": "Depot navigation",
-      "sidebarHint": "Cosmetics only · same rules for every pilot",
-      "browseOnly": "Browse freely —",
-      "signInCta": "sign in to purchase",
-      "localOnly": "Owned items equip on this device until cloud sync ships.",
-      "equip": "Equip",
-      "equipped": "Equipped",
-      "locked": "Locked",
-      "starter": "Starter",
-      "credits": "CR",
-      "purchase": "Purchase",
-      "purchaseSignIn": "Sign in to purchase",
-      "itemsCount": "items",
-      "dismiss": "Dismiss",
-      "backToArcade": "Back to Neon Drift",
-      "nav": {
-        "cosmetics": "Cosmetics",
-        "terminal": "Terminal",
-        "play": "Launch game",
-        "leaderboard": "Leaderboard",
-        "signIn": "Sign in",
-        "signedIn": "Pilot signed in",
-        "register": "Register",
-        "signOut": "Sign out",
-        "callsignLabel": "Callsign"
-      },
-      "rarity": {
-        "common": "Common",
-        "rare": "Rare",
-        "epic": "Epic"
-      },
-      "notices": {
-        "signInRequired": "Create or sign in to a pilot account before purchasing.",
-        "emailNotVerified": "Verify your email before purchasing cosmetics.",
-        "purchaseSuccess": "Item unlocked — equip it from your loadout.",
-        "purchaseFailed": "Purchase could not be completed."
-      },
-      "categories": {
-        "skin": "Ship skins",
-        "trail": "Trails",
-        "grid": "Grid themes",
-        "deathFx": "Death effects",
-        "berserkFx": "Berserk variants"
-      },
-      "items": {
-        "skinDefault": "Stock hull",
-        "skinDefaultDesc": "Factory neon frame — balanced and clean.",
-        "skinNeonBlue": "Neon blue",
-        "skinNeonBlueDesc": "Ice-cyan plating with a cold cockpit glow.",
-        "skinSynthPink": "Synthwave pink",
-        "skinSynthPinkDesc": "Hot magenta panels tuned for sunset grids.",
-        "skinVoidBlack": "Void black",
-        "skinVoidBlackDesc": "Matte stealth shell that drinks starlight.",
-        "trailDefault": "Standard glow",
-        "trailDefaultDesc": "Soft ion wake — the classic drift read.",
-        "trailLightning": "Lightning trail",
-        "trailLightningDesc": "Staccato arcs that snap on bass hits.",
-        "trailVapor": "Vaporwave trail",
-        "trailVaporDesc": "Wide pastel smear with lazy chroma tails.",
-        "gridDefault": "Cyber grid",
-        "gridDefaultDesc": "Deep blue lattice — the default runway.",
-        "gridSynthwave": "Retro synthwave",
-        "gridSynthwaveDesc": "Pink horizon lines and 80s haze.",
-        "gridMatrix": "Matrix green",
-        "gridMatrixDesc": "Terminal green mesh with digital rain energy.",
-        "deathDefault": "Neon burst",
-        "deathDefaultDesc": "Classic starburst when your run ends.",
-        "deathGlitch": "Glitch collapse",
-        "deathGlitchDesc": "Datamosh implosion with chroma shards.",
-        "berserkDefault": "Red overload",
-        "berserkDefaultDesc": "Crimson rim and vignette when berserk triggers.",
-        "berserkOverload": "Rainbow meltdown",
-        "berserkOverloadDesc": "Full-spectrum pulse for maximum sensory overload."
-      }
-    },
-    "shell": {
-      "title": "Neon Drift",
-      "back": "Back"
-    },
-    "pages": {
-      "shop": {
-        "eyebrow": "Supply depot",
-        "title": "Shop",
-        "description": "Cosmetics-only depot — equip loadout flair without changing gameplay balance.",
-        "badge": "Open depot"
-      },
-      "signin": {
-        "eyebrow": "Pilot access",
-        "title": "Sign in",
-        "description": "Sign in with your pilot email to unlock purchases and synced loadouts.",
-        "badge": "Open terminal"
-      },
-      "register": {
-        "eyebrow": "New pilot",
-        "title": "Register",
-        "description": "Claim a callsign, verify your email, and join the drift network.",
-        "badge": "Enlist"
-      }
-    },
-    "auth": {
-      "disabled": {
-        "eyebrow": "Offline",
-        "title": "Pilot network unavailable",
-        "description": "Auth requires DATABASE_URL and BETTER_AUTH_SECRET. Configure .env.local to enable sign-in.",
-        "back": "Back to Neon Drift"
-      },
-      "passwordStrength": {
-        "empty": "",
-        "weak": "Weak — add length and mixed characters",
-        "fair": "Fair — add numbers or symbols",
-        "good": "Good password",
-        "strong": "Strong password"
-      },
-      "banner": {
-        "unverified": "Verify your email to unlock shop purchases.",
-        "resend": "Resend email",
-        "resending": "Sending…",
-        "verifyLink": "Verification help"
-      },
-      "signIn": {
-        "heroEyebrow": "Drift network",
-        "heroTitle": "Pilot terminal",
-        "heroSubtitle": "Secure access for cosmetics, cloud sync, and future global boards.",
-        "feature1": "HTTP-only session — no passwords in the browser",
-        "feature2": "Email verification before purchases",
-        "feature3": "Rate-limited sign-in on the server",
-        "eyebrow": "Sign in",
-        "title": "Welcome back",
-        "subtitle": "Use the email and password from registration.",
-        "email": "Email",
-        "password": "Password",
-        "rememberMe": "Keep me signed in on this device",
-        "showPassword": "Show password",
-        "hidePassword": "Hide password",
-        "submit": "Sign in",
-        "noAccount": "New pilot?",
-        "registerLink": "Create account",
-        "forgotLink": "Forgot password?"
-      },
-      "register": {
-        "heroEyebrow": "Enlist",
-        "heroTitle": "Claim your callsign",
-        "heroSubtitle": "Register once — verify email — unlock the supply depot.",
-        "feature1": "Unique callsign on the global roster",
-        "feature2": "Cosmetic purchases tied to your pilot",
-        "feature3": "Bot protection on registration",
-        "eyebrow": "Register",
-        "title": "New pilot",
-        "subtitle": "3–16 characters: letters, numbers, underscore.",
-        "callsign": "Callsign",
-        "callsignHint": "Shown on leaderboards and in the shop sidebar.",
-        "email": "Email",
-        "password": "Password",
-        "confirmPassword": "Confirm password",
-        "showPassword": "Show password",
-        "hidePassword": "Hide password",
-        "terms": "By registering you agree to use a real email you can access for verification.",
-        "submit": "Create pilot account",
-        "hasAccount": "Already enlisted?",
-        "signInLink": "Sign in",
-        "successEyebrow": "Signal sent",
-        "successTitle": "Check your inbox",
-        "successBody": "We sent a verification link to {email}. Open it before signing in.",
-        "successCta": "Go to sign in"
-      },
-      "forgot": {
-        "heroEyebrow": "Recovery",
-        "heroTitle": "Reset access",
-        "heroSubtitle": "We email a single-use link — no passwords in chat.",
-        "feature1": "Links expire automatically",
-        "feature2": "Same inbox as registration",
-        "eyebrow": "Forgot password",
-        "title": "Reset password",
-        "subtitle": "Enter your pilot email. If an account exists, you will receive a link.",
-        "email": "Email",
-        "submit": "Send reset link",
-        "sentTitle": "Check your email",
-        "sentBody": "If {email} is registered, a reset link is on the way.",
-        "backSignIn": "Back to sign in"
-      },
-      "reset": {
-        "heroEyebrow": "Recovery",
-        "heroTitle": "New credentials",
-        "heroSubtitle": "Choose a strong password for your pilot account.",
-        "feature1": "Minimum 10 characters",
-        "eyebrow": "Reset",
-        "title": "Set new password",
-        "subtitle": "Enter a new password twice to confirm.",
-        "password": "New password",
-        "confirmPassword": "Confirm password",
-        "showPassword": "Show password",
-        "hidePassword": "Hide password",
-        "submit": "Update password",
-        "invalidTitle": "Link expired",
-        "invalidBody": "Request a fresh reset link from the forgot password page.",
-        "requestAgain": "Request new link",
-        "doneTitle": "Password updated",
-        "doneBody": "Redirecting to sign in…"
-      },
-      "verify": {
-        "heroEyebrow": "Verification",
-        "heroTitle": "Confirm email",
-        "heroSubtitle": "One click in your inbox unlocks shop purchases.",
-        "feature1": "Required before cosmetic purchases",
-        "feature2": "Resend available with cooldown",
-        "verifiedTitle": "Email verified",
-        "verifiedBody": "Your pilot account is active. Head to the depot to purchase cosmetics.",
-        "shopCta": "Open shop",
-        "pendingTitle": "Verify your email",
-        "pendingBody": "We sent a link to {email}. Check spam folders if needed.",
-        "pendingBodyAnonymous": "Sign in, then resend verification from this page.",
-        "errorTitle": "Verification failed",
-        "errorBody": "The link may be expired. Resend a fresh verification email.",
-        "resend": "Resend verification",
-        "resendCooldown": "Resend in {seconds}s",
-        "resent": "Verification email sent.",
-        "signInLink": "Sign in"
-      },
-      "errors": {
-        "UNKNOWN": "Something went wrong. Try again.",
-        "AUTH_DISABLED": "Pilot auth is not configured on this server.",
-        "RATE_LIMIT": "Too many attempts. Wait and try again.",
-        "VALIDATION": "Check the form and try again.",
-        "TURNSTILE_REQUIRED": "Complete the security check.",
-        "EMAIL_INVALID": "Enter a valid email address.",
-        "EMAIL_TAKEN": "That email is already registered.",
-        "CALLSIGN_TAKEN": "That callsign is already taken.",
-        "CALLSIGN_INVALID": "Use 3–16 letters, numbers, or underscores.",
-        "CALLSIGN_TOO_SHORT": "Callsign must be at least 3 characters.",
-        "CALLSIGN_TOO_LONG": "Callsign must be at most 16 characters.",
-        "PASSWORD_TOO_SHORT": "Password must be at least 10 characters.",
-        "PASSWORD_MISMATCH": "Passwords do not match.",
-        "PASSWORD_REQUIRED": "Enter your password.",
-        "INVALID_CREDENTIALS": "Invalid email or password.",
-        "EMAIL_NOT_VERIFIED": "Verify your email before signing in.",
-        "SIGN_UP_FAILED": "Registration failed. Try again.",
-        "SIGN_IN_FAILED": "Sign in failed. Try again.",
-        "RESET_FAILED": "Could not send reset email.",
-        "TOKEN_INVALID": "This link is invalid or expired.",
-        "SEND_FAILED": "Could not send email. Try again later."
-      }
-    },
-    "leaderboard": {
-      "submitTitle": "Transmit to global board",
-      "submitHint": "2–4 letters or numbers · score 500+",
-      "initialsLabel": "Initials",
-      "initialsPlaceholder": "ABC",
-      "submit": "Log score",
-      "submitting": "Transmitting…",
-      "submitted": "Signal logged",
-      "submittedHint": "Your run is on the global board.",
-      "skip": "Keep local only",
-      "errors": {
-        "SUBMIT_FAILED": "Could not log score. Try again.",
-        "RATE_LIMIT": "Too many submissions. Wait a moment.",
-        "VALIDATION": "Invalid submission.",
-        "INITIALS_INVALID": "Use 2–4 letters or numbers.",
-        "TOKEN_INVALID": "Session expired. Play again.",
-        "TIMING_INVALID": "Run timing mismatch. Play again.",
-        "RUN_IMPLAUSIBLE": "Run could not be verified.",
-        "LEADERBOARD_DISABLED": "Leaderboard is offline."
-      }
-    },
-    "powerUps": {
-      "draftTitle": "Choose an upgrade",
-      "draftHint": "Keys 1 · 2 · 3",
-      "overclock": "OVERCLOCK",
-      "overclockDesc": "Enemies slow — you don't",
-      "magnet": "MAGNET FIELD",
-      "magnetDesc": "Pulls pickups toward you",
-      "dash": "DASH",
-      "dashDesc": "Shift — brief blink dodge",
-      "aura": "DAMAGE AURA",
-      "auraDesc": "Melts nearby enemies",
-      "pierce": "PIERCING",
-      "pierceDesc": "Shots pass through foes",
-      "multiplier": "SCORE ×2",
-      "multiplierDesc": "Double points 15s",
-      "pulse": "GRAVITY PULSE",
-      "pulseDesc": "Shockwave pushes enemies",
-      "drone": "ORBIT DRONE",
-      "droneDesc": "Satellite auto-fire",
-      "berserk": "BERSERK",
-      "berserkDesc": "Faster, triple fire",
-      "shield": "SHIELD",
-      "shieldDesc": "Absorbs one hit",
-      "triple": "TRIPLE SHOT",
-      "tripleDesc": "Three-way fire",
-      "timeBomb": "TIME BOMB",
-      "timeBombDesc": "Clears nearby enemies"
-    }
-  },
   "projectPage": {
     "back": "Back to portfolio",
     "details": "Project details",
@@ -584,39 +216,22 @@
     "items": {
       "neon-drift": {
         "title": "Neon Drift",
-        "subtitle": "Embedded arcade prototype",
-        "descriptionTitle": "Mission briefing",
-        "description": "Neon Drift is a browser-native survival shooter woven into this portfolio—not listed in navigation, not promoted elsewhere. It exists as a technical exercise in canvas rendering, lightweight post-processing, and real-time audio inside a production Next.js site.",
-        "teaser": "A classified signal inside the portfolio. No public route—only those who look closer.",
-        "badge": "Classified",
-        "cardCta": "Open dossier",
-        "signalId": "Signal · ND-Σ7",
-        "lede": "Survive the swarm. Build synergies. Outlast waves that never forgive hesitation.",
-        "briefingTitle": "Briefing",
-        "briefingExtra": "The experience ships as an easter egg: a discreet control in the corner of every page, and a direct launch from this dossier. Achievements and personal bests stay on-device; qualifying runs can be logged to a global board backed by Neon Postgres.",
-        "capabilitiesTitle": "Systems online",
-        "feature0": "Modular game architecture (simulation, combat, waves, bosses) with quality-scaled rendering",
-        "feature1": "Seven enemy archetypes, round-based escalation, and boss encounters with telegraphed patterns",
-        "feature2": "Roguelike draft upgrades, build synergies, local achievements, run recap, and Neon-backed global leaderboard",
-        "feature3": "Adaptive visuals and HTML5 audio tuned for stable performance on the open web",
-        "leaderboard": {
-          "eyebrow": "Global signal",
-          "title": "Leaderboard",
-          "subtitle": "Top runs logged from the arcade. Scores 500+ with verified sessions.",
-          "empty": "No signals logged yet — be the first pilot on the board.",
-          "offline": "Leaderboard requires database configuration.",
-          "colInitials": "ID",
-          "colScore": "Score",
-          "colWave": "Wave",
-          "colTime": "Time"
-        },
-        "accessLabel": "Clearance granted",
-        "launch": "Launch Neon Drift",
-        "launchHint": "WASD · mouse aim · Shift dash · P or Esc to pause",
+        "subtitle": "Browser survival arcade",
+        "descriptionTitle": "About",
+        "description": "Neon Drift is a standalone browser survival shooter: dodge swarms from every direction, stack upgrades and synergies, and push for a spot on the global board. It started as a hidden portfolio experiment and now runs as its own app.",
         "meta": [
-          { "label": "Category", "value": "Browser arcade / portfolio easter egg" },
-          { "label": "Stack", "value": "TypeScript · Canvas 2D · Next.js · Neon · Drizzle" },
-          { "label": "Status", "value": "Live on site · embedded" }
+          {
+            "label": "Category",
+            "value": "Browser arcade"
+          },
+          {
+            "label": "Stack",
+            "value": "TypeScript · Canvas 2D · Next.js · Neon Postgres"
+          },
+          {
+            "label": "Play",
+            "value": "Open Neon Drift"
+          }
         ]
       },
       "eternal-cry": {
@@ -625,9 +240,18 @@
         "descriptionTitle": "Eternal-Cry — overview",
         "description": "An action platformer with a rich story, action, secrets, and enemies. Built with GameMaker Studio. I also started a website for the project. Currently on hold.",
         "meta": [
-          { "label": "Category", "value": "Game development" },
-          { "label": "Languages", "value": "C++ / Java / Script" },
-          { "label": "Project URL", "value": "eternalcry.000webhostapp.com" }
+          {
+            "label": "Category",
+            "value": "Game development"
+          },
+          {
+            "label": "Languages",
+            "value": "C++ / Java / Script"
+          },
+          {
+            "label": "Project URL",
+            "value": "eternalcry.000webhostapp.com"
+          }
         ]
       },
       "asiakasprojekti": {
@@ -635,11 +259,26 @@
         "subtitle": "Website",
         "description": "Website design and implementation with WordPress. Used plugins, custom images, and separate CSS files.",
         "meta": [
-          { "label": "Category", "value": "Web design & development" },
-          { "label": "Languages", "value": "WordPress / HTML / CSS" },
-          { "label": "Client", "value": "Heikkilän Tila" },
-          { "label": "Started", "value": "November 2022" },
-          { "label": "URL", "value": "heikkilanmarja.fi" }
+          {
+            "label": "Category",
+            "value": "Web design & development"
+          },
+          {
+            "label": "Languages",
+            "value": "WordPress / HTML / CSS"
+          },
+          {
+            "label": "Client",
+            "value": "Heikkilän Tila"
+          },
+          {
+            "label": "Started",
+            "value": "November 2022"
+          },
+          {
+            "label": "URL",
+            "value": "heikkilanmarja.fi"
+          }
         ]
       },
       "tic-tac-toe": {
@@ -647,10 +286,22 @@
         "subtitle": "React app",
         "description": "My first React project: designed and built by myself. Responsive on mobile. Source code available on GitHub via the link.",
         "meta": [
-          { "label": "Category", "value": "React app" },
-          { "label": "Languages", "value": "React" },
-          { "label": "Date", "value": "31 March 2023" },
-          { "label": "Demo", "value": "tuukkaleksi.github.io/tic-tac-toe" }
+          {
+            "label": "Category",
+            "value": "React app"
+          },
+          {
+            "label": "Languages",
+            "value": "React"
+          },
+          {
+            "label": "Date",
+            "value": "31 March 2023"
+          },
+          {
+            "label": "Demo",
+            "value": "tuukkaleksi.github.io/tic-tac-toe"
+          }
         ]
       },
       "sudoku": {
@@ -658,11 +309,26 @@
         "subtitle": "JavaScript game",
         "description": "Sudoku project built with HTML, CSS, and JavaScript. Not fully responsive yet. Source code on GitHub.",
         "meta": [
-          { "label": "Category", "value": "Web game" },
-          { "label": "Languages", "value": "HTML, CSS, JavaScript" },
-          { "label": "Date", "value": "10 April 2023" },
-          { "label": "Demo", "value": "tuukkaleksi.github.io/sudoku" },
-          { "label": "Source", "value": "github.com/Tuukkaleksi/sudoku" }
+          {
+            "label": "Category",
+            "value": "Web game"
+          },
+          {
+            "label": "Languages",
+            "value": "HTML, CSS, JavaScript"
+          },
+          {
+            "label": "Date",
+            "value": "10 April 2023"
+          },
+          {
+            "label": "Demo",
+            "value": "tuukkaleksi.github.io/sudoku"
+          },
+          {
+            "label": "Source",
+            "value": "github.com/Tuukkaleksi/sudoku"
+          }
         ]
       },
       "vectorama": {
@@ -670,11 +336,26 @@
         "subtitle": "Web game",
         "description": "A Kahoot-style browser game for the Vectorama event where players guess who is the AI. Uses OpenAI API and Firebase. Chat room still in progress.",
         "meta": [
-          { "label": "Category", "value": "HTML / web game" },
-          { "label": "Languages", "value": "TypeScript, JavaScript, CSS, Node.js" },
-          { "label": "Date", "value": "20 April 2023" },
-          { "label": "Source", "value": "Github — Mielihurjaus" },
-          { "label": "Demo", "value": "poetic-otter-e26763.netlify.app" }
+          {
+            "label": "Category",
+            "value": "HTML / web game"
+          },
+          {
+            "label": "Languages",
+            "value": "TypeScript, JavaScript, CSS, Node.js"
+          },
+          {
+            "label": "Date",
+            "value": "20 April 2023"
+          },
+          {
+            "label": "Source",
+            "value": "Github — Mielihurjaus"
+          },
+          {
+            "label": "Demo",
+            "value": "poetic-otter-e26763.netlify.app"
+          }
         ]
       },
       "text-adventure": {
@@ -683,10 +364,22 @@
         "descriptionTitle": "Vite React — overview",
         "description": "Practice project for React modules. A text adventure where AI starts and continues the story; the user can steer direction. Still being improved.",
         "meta": [
-          { "label": "Category", "value": "Vite + React" },
-          { "label": "Languages", "value": "React / CSS" },
-          { "label": "Started", "value": "July 2023" },
-          { "label": "Source", "value": "github.com/Tuukkaleksi/text-adventure" }
+          {
+            "label": "Category",
+            "value": "Vite + React"
+          },
+          {
+            "label": "Languages",
+            "value": "React / CSS"
+          },
+          {
+            "label": "Started",
+            "value": "July 2023"
+          },
+          {
+            "label": "Source",
+            "value": "github.com/Tuukkaleksi/text-adventure"
+          }
         ]
       },
       "wordle": {
@@ -694,10 +387,22 @@
         "subtitle": "React / React Native",
         "description": "A Wordle-style game: the player guesses a word in five attempts. Goal is a web and mobile app with React and React Native.",
         "meta": [
-          { "label": "Category", "value": "React / React Native" },
-          { "label": "Languages", "value": "React / React Native" },
-          { "label": "Started", "value": "November 2022" },
-          { "label": "Source", "value": "github.com/Tuukkaleksi/wordle-project" }
+          {
+            "label": "Category",
+            "value": "React / React Native"
+          },
+          {
+            "label": "Languages",
+            "value": "React / React Native"
+          },
+          {
+            "label": "Started",
+            "value": "November 2022"
+          },
+          {
+            "label": "Source",
+            "value": "github.com/Tuukkaleksi/wordle-project"
+          }
         ]
       }
     }

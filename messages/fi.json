@@ -4,7 +4,11 @@
     "title": "Tuukka Pitkänen — Portfolio",
     "description": "Tuukka Pitkäsen portfolio: web-kehitys, React, ohjelmointiprojektit ja yhteistyöhön liittyvät tiedot.",
     "location": "Oulu, Suomi",
-    "typedRoles": ["Innokas", "Suunnittelija", "Ohjelmoija"]
+    "typedRoles": [
+      "Innokas",
+      "Suunnittelija",
+      "Ohjelmoija"
+    ]
   },
   "nav": {
     "hero": "Etusivu",
@@ -34,10 +38,22 @@
     "role": "Web-suunnittelija & ohjelmoija",
     "tagline": "Energinen, sosiaalinen, itseoppivainen ja kuunteleva.",
     "facts": {
-      "birthYear": { "label": "Syntymävuosi", "value": "2000" },
-      "city": { "label": "Kaupunki", "value": "Oulu, Suomi" },
-      "age": { "label": "Ikä", "value": "25" },
-      "degree": { "label": "Tutkinto", "value": "Merkonomi — Ohjelmistokehittäjä" }
+      "birthYear": {
+        "label": "Syntymävuosi",
+        "value": "2000"
+      },
+      "city": {
+        "label": "Kaupunki",
+        "value": "Oulu, Suomi"
+      },
+      "age": {
+        "label": "Ikä",
+        "value": "25"
+      },
+      "degree": {
+        "label": "Tutkinto",
+        "value": "Merkonomi — Ohjelmistokehittäjä"
+      }
     },
     "paragraphs": [
       "Olen 25-vuotias oululainen, joka suhtautuu ohjelmointiin intohimoisesti. Sosiaalisuuteni ja kuuntelevaisuuteni auttavat minua ymmärtämään ihmisten tarpeita ja kääntämään ne toimiviksi digitaalisiksi ratkaisuiksi.",
@@ -78,12 +94,20 @@
       {
         "title": "Smarket Kemijärvi",
         "period": "2017 — 2018",
-        "details": ["Myyjänä toimiminen", "Asiakaspalvelu", "Hyllyjen täyttö ja siivoaminen"]
+        "details": [
+          "Myyjänä toimiminen",
+          "Asiakaspalvelu",
+          "Hyllyjen täyttö ja siivoaminen"
+        ]
       },
       {
         "title": "Lidl Kemijärvi",
         "period": "2022",
-        "details": ["Myyjänä toimiminen", "Asiakaspalvelu", "Hyllyjen täyttö ja siivoaminen"]
+        "details": [
+          "Myyjänä toimiminen",
+          "Asiakaspalvelu",
+          "Hyllyjen täyttö ja siivoaminen"
+        ]
       },
       {
         "title": "Asiakasprojekti — Nettisivusto",
@@ -111,7 +135,11 @@
   "portfolio": {
     "title": "Portfolio",
     "description": "Valitse kategoria tai avaa projektin sivu nähdäksesi lisätiedot ja kuvat.",
-    "filters": { "all": "Kaikki", "projects": "Projektit", "react": "React" },
+    "filters": {
+      "all": "Kaikki",
+      "projects": "Projektit",
+      "react": "React"
+    },
     "readMore": "Lue lisää"
   },
   "contact": {
@@ -162,402 +190,6 @@
   "footer": {
     "rights": "Kaikki oikeudet pidätetään."
   },
-  "arcade": {
-    "trigger": "?",
-    "triggerLabel": "Avaa piilotettu arcade-peli",
-    "shortcutHint": "Shift + P",
-    "title": "Neon Drift",
-    "tagline": "Selviydy parvesta. Vältä joka suunnasta, ammu, combo.",
-    "start": "Aloita",
-    "controls": "WASD liiku · Hiiri tähtää · Shift dash · Tauko P/Esc",
-    "paused": "Tauko",
-    "deathDriftFailed": "Drift epäonnistui",
-    "deathSignalLost": "Signaali katosi",
-    "deathOverheated": "Ylikuumeneminen",
-    "deathTrajectoryBroken": "Rata katkennut",
-    "score": "Pisteet",
-    "wave": "Aalto",
-    "round": "Kierros",
-    "combo": "Combo",
-    "lives": "Elämät",
-    "highScore": "Ennätys",
-    "newRecord": "Uusi ennätys!",
-    "retry": "Uudestaan",
-    "exit": "Takaisin portfolioon",
-    "gameOver": {
-      "eyebrow": "Juoksu päättyi",
-      "scoreLabel": "Pisteet",
-      "newRecord": "Uusi ennätys",
-      "localBest": "Paikallinen ennätys",
-      "globalPausedTitle": "Globaali tulostaulu",
-      "globalPausedBody": "Verkkotulokset avautuvat kirjautumisen jälkeen. Tulos tallentuu tälle laitteelle.",
-      "globalPausedCta": "Kirjaudu (tulossa)",
-      "menu": "Valikko",
-      "retry": "Pelaa uudestaan"
-    },
-    "close": "Sulje",
-    "mute": "Mykistä",
-    "unmute": "Ääni päälle",
-    "musicVolume": "Musiikki",
-    "visualQuality": "Grafiikka",
-    "visualAuto": "Auto",
-    "visualHigh": "Korkea",
-    "visualMedium": "Tasapaino",
-    "visualLow": "Nopea",
-    "visualOff": "Pois",
-    "driftOverload": "DRIFT OVERLOAD",
-    "bossIncoming": "POMO SAAPUU",
-    "achievementUnlocked": "Saavutus avattu",
-    "runRecap": {
-      "title": "Yhteenveto",
-      "time": "Selviytyi",
-      "kills": "Tappoja",
-      "bestCombo": "Paras combo",
-      "nearMiss": "Läheltä piti -putki",
-      "bosses": "Pomot kaadettu",
-      "berserk": "Berserk-aktivoinnit"
-    },
-    "bosses": {
-      "driftColossus": "Drift Colossus",
-      "driftColossusIntro": "Valtava signaali estää reittisi."
-    },
-    "synergies": {
-      "laserWall": "Lasiseinä",
-      "bulletStorm": "Luotitempesti",
-      "greedLoop": "Ahne silmukka",
-      "fortress": "Linnoitus",
-      "orbitKing": "Orbit-kuningas"
-    },
-    "achievements": {
-      "firstBoss": "Ensimmäinen pomo",
-      "score10k": "10K pistettä",
-      "combo15": "Combo-mestari",
-      "nearMiss10": "Läheltä piti -kunkku",
-      "survive5min": "Selviytyjä"
-    },
-    "menu": {
-      "eyebrow": "Arcade-terminaali",
-      "title": "Neon Drift",
-      "tagline": "Selviydy parvesta. Vältä joka suunnasta, ammu, combo.",
-      "navLabel": "Päävalikko",
-      "play": "Aloita juoksu",
-      "leaderboard": "Tulostaulu",
-      "shop": "Kauppa",
-      "signIn": "Kirjaudu",
-      "register": "Rekisteröidy",
-      "leaderboardPageHint": "Parhaat juoksut maailmanlaajuisesti.",
-      "leaderboardSubmitPaused": "Uusia tuloksia ei voi vielä lähettää — kirjautuminen tulossa. Oma ennätys tallentuu laitteelle.",
-      "soon": "Tulossa",
-      "localBest": "Paikallinen ennätys",
-      "dailyChallenge": "Päivän siemen",
-      "controls": "WASD liiku · Hiiri tähtää · Shift dash · Tauko P/Esc",
-      "back": "Takaisin",
-      "leaderboardEyebrow": "Globaali signaali",
-      "leaderboardTitle": "Huippupilotit",
-      "loading": "Ladataan signaaleja…",
-      "loadError": "Tulostaulua ei voitu ladata.",
-      "empty": "Ei tuloksia vielä — ole ensimmäinen listalla.",
-      "shopTitle": "Varasto",
-      "shopSoon": "Päivitykset ja kosmetiikka tulossa myöhemmin."
-    },
-    "shop": {
-      "eyebrow": "Varasto",
-      "title": "Pilottivarustus",
-      "description": "Selaa kaikkea kosmetiikkaa, esikatsele loadoutit ja varusta omistamasi. Ostot vaativat pilottitilin — ei pelietuja myynnissä.",
-      "depotName": "NEON DRIFT",
-      "depotTag": "Varasto",
-      "navLabel": "Varaston navigointi",
-      "sidebarHint": "Vain kosmetiikkaa · samat säännöt kaikille",
-      "browseOnly": "Selaa vapaasti —",
-      "signInCta": "kirjaudu ostaaksesi",
-      "localOnly": "Omistetut varusteet tälle laitteelle, kunnes pilvisynkronointi on käytössä.",
-      "equip": "Varusta",
-      "equipped": "Varustettu",
-      "locked": "Lukittu",
-      "starter": "Aloitus",
-      "credits": "KR",
-      "purchase": "Osta",
-      "purchaseSignIn": "Kirjaudu ostaaksesi",
-      "itemsCount": "tuotetta",
-      "dismiss": "Sulje",
-      "backToArcade": "Takaisin Neon Driftiin",
-      "nav": {
-        "cosmetics": "Kosmetiikka",
-        "terminal": "Terminaali",
-        "play": "Käynnistä peli",
-        "leaderboard": "Tulostaulu",
-        "signIn": "Kirjaudu",
-        "signedIn": "Pilotti kirjautunut",
-        "register": "Rekisteröidy",
-        "signOut": "Kirjaudu ulos",
-        "callsignLabel": "Tunnus"
-      },
-      "rarity": {
-        "common": "Yleinen",
-        "rare": "Harvinainen",
-        "epic": "Eeppinen"
-      },
-      "notices": {
-        "signInRequired": "Luo tai kirjaudu pilottitilille ennen ostoa.",
-        "emailNotVerified": "Vahvista sähköpostisi ennen kosmetiikkaostoja.",
-        "purchaseSuccess": "Tuote avattu — varusta se loadoutista.",
-        "purchaseFailed": "Ostoa ei voitu suorittaa."
-      },
-      "categories": {
-        "skin": "Alukset",
-        "trail": "Jäljet",
-        "grid": "Ruudukot",
-        "deathFx": "Tuhotehosteet",
-        "berserkFx": "Berserk-tyylit"
-      },
-      "items": {
-        "skinDefault": "Vakio",
-        "skinDefaultDesc": "Tehtaan neonrunko — tasapainoinen ja selkeä.",
-        "skinNeonBlue": "Neon sininen",
-        "skinNeonBlueDesc": "Jääsyaaninen panssari ja kylmä ohjaamovalo.",
-        "skinSynthPink": "Synthwave pinkki",
-        "skinSynthPinkDesc": "Kuuma magenta paneelit auringonlaskuruudukkoihin.",
-        "skinVoidBlack": "Tyhjyys musta",
-        "skinVoidBlackDesc": "Mattapintainen kuori, joka nielee tähtivalon.",
-        "trailDefault": "Perus hehku",
-        "trailDefaultDesc": "Pehmeä ionijälki — klassinen drift-luku.",
-        "trailLightning": "Salamajälki",
-        "trailLightningDesc": "Iskeviä kaaria bassoiskuissa.",
-        "trailVapor": "Vaporwave-jälki",
-        "trailVaporDesc": "Leveä pastelliviiru ja laiska kromahäntä.",
-        "gridDefault": "Kyberruudukko",
-        "gridDefaultDesc": "Syvä sininen verkko — oletuskiitorata.",
-        "gridSynthwave": "Retro synthwave",
-        "gridSynthwaveDesc": "Pinkit horisonttiviivat ja 80-luvun sumu.",
-        "gridMatrix": "Matrix vihreä",
-        "gridMatrixDesc": "Terminaalin vihreä verkko ja digitisade-energia.",
-        "deathDefault": "Neon räjähdys",
-        "deathDefaultDesc": "Klassinen tähtipurske kun juoksu päättyy.",
-        "deathGlitch": "Glitch-tuho",
-        "deathGlitchDesc": "Datamosh-romahdus ja kromasirpaleet.",
-        "berserkDefault": "Punainen ylikuorma",
-        "berserkDefaultDesc": "Karmiinin reuna ja vignetti berserkissä.",
-        "berserkOverload": "Sateenkaari-meltdown",
-        "berserkOverloadDesc": "Täysi spektri maksimaaliseen aistiylikuormaan."
-      }
-    },
-    "shell": {
-      "title": "Neon Drift",
-      "back": "Takaisin"
-    },
-    "pages": {
-      "shop": {
-        "eyebrow": "Varasto",
-        "title": "Kauppa",
-        "description": "Vain kosmetiikkaa — ulkoasu ilman pelitasapainon muutoksia.",
-        "badge": "Avaa varasto"
-      },
-      "signin": {
-        "eyebrow": "Pääsy",
-        "title": "Kirjaudu",
-        "description": "Kirjaudu pilottisähköpostilla avataksesi ostot ja synkronoidun varustuksen.",
-        "badge": "Avaa terminaali"
-      },
-      "register": {
-        "eyebrow": "Uusi pilotti",
-        "title": "Rekisteröidy",
-        "description": "Varaa tunnus, vahvista sähköposti ja liity drift-verkkoon.",
-        "badge": "Liity"
-      }
-    },
-    "auth": {
-      "disabled": {
-        "eyebrow": "Offline",
-        "title": "Pilottiverkko ei käytettävissä",
-        "description": "Kirjautuminen vaatii DATABASE_URL- ja BETTER_AUTH_SECRET-muuttujat .env.local-tiedostossa.",
-        "back": "Takaisin Neon Driftiin"
-      },
-      "passwordStrength": {
-        "empty": "",
-        "weak": "Heikko — lisää pituutta ja erilaisia merkkejä",
-        "fair": "Kohtalainen — lisää numeroita tai symboleja",
-        "good": "Hyvä salasana",
-        "strong": "Vahva salasana"
-      },
-      "banner": {
-        "unverified": "Vahvista sähköpostisi avataksesi kauppaostot.",
-        "resend": "Lähetä uudelleen",
-        "resending": "Lähetetään…",
-        "verifyLink": "Vahvistusohje"
-      },
-      "signIn": {
-        "heroEyebrow": "Drift-verkko",
-        "heroTitle": "Pilottiterminaali",
-        "heroSubtitle": "Turvallinen pääsy kosmetiikkaan, synkronointiin ja tuleviin globaaleihin listoihin.",
-        "feature1": "HTTP-only-istunto — salasana ei jää selaimeen",
-        "feature2": "Sähköpostivahvistus ennen ostoja",
-        "feature3": "Palvelinpuolen nopeusrajoitus kirjautumiselle",
-        "eyebrow": "Kirjaudu",
-        "title": "Tervetuloa takaisin",
-        "subtitle": "Käytä rekisteröinnin sähköpostia ja salasanaa.",
-        "email": "Sähköposti",
-        "password": "Salasana",
-        "rememberMe": "Pidä minut kirjautuneena tällä laitteella",
-        "showPassword": "Näytä salasana",
-        "hidePassword": "Piilota salasana",
-        "submit": "Kirjaudu",
-        "noAccount": "Uusi pilotti?",
-        "registerLink": "Luo tili",
-        "forgotLink": "Unohditko salasanan?"
-      },
-      "register": {
-        "heroEyebrow": "Liity",
-        "heroTitle": "Varaa tunnus",
-        "heroSubtitle": "Rekisteröidy kerran — vahvista sähköposti — avaa varasto.",
-        "feature1": "Uniikki tunnus globaalilla listalla",
-        "feature2": "Kosmetiikkaostot sidottu pilottiin",
-        "feature3": "Bottisuoja rekisteröinnissä",
-        "eyebrow": "Rekisteröidy",
-        "title": "Uusi pilotti",
-        "subtitle": "3–16 merkkiä: kirjaimet, numerot, alaviiva.",
-        "callsign": "Tunnus",
-        "callsignHint": "Näkyy listoilla ja kaupan sivupalkissa.",
-        "email": "Sähköposti",
-        "password": "Salasana",
-        "confirmPassword": "Vahvista salasana",
-        "showPassword": "Näytä salasana",
-        "hidePassword": "Piilota salasana",
-        "terms": "Rekisteröitymällä käytät sähköpostia, johon voit vastaanottaa vahvistuslinkin.",
-        "submit": "Luo pilottitili",
-        "hasAccount": "Jo rekisteröitynyt?",
-        "signInLink": "Kirjaudu",
-        "successEyebrow": "Signaali lähetetty",
-        "successTitle": "Tarkista posti",
-        "successBody": "Lähetimme vahvistuslinkin osoitteeseen {email}. Avaa se ennen kirjautumista.",
-        "successCta": "Siirry kirjautumaan"
-      },
-      "forgot": {
-        "heroEyebrow": "Palautus",
-        "heroTitle": "Palauta pääsy",
-        "heroSubtitle": "Lähetämme kertakäyttölinkin — ei salasanoja viesteissä.",
-        "feature1": "Linkit vanhenevat automaattisesti",
-        "feature2": "Sama posti kuin rekisteröinnissä",
-        "eyebrow": "Unohditko salasanan",
-        "title": "Nollaa salasana",
-        "subtitle": "Anna pilottisähköposti. Jos tili on olemassa, saat linkin.",
-        "email": "Sähköposti",
-        "submit": "Lähetä nollauslinkki",
-        "sentTitle": "Tarkista posti",
-        "sentBody": "Jos {email} on rekisteröity, nollauslinkki on matkalla.",
-        "backSignIn": "Takaisin kirjautumaan"
-      },
-      "reset": {
-        "heroEyebrow": "Palautus",
-        "heroTitle": "Uudet tunnukset",
-        "heroSubtitle": "Valitse vahva salasana pilottitilillesi.",
-        "feature1": "Vähintään 10 merkkiä",
-        "eyebrow": "Nollaus",
-        "title": "Uusi salasana",
-        "subtitle": "Syötä uusi salasana kahdesti.",
-        "password": "Uusi salasana",
-        "confirmPassword": "Vahvista salasana",
-        "showPassword": "Näytä salasana",
-        "hidePassword": "Piilota salasana",
-        "submit": "Päivitä salasana",
-        "invalidTitle": "Linkki vanhentunut",
-        "invalidBody": "Pyydä uusi nollauslinkki unohtunut-salasana-sivulta.",
-        "requestAgain": "Pyydä uusi linkki",
-        "doneTitle": "Salasana päivitetty",
-        "doneBody": "Ohjataan kirjautumiseen…"
-      },
-      "verify": {
-        "heroEyebrow": "Vahvistus",
-        "heroTitle": "Vahvista sähköposti",
-        "heroSubtitle": "Yksi klikkaus postissa avaa kauppaostot.",
-        "feature1": "Pakollinen ennen kosmetiikkaostoja",
-        "feature2": "Uudelleenlähetys odotusajalla",
-        "verifiedTitle": "Sähköposti vahvistettu",
-        "verifiedBody": "Pilottitilisi on aktiivinen. Siirry varastoon ostamaan kosmetiikkaa.",
-        "shopCta": "Avaa kauppa",
-        "pendingTitle": "Vahvista sähköpostisi",
-        "pendingBody": "Lähetimme linkin osoitteeseen {email}. Tarkista roskaposti tarvittaessa.",
-        "pendingBodyAnonymous": "Kirjaudu sisään ja lähetä vahvistus uudelleen tältä sivulta.",
-        "errorTitle": "Vahvistus epäonnistui",
-        "errorBody": "Linkki voi olla vanhentunut. Lähetä uusi vahvistussähköposti.",
-        "resend": "Lähetä vahvistus uudelleen",
-        "resendCooldown": "Uudelleen {seconds} s",
-        "resent": "Vahvistussähköposti lähetetty.",
-        "signInLink": "Kirjaudu"
-      },
-      "errors": {
-        "UNKNOWN": "Jokin meni pieleen. Yritä uudelleen.",
-        "AUTH_DISABLED": "Pilottikirjautuminen ei ole käytössä palvelimella.",
-        "RATE_LIMIT": "Liian monta yritystä. Odota ja yritä uudelleen.",
-        "VALIDATION": "Tarkista lomake ja yritä uudelleen.",
-        "TURNSTILE_REQUIRED": "Suorita turvatarkistus.",
-        "EMAIL_INVALID": "Anna kelvollinen sähköpostiosoite.",
-        "EMAIL_TAKEN": "Sähköposti on jo rekisteröity.",
-        "CALLSIGN_TAKEN": "Tunnus on jo varattu.",
-        "CALLSIGN_INVALID": "Käytä 3–16 kirjainta, numeroa tai alaviivaa.",
-        "CALLSIGN_TOO_SHORT": "Tunnuksessa vähintään 3 merkkiä.",
-        "CALLSIGN_TOO_LONG": "Tunnuksessa enintään 16 merkkiä.",
-        "PASSWORD_TOO_SHORT": "Salasanassa vähintään 10 merkkiä.",
-        "PASSWORD_MISMATCH": "Salasanat eivät täsmää.",
-        "PASSWORD_REQUIRED": "Anna salasana.",
-        "INVALID_CREDENTIALS": "Virheellinen sähköposti tai salasana.",
-        "EMAIL_NOT_VERIFIED": "Vahvista sähköposti ennen kirjautumista.",
-        "SIGN_UP_FAILED": "Rekisteröinti epäonnistui. Yritä uudelleen.",
-        "SIGN_IN_FAILED": "Kirjautuminen epäonnistui. Yritä uudelleen.",
-        "RESET_FAILED": "Nollausviestiä ei voitu lähettää.",
-        "TOKEN_INVALID": "Linkki on virheellinen tai vanhentunut.",
-        "SEND_FAILED": "Sähköpostia ei voitu lähettää. Yritä myöhemmin."
-      }
-    },
-    "leaderboard": {
-      "submitTitle": "Lähetä globaalille listalle",
-      "submitHint": "2–4 kirjainta tai numeroa · vähintään 500 pistettä",
-      "initialsLabel": "Tunnus",
-      "initialsPlaceholder": "ABC",
-      "submit": "Tallenna tulos",
-      "submitting": "Lähetetään…",
-      "submitted": "Signaali tallennettu",
-      "submittedHint": "Juoksusi on globaalilla listalla.",
-      "skip": "Vain paikallinen",
-      "errors": {
-        "SUBMIT_FAILED": "Tulosta ei voitu tallentaa. Yritä uudelleen.",
-        "RATE_LIMIT": "Liian monta lähetystä. Odota hetki.",
-        "VALIDATION": "Virheellinen lähetys.",
-        "INITIALS_INVALID": "Käytä 2–4 kirjainta tai numeroa.",
-        "TOKEN_INVALID": "Istunto vanhentui. Pelaa uudestaan.",
-        "TIMING_INVALID": "Ajoitus ei täsmää. Pelaa uudestaan.",
-        "RUN_IMPLAUSIBLE": "Juoksua ei voitu varmistaa.",
-        "LEADERBOARD_DISABLED": "Lista ei ole käytössä."
-      }
-    },
-    "powerUps": {
-      "draftTitle": "Valitse päivitys",
-      "draftHint": "Näppäimet 1 · 2 · 3",
-      "overclock": "OVERCLOCK",
-      "overclockDesc": "Viholliset hidastuvat",
-      "magnet": "MAGNETTIKENTTÄ",
-      "magnetDesc": "Keräilyt vetäytyvät",
-      "dash": "DASH",
-      "dashDesc": "Shift — välähdys dodge",
-      "aura": "AURAKENTTÄ",
-      "auraDesc": "Tuhoaa lähellä olevat",
-      "pierce": "Läpäisevä",
-      "pierceDesc": "Laukaukset läpi vihollisista",
-      "multiplier": "PISTEET ×2",
-      "multiplierDesc": "Tuplapisteet 15 s",
-      "pulse": "Paineaalto",
-      "pulseDesc": "Työntää vihollisia",
-      "drone": "ORBIT-DRONE",
-      "droneDesc": "Satelliitti ampuu",
-      "berserk": "BERSERK",
-      "berserkDesc": "Nopeampi kolmoistuli",
-      "shield": "KILPI",
-      "shieldDesc": "Estää yhden osuman",
-      "triple": "KOLMOISTULI",
-      "tripleDesc": "Kolme suuntaa",
-      "timeBomb": "AIKAPOMMI",
-      "timeBombDesc": "Tyhjentää lähistön"
-    }
-  },
   "projectPage": {
     "back": "Takaisin portfolioon",
     "details": "Projektin tiedot",
@@ -584,39 +216,22 @@
     "items": {
       "neon-drift": {
         "title": "Neon Drift",
-        "subtitle": "Upotettu arcade-prototyyppi",
-        "descriptionTitle": "Tehtäväselostus",
-        "description": "Neon Drift on selainpohjainen selviytymisshooter, joka on kudottu tähän portfolioon—ei navigaatiossa, ei muualla mainittuna. Se on tekninen toteutus canvas-renderöinnistä, kevyestä jälkikäsittelystä ja reaaliaikaisesta äänestä tuotantovalmiissa Next.js-sivustossa.",
-        "teaser": "Luokiteltu signaali portfolion sisällä. Ei julkista reittiä—vain ne, jotka katsovat tarkemmin.",
-        "badge": "Luottamuksellinen",
-        "cardCta": "Avaa tiedosto",
-        "signalId": "Signaali · ND-Σ7",
-        "lede": "Selviydy parvesta. Rakenna synergioita. Kestä aaltoja, jotka eivät anna epäröidä.",
-        "briefingTitle": "Selostus",
-        "briefingExtra": "Kokemus toimii easter egginä: huomaamaton ohjaus jokaisen sivun kulmassa ja suora käynnistys tästä tiedostosta. Saavutukset ja paikallinen ennätys pysyvät laitteella; kelvolliset juoksut voi tallentaa Neon Postgres -pohjaiselle globaalille listalle.",
-        "capabilitiesTitle": "Järjestelmät käytössä",
-        "feature0": "Modulaarinen peliarkkitehtuuri (simulaatio, taistelu, aallot, pomot) laadun mukaan skaalautuvalla renderöinnillä",
-        "feature1": "Seitsemän vihutyyppiä, kierros-pohjainen eskalaatio ja pomotaistelut ennakoiduilla kuvioilla",
-        "feature2": "Roguelike-päivitysvalinnat, build-synergiat, paikalliset saavutukset, run-yhteenveto ja Neon-pohjainen globaali lista",
-        "feature3": "Mukautuvat grafiikat ja HTML5-ääni, viritetty vakaaseen suorituskykyyn avoimessa verkossa",
-        "leaderboard": {
-          "eyebrow": "Globaali signaali",
-          "title": "Tulostaulu",
-          "subtitle": "Parhaat juoksut arcade-pelistä. Vähintään 500 pistettä, varmennettu istunto.",
-          "empty": "Ei tallennettuja signaaleja — ole ensimmäinen listalla.",
-          "offline": "Tulostaulu vaatii tietokantayhteyden.",
-          "colInitials": "Tunnus",
-          "colScore": "Pisteet",
-          "colWave": "Aalto",
-          "colTime": "Aika"
-        },
-        "accessLabel": "Lupa myönnetty",
-        "launch": "Käynnistä Neon Drift",
-        "launchHint": "WASD · hiiren tähtäys · Shift dash · P tai Esc tauolle",
+        "subtitle": "Selainpohjainen survival-arcade",
+        "descriptionTitle": "Kuvaus",
+        "description": "Neon Drift on erillinen selainpeli: väistä parvia joka suunnasta, rakenna synergioita ja kilpaile globaalilla tulostaululla. Alun perin piilotettu portfolio-kokeilu, nyt oma sovellus.",
         "meta": [
-          { "label": "Kategoria", "value": "Selainarcade / portfolio-easter egg" },
-          { "label": "Teknologia", "value": "TypeScript · Canvas 2D · Next.js · Neon · Drizzle" },
-          { "label": "Tila", "value": "Live sivustolla · upotettu" }
+          {
+            "label": "Kategoria",
+            "value": "Selainarcade"
+          },
+          {
+            "label": "Teknologia",
+            "value": "TypeScript · Canvas 2D · Next.js · Neon Postgres"
+          },
+          {
+            "label": "Pelaa",
+            "value": "Avaa Neon Drift"
+          }
         ]
       },
       "eternal-cry": {
@@ -625,9 +240,18 @@
         "descriptionTitle": "Eternal-Cry — selostus",
         "description": "Toimintatasohyppelypeli, jossa on laaja tarina, toimintaa, salaisuuksia ja vihollisia. Pelin toteutukseen on käytetty GameMaker Studioa. Olen aloittanut myös projektin nettisivuston. Projekti on tällä hetkellä tauolla.",
         "meta": [
-          { "label": "Kategoria", "value": "Peliohjelmointi" },
-          { "label": "Koodikielet", "value": "C++ / Java / Script" },
-          { "label": "Projektin URL", "value": "eternalcry.000webhostapp.com" }
+          {
+            "label": "Kategoria",
+            "value": "Peliohjelmointi"
+          },
+          {
+            "label": "Koodikielet",
+            "value": "C++ / Java / Script"
+          },
+          {
+            "label": "Projektin URL",
+            "value": "eternalcry.000webhostapp.com"
+          }
         ]
       },
       "asiakasprojekti": {
@@ -635,11 +259,26 @@
         "subtitle": "Nettisivusto",
         "description": "Nettisivuston suunnittelu ja toteutus WordPressillä. Projektissa käytetty plugineja, itse tehtyjä kuvia ja erillisiä CSS-tiedostoja.",
         "meta": [
-          { "label": "Kategoria", "value": "Web-suunnittelu ja toteutus" },
-          { "label": "Koodikielet", "value": "WordPress / HTML / CSS" },
-          { "label": "Asiakas", "value": "Heikkilän Tila" },
-          { "label": "Aloitettu", "value": "Marraskuu 2022" },
-          { "label": "URL", "value": "heikkilanmarja.fi" }
+          {
+            "label": "Kategoria",
+            "value": "Web-suunnittelu ja toteutus"
+          },
+          {
+            "label": "Koodikielet",
+            "value": "WordPress / HTML / CSS"
+          },
+          {
+            "label": "Asiakas",
+            "value": "Heikkilän Tila"
+          },
+          {
+            "label": "Aloitettu",
+            "value": "Marraskuu 2022"
+          },
+          {
+            "label": "URL",
+            "value": "heikkilanmarja.fi"
+          }
         ]
       },
       "tic-tac-toe": {
@@ -647,10 +286,22 @@
         "subtitle": "React-sovellus",
         "description": "Ensimmäinen React-projektini: suunnittelu ja toteutus itse. Responsiivinen mobiilille. Koodi saatavilla GitHubissa linkin kautta.",
         "meta": [
-          { "label": "Kategoria", "value": "React App" },
-          { "label": "Koodikielet", "value": "React" },
-          { "label": "Päivämäärä", "value": "31. maaliskuuta 2023" },
-          { "label": "Demo", "value": "tuukkaleksi.github.io/tic-tac-toe" }
+          {
+            "label": "Kategoria",
+            "value": "React App"
+          },
+          {
+            "label": "Koodikielet",
+            "value": "React"
+          },
+          {
+            "label": "Päivämäärä",
+            "value": "31. maaliskuuta 2023"
+          },
+          {
+            "label": "Demo",
+            "value": "tuukkaleksi.github.io/tic-tac-toe"
+          }
         ]
       },
       "sudoku": {
@@ -658,11 +309,26 @@
         "subtitle": "JavaScript-peli",
         "description": "Sudoku-projekti toteutettu HTML:llä, CSS:llä ja JavaScriptillä. Ei vielä täysin responsiivinen. Lähdekoodi GitHubissa.",
         "meta": [
-          { "label": "Kategoria", "value": "Web-peli" },
-          { "label": "Koodikielet", "value": "HTML, CSS, JavaScript" },
-          { "label": "Päivämäärä", "value": "10. huhtikuuta 2023" },
-          { "label": "Demo", "value": "tuukkaleksi.github.io/sudoku" },
-          { "label": "Lähdekoodi", "value": "github.com/Tuukkaleksi/sudoku" }
+          {
+            "label": "Kategoria",
+            "value": "Web-peli"
+          },
+          {
+            "label": "Koodikielet",
+            "value": "HTML, CSS, JavaScript"
+          },
+          {
+            "label": "Päivämäärä",
+            "value": "10. huhtikuuta 2023"
+          },
+          {
+            "label": "Demo",
+            "value": "tuukkaleksi.github.io/sudoku"
+          },
+          {
+            "label": "Lähdekoodi",
+            "value": "github.com/Tuukkaleksi/sudoku"
+          }
         ]
       },
       "vectorama": {
@@ -670,11 +336,26 @@
         "subtitle": "Verkkopeli",
         "description": "Vectorama-tapahtumaan tehty Kahoot-tyylinen selainpeli, jossa pelaajien tarkoitus on arvata kuka on tekoäly. OpenAI API ja Firebase. Chat-huone työn alla.",
         "meta": [
-          { "label": "Kategoria", "value": "HTML / Web Game" },
-          { "label": "Koodikielet", "value": "TypeScript, JavaScript, CSS, Node.js" },
-          { "label": "Päivämäärä", "value": "20. huhtikuuta 2023" },
-          { "label": "Lähdekoodi", "value": "Github — Mielihurjaus" },
-          { "label": "Demo", "value": "poetic-otter-e26763.netlify.app" }
+          {
+            "label": "Kategoria",
+            "value": "HTML / Web Game"
+          },
+          {
+            "label": "Koodikielet",
+            "value": "TypeScript, JavaScript, CSS, Node.js"
+          },
+          {
+            "label": "Päivämäärä",
+            "value": "20. huhtikuuta 2023"
+          },
+          {
+            "label": "Lähdekoodi",
+            "value": "Github — Mielihurjaus"
+          },
+          {
+            "label": "Demo",
+            "value": "poetic-otter-e26763.netlify.app"
+          }
         ]
       },
       "text-adventure": {
@@ -683,10 +364,22 @@
         "descriptionTitle": "Vite React — selostus",
         "description": "Harjoitusprojekti React-moduuleihin. Tekstiseikkailu, jossa tekoäly aloittaa ja jatkaa tarinaa; käyttäjä voi ohjata suuntaa. Kehitystä jatketaan.",
         "meta": [
-          { "label": "Kategoria", "value": "Vite + React" },
-          { "label": "Koodikielet", "value": "React / CSS" },
-          { "label": "Aloitettu", "value": "Heinäkuu 2023" },
-          { "label": "Lähdekoodi", "value": "github.com/Tuukkaleksi/text-adventure" }
+          {
+            "label": "Kategoria",
+            "value": "Vite + React"
+          },
+          {
+            "label": "Koodikielet",
+            "value": "React / CSS"
+          },
+          {
+            "label": "Aloitettu",
+            "value": "Heinäkuu 2023"
+          },
+          {
+            "label": "Lähdekoodi",
+            "value": "github.com/Tuukkaleksi/text-adventure"
+          }
         ]
       },
       "wordle": {
@@ -694,10 +387,22 @@
         "subtitle": "React / React Native",
         "description": "Wordle-tyylinen peli: pelaaja arvaa sanan viidessä yrityksessä. Tavoitteena web- ja mobiilisovellus Reactilla ja React Nativella.",
         "meta": [
-          { "label": "Kategoria", "value": "React / React Native" },
-          { "label": "Koodikielet", "value": "React / React Native" },
-          { "label": "Aloitettu", "value": "Marraskuu 2022" },
-          { "label": "Lähdekoodi", "value": "github.com/Tuukkaleksi/wordle-project" }
+          {
+            "label": "Kategoria",
+            "value": "React / React Native"
+          },
+          {
+            "label": "Koodikielet",
+            "value": "React / React Native"
+          },
+          {
+            "label": "Aloitettu",
+            "value": "Marraskuu 2022"
+          },
+          {
+            "label": "Lähdekoodi",
+            "value": "github.com/Tuukkaleksi/wordle-project"
+          }
         ]
       }
     }

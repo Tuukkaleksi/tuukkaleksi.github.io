@@ -77,11 +77,14 @@ export const projectBases: ProjectBase[] = [
   },
 ];
 
+const neonDriftPlayUrl =
+  process.env.NEXT_PUBLIC_NEON_DRIFT_URL?.trim() || "http://localhost:3000";
+
 export const projectMetaLinks: Record<
   string,
   { href?: string; value: string }[]
 > = {
-  "neon-drift": [],
+  "neon-drift": [{ value: "Play Neon Drift", href: neonDriftPlayUrl }],
   "eternal-cry": [
     { value: "eternalcry.000webhostapp.com", href: "https://eternalcry.000webhostapp.com" },
   ],

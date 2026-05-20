@@ -2,7 +2,6 @@
 
 import { NextIntlClientProvider } from "next-intl";
 import type { AbstractIntlMessages } from "next-intl";
-import { ArcadeEasterEgg } from "@/components/arcade/ArcadeEasterEgg";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { defaultTimeZone } from "@/i18n/request";
 import type { Locale } from "@/i18n/routing";
@@ -18,7 +17,6 @@ export function AppProviders({ children, locale, messages }: AppProvidersProps) 
     <ThemeProvider>
       <NextIntlClientProvider locale={locale} messages={messages} timeZone={defaultTimeZone}>
         {children}
-        <ArcadeEasterEgg />
       </NextIntlClientProvider>
     </ThemeProvider>
   );
