@@ -15,7 +15,9 @@
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.6.11",
     "@neondatabase/serverless": "^1.1.0",
+    "better-auth": "^1.6.11",
     "drizzle-orm": "^0.45.2",
     "lucide-react": "^1.16.0",
     "next": "16.2.6",

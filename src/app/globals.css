@@ -256,6 +256,27 @@ body {
   background-size: 32px 32px;
 }
 
+@keyframes pilot-auth-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pilot-auth-enter {
+  animation: pilot-auth-enter 0.45s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pilot-auth-enter {
+    animation: none;
+  }
+}
+
 .neon-drift-ring {
   animation: neon-drift-ring 5s ease-in-out infinite;
 }

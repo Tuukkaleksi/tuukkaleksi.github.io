@@ -87,17 +87,6 @@ export function NeonDriftProjectPage({ project }: NeonDriftProjectPageProps) {
               ))}
             </dl>
           </div>
-
-          <div className="rounded-2xl border border-primary/20 bg-[#0a0b0f] p-6 text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-sky-400/70">{t("accessLabel")}</p>
-            <Link
-              href="/neon-drift"
-              className="mt-4 inline-block w-full rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md shadow-primary/30 transition hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            >
-              {t("launch")}
-            </Link>
-            <p className="mt-3 text-xs text-white/45">{t("launchHint")}</p>
-          </div>
         </aside>
       </div>
     </>

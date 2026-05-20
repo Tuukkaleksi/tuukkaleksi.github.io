@@ -96,13 +96,30 @@ npm run start
 
 ## Environment variables
 
+Copy `.env.example` to `.env.local` and fill in values for the features you need.
+
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL for metadata, Open Graph, and sitemap |
-| `RESEND_API_KEY` | No | Reserved for future contact API |
-| `CONTACT_TO_EMAIL` | No | Reserved for future contact API |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL for metadata, Open Graph, sitemap, and auth callbacks |
+| `DATABASE_URL` | For Neon Drift auth / leaderboard | Neon Postgres connection string |
+| `BETTER_AUTH_SECRET` | For pilot auth | 32+ char secret (`openssl rand -base64 32`) |
+| `BETTER_AUTH_URL` | For pilot auth | App base URL (often same as `NEXT_PUBLIC_SITE_URL`) |
+| `RESEND_API_KEY` | For contact + auth emails | Resend API key |
+| `CONTACT_TO_EMAIL` | For contact form | Inbox for portfolio messages |
+| `CONTACT_FROM_EMAIL` | Optional | Sender for contact (and auth fallback) |
+| `AUTH_FROM_EMAIL` | Optional | Dedicated sender for pilot verification / reset emails |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Optional | Cloudflare Turnstile site key (register) |
+| `TURNSTILE_SECRET_KEY` | Optional | Turnstile secret (register) |
+| `NEON_DRIFT_SECRET` | For global leaderboard | HMAC secret for run tokens |
+| `NEXT_PUBLIC_NEON_DRIFT_GLOBAL_SUBMIT` | Optional | Set `true` to enable global score submit UI (requires pilot auth) |
 
 Never commit `.env.local` or secrets to the repository.
+
+### Database migrations
+
+```bash
+npm run db:migrate
+```
 
 ---
 

@@ -36,9 +36,6 @@ export function NeonDriftPortfolioCard({ project }: NeonDriftPortfolioCardProps)
             →
           </span>
         </Link>
-        <p className="mt-3 text-[10px] text-white/30">
-          {tPortfolio("neonDriftHint")}
-        </p>
       </div>
     </article>
   );

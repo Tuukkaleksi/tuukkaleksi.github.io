@@ -112,8 +112,7 @@
     "title": "Portfolio",
     "description": "Choose a category or open a project page for details and images.",
     "filters": { "all": "All", "projects": "Projects", "react": "React" },
-    "readMore": "Read more",
-    "neonDriftHint": "Also reachable site-wide via Shift + P"
+    "readMore": "Read more"
   },
   "contact": {
     "title": "Contact",
@@ -289,7 +288,9 @@
         "leaderboard": "Leaderboard",
         "signIn": "Sign in",
         "signedIn": "Pilot signed in",
-        "register": "Register"
+        "register": "Register",
+        "signOut": "Sign out",
+        "callsignLabel": "Callsign"
       },
       "rarity": {
         "common": "Common",
@@ -298,6 +299,7 @@
       },
       "notices": {
         "signInRequired": "Create or sign in to a pilot account before purchasing.",
+        "emailNotVerified": "Verify your email before purchasing cosmetics.",
         "purchaseSuccess": "Item unlocked — equip it from your loadout.",
         "purchaseFailed": "Purchase could not be completed."
       },
@@ -353,14 +355,157 @@
       "signin": {
         "eyebrow": "Pilot access",
         "title": "Sign in",
-        "description": "Online sync and seasonal boards are coming soon. Cosmetics and scores already work locally on this device.",
-        "badge": "Coming soon"
+        "description": "Sign in with your pilot email to unlock purchases and synced loadouts.",
+        "badge": "Open terminal"
       },
       "register": {
         "eyebrow": "New pilot",
         "title": "Register",
-        "description": "Create a callsign when the drift network opens. Until then, equip cosmetics from the shop and chase the daily seed.",
-        "badge": "Coming soon"
+        "description": "Claim a callsign, verify your email, and join the drift network.",
+        "badge": "Enlist"
+      }
+    },
+    "auth": {
+      "disabled": {
+        "eyebrow": "Offline",
+        "title": "Pilot network unavailable",
+        "description": "Auth requires DATABASE_URL and BETTER_AUTH_SECRET. Configure .env.local to enable sign-in.",
+        "back": "Back to Neon Drift"
+      },
+      "passwordStrength": {
+        "empty": "",
+        "weak": "Weak — add length and mixed characters",
+        "fair": "Fair — add numbers or symbols",
+        "good": "Good password",
+        "strong": "Strong password"
+      },
+      "banner": {
+        "unverified": "Verify your email to unlock shop purchases.",
+        "resend": "Resend email",
+        "resending": "Sending…",
+        "verifyLink": "Verification help"
+      },
+      "signIn": {
+        "heroEyebrow": "Drift network",
+        "heroTitle": "Pilot terminal",
+        "heroSubtitle": "Secure access for cosmetics, cloud sync, and future global boards.",
+        "feature1": "HTTP-only session — no passwords in the browser",
+        "feature2": "Email verification before purchases",
+        "feature3": "Rate-limited sign-in on the server",
+        "eyebrow": "Sign in",
+        "title": "Welcome back",
+        "subtitle": "Use the email and password from registration.",
+        "email": "Email",
+        "password": "Password",
+        "rememberMe": "Keep me signed in on this device",
+        "showPassword": "Show password",
+        "hidePassword": "Hide password",
+        "submit": "Sign in",
+        "noAccount": "New pilot?",
+        "registerLink": "Create account",
+        "forgotLink": "Forgot password?"
+      },
+      "register": {
+        "heroEyebrow": "Enlist",
+        "heroTitle": "Claim your callsign",
+        "heroSubtitle": "Register once — verify email — unlock the supply depot.",
+        "feature1": "Unique callsign on the global roster",
+        "feature2": "Cosmetic purchases tied to your pilot",
+        "feature3": "Bot protection on registration",
+        "eyebrow": "Register",
+        "title": "New pilot",
+        "subtitle": "3–16 characters: letters, numbers, underscore.",
+        "callsign": "Callsign",
+        "callsignHint": "Shown on leaderboards and in the shop sidebar.",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "showPassword": "Show password",
+        "hidePassword": "Hide password",
+        "terms": "By registering you agree to use a real email you can access for verification.",
+        "submit": "Create pilot account",
+        "hasAccount": "Already enlisted?",
+        "signInLink": "Sign in",
+        "successEyebrow": "Signal sent",
+        "successTitle": "Check your inbox",
+        "successBody": "We sent a verification link to {email}. Open it before signing in.",
+        "successCta": "Go to sign in"
+      },
+      "forgot": {
+        "heroEyebrow": "Recovery",
+        "heroTitle": "Reset access",
+        "heroSubtitle": "We email a single-use link — no passwords in chat.",
+        "feature1": "Links expire automatically",
+        "feature2": "Same inbox as registration",
+        "eyebrow": "Forgot password",
+        "title": "Reset password",
+        "subtitle": "Enter your pilot email. If an account exists, you will receive a link.",
+        "email": "Email",
+        "submit": "Send reset link",
+        "sentTitle": "Check your email",
+        "sentBody": "If {email} is registered, a reset link is on the way.",
+        "backSignIn": "Back to sign in"
+      },
+      "reset": {
+        "heroEyebrow": "Recovery",
+        "heroTitle": "New credentials",
+        "heroSubtitle": "Choose a strong password for your pilot account.",
+        "feature1": "Minimum 10 characters",
+        "eyebrow": "Reset",
+        "title": "Set new password",
+        "subtitle": "Enter a new password twice to confirm.",
+        "password": "New password",
+        "confirmPassword": "Confirm password",
+        "showPassword": "Show password",
+        "hidePassword": "Hide password",
+        "submit": "Update password",
+        "invalidTitle": "Link expired",
+        "invalidBody": "Request a fresh reset link from the forgot password page.",
+        "requestAgain": "Request new link",
+        "doneTitle": "Password updated",
+        "doneBody": "Redirecting to sign in…"
+      },
+      "verify": {
+        "heroEyebrow": "Verification",
+        "heroTitle": "Confirm email",
+        "heroSubtitle": "One click in your inbox unlocks shop purchases.",
+        "feature1": "Required before cosmetic purchases",
+        "feature2": "Resend available with cooldown",
+        "verifiedTitle": "Email verified",
+        "verifiedBody": "Your pilot account is active. Head to the depot to purchase cosmetics.",
+        "shopCta": "Open shop",
+        "pendingTitle": "Verify your email",
+        "pendingBody": "We sent a link to {email}. Check spam folders if needed.",
+        "pendingBodyAnonymous": "Sign in, then resend verification from this page.",
+        "errorTitle": "Verification failed",
+        "errorBody": "The link may be expired. Resend a fresh verification email.",
+        "resend": "Resend verification",
+        "resendCooldown": "Resend in {seconds}s",
+        "resent": "Verification email sent.",
+        "signInLink": "Sign in"
+      },
+      "errors": {
+        "UNKNOWN": "Something went wrong. Try again.",
+        "AUTH_DISABLED": "Pilot auth is not configured on this server.",
+        "RATE_LIMIT": "Too many attempts. Wait and try again.",
+        "VALIDATION": "Check the form and try again.",
+        "TURNSTILE_REQUIRED": "Complete the security check.",
+        "EMAIL_INVALID": "Enter a valid email address.",
+        "EMAIL_TAKEN": "That email is already registered.",
+        "CALLSIGN_TAKEN": "That callsign is already taken.",
+        "CALLSIGN_INVALID": "Use 3–16 letters, numbers, or underscores.",
+        "CALLSIGN_TOO_SHORT": "Callsign must be at least 3 characters.",
+        "CALLSIGN_TOO_LONG": "Callsign must be at most 16 characters.",
+        "PASSWORD_TOO_SHORT": "Password must be at least 10 characters.",
+        "PASSWORD_MISMATCH": "Passwords do not match.",
+        "PASSWORD_REQUIRED": "Enter your password.",
+        "INVALID_CREDENTIALS": "Invalid email or password.",
+        "EMAIL_NOT_VERIFIED": "Verify your email before signing in.",
+        "SIGN_UP_FAILED": "Registration failed. Try again.",
+        "SIGN_IN_FAILED": "Sign in failed. Try again.",
+        "RESET_FAILED": "Could not send reset email.",
+        "TOKEN_INVALID": "This link is invalid or expired.",
+        "SEND_FAILED": "Could not send email. Try again later."
       }
     },
     "leaderboard": {
@@ -471,8 +616,7 @@
         "meta": [
           { "label": "Category", "value": "Browser arcade / portfolio easter egg" },
           { "label": "Stack", "value": "TypeScript · Canvas 2D · Next.js · Neon · Drizzle" },
-          { "label": "Status", "value": "Live on site · embedded" },
-          { "label": "Access", "value": "Shift + P anywhere · or launch below" }
+          { "label": "Status", "value": "Live on site · embedded" }
         ]
       },
       "eternal-cry": {

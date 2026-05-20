@@ -112,8 +112,7 @@
     "title": "Portfolio",
     "description": "Valitse kategoria tai avaa projektin sivu nähdäksesi lisätiedot ja kuvat.",
     "filters": { "all": "Kaikki", "projects": "Projektit", "react": "React" },
-    "readMore": "Lue lisää",
-    "neonDriftHint": "Saatavilla myös sivustolla: Shift + P"
+    "readMore": "Lue lisää"
   },
   "contact": {
     "title": "Ota yhteyttä",
@@ -289,7 +288,9 @@
         "leaderboard": "Tulostaulu",
         "signIn": "Kirjaudu",
         "signedIn": "Pilotti kirjautunut",
-        "register": "Rekisteröidy"
+        "register": "Rekisteröidy",
+        "signOut": "Kirjaudu ulos",
+        "callsignLabel": "Tunnus"
       },
       "rarity": {
         "common": "Yleinen",
@@ -298,6 +299,7 @@
       },
       "notices": {
         "signInRequired": "Luo tai kirjaudu pilottitilille ennen ostoa.",
+        "emailNotVerified": "Vahvista sähköpostisi ennen kosmetiikkaostoja.",
         "purchaseSuccess": "Tuote avattu — varusta se loadoutista.",
         "purchaseFailed": "Ostoa ei voitu suorittaa."
       },
@@ -353,14 +355,157 @@
       "signin": {
         "eyebrow": "Pääsy",
         "title": "Kirjaudu",
-        "description": "Synkronointi ja kausilistat tulossa. Kosmetiikka ja pisteet toimivat jo paikallisesti tällä laitteella.",
-        "badge": "Tulossa"
+        "description": "Kirjaudu pilottisähköpostilla avataksesi ostot ja synkronoidun varustuksen.",
+        "badge": "Avaa terminaali"
       },
       "register": {
         "eyebrow": "Uusi pilotti",
         "title": "Rekisteröidy",
-        "description": "Luo tunnus, kun drift-verkko avautuu. Siihen asti varusta ulkoasu kaupasta ja aja päivän siementä.",
-        "badge": "Tulossa"
+        "description": "Varaa tunnus, vahvista sähköposti ja liity drift-verkkoon.",
+        "badge": "Liity"
+      }
+    },
+    "auth": {
+      "disabled": {
+        "eyebrow": "Offline",
+        "title": "Pilottiverkko ei käytettävissä",
+        "description": "Kirjautuminen vaatii DATABASE_URL- ja BETTER_AUTH_SECRET-muuttujat .env.local-tiedostossa.",
+        "back": "Takaisin Neon Driftiin"
+      },
+      "passwordStrength": {
+        "empty": "",
+        "weak": "Heikko — lisää pituutta ja erilaisia merkkejä",
+        "fair": "Kohtalainen — lisää numeroita tai symboleja",
+        "good": "Hyvä salasana",
+        "strong": "Vahva salasana"
+      },
+      "banner": {
+        "unverified": "Vahvista sähköpostisi avataksesi kauppaostot.",
+        "resend": "Lähetä uudelleen",
+        "resending": "Lähetetään…",
+        "verifyLink": "Vahvistusohje"
+      },
+      "signIn": {
+        "heroEyebrow": "Drift-verkko",
+        "heroTitle": "Pilottiterminaali",
+        "heroSubtitle": "Turvallinen pääsy kosmetiikkaan, synkronointiin ja tuleviin globaaleihin listoihin.",
+        "feature1": "HTTP-only-istunto — salasana ei jää selaimeen",
+        "feature2": "Sähköpostivahvistus ennen ostoja",
+        "feature3": "Palvelinpuolen nopeusrajoitus kirjautumiselle",
+        "eyebrow": "Kirjaudu",
+        "title": "Tervetuloa takaisin",
+        "subtitle": "Käytä rekisteröinnin sähköpostia ja salasanaa.",
+        "email": "Sähköposti",
+        "password": "Salasana",
+        "rememberMe": "Pidä minut kirjautuneena tällä laitteella",
+        "showPassword": "Näytä salasana",
+        "hidePassword": "Piilota salasana",
+        "submit": "Kirjaudu",
+        "noAccount": "Uusi pilotti?",
+        "registerLink": "Luo tili",
+        "forgotLink": "Unohditko salasanan?"
+      },
+      "register": {
+        "heroEyebrow": "Liity",
+        "heroTitle": "Varaa tunnus",
+        "heroSubtitle": "Rekisteröidy kerran — vahvista sähköposti — avaa varasto.",
+        "feature1": "Uniikki tunnus globaalilla listalla",
+        "feature2": "Kosmetiikkaostot sidottu pilottiin",
+        "feature3": "Bottisuoja rekisteröinnissä",
+        "eyebrow": "Rekisteröidy",
+        "title": "Uusi pilotti",
+        "subtitle": "3–16 merkkiä: kirjaimet, numerot, alaviiva.",
+        "callsign": "Tunnus",
+        "callsignHint": "Näkyy listoilla ja kaupan sivupalkissa.",
+        "email": "Sähköposti",
+        "password": "Salasana",
+        "confirmPassword": "Vahvista salasana",
+        "showPassword": "Näytä salasana",
+        "hidePassword": "Piilota salasana",
+        "terms": "Rekisteröitymällä käytät sähköpostia, johon voit vastaanottaa vahvistuslinkin.",
+        "submit": "Luo pilottitili",
+        "hasAccount": "Jo rekisteröitynyt?",
+        "signInLink": "Kirjaudu",
+        "successEyebrow": "Signaali lähetetty",
+        "successTitle": "Tarkista posti",
+        "successBody": "Lähetimme vahvistuslinkin osoitteeseen {email}. Avaa se ennen kirjautumista.",
+        "successCta": "Siirry kirjautumaan"
+      },
+      "forgot": {
+        "heroEyebrow": "Palautus",
+        "heroTitle": "Palauta pääsy",
+        "heroSubtitle": "Lähetämme kertakäyttölinkin — ei salasanoja viesteissä.",
+        "feature1": "Linkit vanhenevat automaattisesti",
+        "feature2": "Sama posti kuin rekisteröinnissä",
+        "eyebrow": "Unohditko salasanan",
+        "title": "Nollaa salasana",
+        "subtitle": "Anna pilottisähköposti. Jos tili on olemassa, saat linkin.",
+        "email": "Sähköposti",
+        "submit": "Lähetä nollauslinkki",
+        "sentTitle": "Tarkista posti",
+        "sentBody": "Jos {email} on rekisteröity, nollauslinkki on matkalla.",
+        "backSignIn": "Takaisin kirjautumaan"
+      },
+      "reset": {
+        "heroEyebrow": "Palautus",
+        "heroTitle": "Uudet tunnukset",
+        "heroSubtitle": "Valitse vahva salasana pilottitilillesi.",
+        "feature1": "Vähintään 10 merkkiä",
+        "eyebrow": "Nollaus",
+        "title": "Uusi salasana",
+        "subtitle": "Syötä uusi salasana kahdesti.",
+        "password": "Uusi salasana",
+        "confirmPassword": "Vahvista salasana",
+        "showPassword": "Näytä salasana",
+        "hidePassword": "Piilota salasana",
+        "submit": "Päivitä salasana",
+        "invalidTitle": "Linkki vanhentunut",
+        "invalidBody": "Pyydä uusi nollauslinkki unohtunut-salasana-sivulta.",
+        "requestAgain": "Pyydä uusi linkki",
+        "doneTitle": "Salasana päivitetty",
+        "doneBody": "Ohjataan kirjautumiseen…"
+      },
+      "verify": {
+        "heroEyebrow": "Vahvistus",
+        "heroTitle": "Vahvista sähköposti",
+        "heroSubtitle": "Yksi klikkaus postissa avaa kauppaostot.",
+        "feature1": "Pakollinen ennen kosmetiikkaostoja",
+        "feature2": "Uudelleenlähetys odotusajalla",
+        "verifiedTitle": "Sähköposti vahvistettu",
+        "verifiedBody": "Pilottitilisi on aktiivinen. Siirry varastoon ostamaan kosmetiikkaa.",
+        "shopCta": "Avaa kauppa",
+        "pendingTitle": "Vahvista sähköpostisi",
+        "pendingBody": "Lähetimme linkin osoitteeseen {email}. Tarkista roskaposti tarvittaessa.",
+        "pendingBodyAnonymous": "Kirjaudu sisään ja lähetä vahvistus uudelleen tältä sivulta.",
+        "errorTitle": "Vahvistus epäonnistui",
+        "errorBody": "Linkki voi olla vanhentunut. Lähetä uusi vahvistussähköposti.",
+        "resend": "Lähetä vahvistus uudelleen",
+        "resendCooldown": "Uudelleen {seconds} s",
+        "resent": "Vahvistussähköposti lähetetty.",
+        "signInLink": "Kirjaudu"
+      },
+      "errors": {
+        "UNKNOWN": "Jokin meni pieleen. Yritä uudelleen.",
+        "AUTH_DISABLED": "Pilottikirjautuminen ei ole käytössä palvelimella.",
+        "RATE_LIMIT": "Liian monta yritystä. Odota ja yritä uudelleen.",
+        "VALIDATION": "Tarkista lomake ja yritä uudelleen.",
+        "TURNSTILE_REQUIRED": "Suorita turvatarkistus.",
+        "EMAIL_INVALID": "Anna kelvollinen sähköpostiosoite.",
+        "EMAIL_TAKEN": "Sähköposti on jo rekisteröity.",
+        "CALLSIGN_TAKEN": "Tunnus on jo varattu.",
+        "CALLSIGN_INVALID": "Käytä 3–16 kirjainta, numeroa tai alaviivaa.",
+        "CALLSIGN_TOO_SHORT": "Tunnuksessa vähintään 3 merkkiä.",
+        "CALLSIGN_TOO_LONG": "Tunnuksessa enintään 16 merkkiä.",
+        "PASSWORD_TOO_SHORT": "Salasanassa vähintään 10 merkkiä.",
+        "PASSWORD_MISMATCH": "Salasanat eivät täsmää.",
+        "PASSWORD_REQUIRED": "Anna salasana.",
+        "INVALID_CREDENTIALS": "Virheellinen sähköposti tai salasana.",
+        "EMAIL_NOT_VERIFIED": "Vahvista sähköposti ennen kirjautumista.",
+        "SIGN_UP_FAILED": "Rekisteröinti epäonnistui. Yritä uudelleen.",
+        "SIGN_IN_FAILED": "Kirjautuminen epäonnistui. Yritä uudelleen.",
+        "RESET_FAILED": "Nollausviestiä ei voitu lähettää.",
+        "TOKEN_INVALID": "Linkki on virheellinen tai vanhentunut.",
+        "SEND_FAILED": "Sähköpostia ei voitu lähettää. Yritä myöhemmin."
       }
     },
     "leaderboard": {
@@ -471,8 +616,7 @@
         "meta": [
           { "label": "Kategoria", "value": "Selainarcade / portfolio-easter egg" },
           { "label": "Teknologia", "value": "TypeScript · Canvas 2D · Next.js · Neon · Drizzle" },
-          { "label": "Tila", "value": "Live sivustolla · upotettu" },
-          { "label": "Pääsy", "value": "Shift + P missä tahansa · tai käynnistä alta" }
+          { "label": "Tila", "value": "Live sivustolla · upotettu" }
         ]
       },
       "eternal-cry": {

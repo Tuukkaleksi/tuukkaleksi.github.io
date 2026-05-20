@@ -3,8 +3,8 @@ export const RUN_BPM = 128;
 
 const MENU_MUSIC_URL = "/sound/neon-main-menu-song.mp3";
 /** Run set: intro once, then loop for the rest of the run. */
-const RUN_MUSIC_INTRO_URL = "/sound/drift-main-music-2.mp3";
-const RUN_MUSIC_LOOP_URL = "/sound/drift-main-music.mp3";
+const RUN_MUSIC_INTRO_URL = "/sound/drift-main-music.mp3";
+const RUN_MUSIC_LOOP_URL = "/sound/drift-main-music-2.mp3";
 const PLACEHOLDER_SHOOT = "/sound/placeholder-shoot.mp3";
 const PLACEHOLDER_EXPLOSION = "/sound/placeholder-explosion.mp3";
 const MUSIC_VOLUME_KEY = "neon-drift-music-vol";

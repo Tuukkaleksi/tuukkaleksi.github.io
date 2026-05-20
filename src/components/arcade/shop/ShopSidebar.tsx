@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Gamepad2, LogIn, Trophy, UserPlus } from "lucide-react";
+import { ChevronDown, Gamepad2, LogIn, LogOut, Trophy, UserPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ShopScrollRegion } from "@/components/arcade/shop/ShopScrollRegion";
@@ -22,6 +22,8 @@ type ShopSidebarProps = {
   terminalOpen: boolean;
   onToggleTerminal: () => void;
   signedIn: boolean;
+  callsign?: string | null;
+  onSignOut?: () => void;
 };
 
 export function ShopSidebar({
@@ -32,6 +34,8 @@ export function ShopSidebar({
   terminalOpen,
   onToggleTerminal,
   signedIn,
+  callsign,
+  onSignOut,
 }: ShopSidebarProps) {
   const t = useTranslations("arcade.shop");
 
@@ -45,6 +49,12 @@ export function ShopSidebar({
           {t("depotName")}
         </Link>
         <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-sky-400/55">{t("depotTag")}</p>
+        {signedIn && callsign ? (
+          <p className="mt-3 text-xs text-white/50">
+            <span className="text-white/35">{t("nav.callsignLabel")}: </span>
+            <span className="font-medium text-sky-200/90">{callsign}</span>
+          </p>
+        ) : null}
       </div>
 
       <ShopScrollRegion className="flex-1">
@@ -114,24 +124,39 @@ export function ShopSidebar({
                   {t("nav.leaderboard")}
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/neon-drift/signin"
-                  className="shop-depot-nav-link flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-white/50 transition hover:bg-white/[0.04] hover:text-white/75"
-                >
-                  <LogIn className="h-3.5 w-3.5 opacity-60" aria-hidden />
-                  {signedIn ? t("nav.signedIn") : t("nav.signIn")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/neon-drift/register"
-                  className="shop-depot-nav-link flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-white/50 transition hover:bg-white/[0.04] hover:text-white/75"
-                >
-                  <UserPlus className="h-3.5 w-3.5 opacity-60" aria-hidden />
-                  {t("nav.register")}
-                </Link>
-              </li>
+              {signedIn ? (
+                <li>
+                  <button
+                    type="button"
+                    onClick={onSignOut}
+                    className="shop-depot-nav-link flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left text-sm text-white/50 transition hover:bg-white/[0.04] hover:text-white/75"
+                  >
+                    <LogOut className="h-3.5 w-3.5 opacity-60" aria-hidden />
+                    {t("nav.signOut")}
+                  </button>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link
+                      href="/neon-drift/signin"
+                      className="shop-depot-nav-link flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-white/50 transition hover:bg-white/[0.04] hover:text-white/75"
+                    >
+                      <LogIn className="h-3.5 w-3.5 opacity-60" aria-hidden />
+                      {t("nav.signIn")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/neon-drift/register"
+                      className="shop-depot-nav-link flex items-center gap-2 rounded-md px-2.5 py-2 text-sm text-white/50 transition hover:bg-white/[0.04] hover:text-white/75"
+                    >
+                      <UserPlus className="h-3.5 w-3.5 opacity-60" aria-hidden />
+                      {t("nav.register")}
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           )}
         </div>

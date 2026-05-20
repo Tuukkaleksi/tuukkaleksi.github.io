@@ -6,12 +6,12 @@ import { Link } from "@/i18n/navigation";
 import { ShopItemCard } from "@/components/arcade/shop/ShopItemCard";
 import { ShopScrollRegion } from "@/components/arcade/shop/ShopScrollRegion";
 import { ShopSidebar } from "@/components/arcade/shop/ShopSidebar";
+import { AuthStatusBanner } from "@/components/arcade/auth/AuthStatusBanner";
 import {
   COSMETIC_CATALOG,
   defaultCosmeticProfile,
   equipCosmetic,
   getCatalogByCategory,
-  isPilotSignedIn,
   loadCosmeticProfile,
   purchaseCosmetic,
   type CosmeticCategory,
@@ -19,21 +19,32 @@ import {
   type CosmeticItem,
   type CosmeticProfile,
 } from "@/lib/arcade/cosmetics";
+import {
+  getPilotCallsign,
+  isPilotVerified,
+  sendVerificationEmail,
+  signOut,
+  useSession,
+} from "@/lib/auth/client";
 
 export function NeonDriftShopClient() {
   const t = useTranslations("arcade.shop");
   /** Match SSR — localStorage is applied after mount to avoid hydration mismatch. */
+  const { data: session, isPending } = useSession();
   const [profile, setProfile] = useState<CosmeticProfile>(defaultCosmeticProfile);
-  const [signedIn, setSignedIn] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
   const [activeCategory, setActiveCategory] = useState<CosmeticCategory>("skin");
   const [selectedId, setSelectedId] = useState<CosmeticId>("skin.default");
   const [cosmeticsOpen, setCosmeticsOpen] = useState(true);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [purchaseNotice, setPurchaseNotice] = useState<string | null>(null);
 
+  const signedIn = Boolean(session?.user);
+  const verified = isPilotVerified(session);
+  const callsign = getPilotCallsign(session);
+
   useEffect(() => {
     setProfile(loadCosmeticProfile());
-    setSignedIn(isPilotSignedIn());
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
@@ -56,8 +67,12 @@ export function NeonDriftShopClient() {
 
   const onPurchase = useCallback(
     (id: CosmeticId) => {
-      if (!isPilotSignedIn()) {
+      if (!signedIn) {
         setPurchaseNotice("signInRequired");
+        return;
+      }
+      if (!verified) {
+        setPurchaseNotice("emailNotVerified");
         return;
       }
       setProfile((prev) => {
@@ -70,8 +85,24 @@ export function NeonDriftShopClient() {
         return next;
       });
     },
-    [],
+    [signedIn, verified],
   );
+
+  const onSignOut = useCallback(async () => {
+    await signOut();
+    window.location.href = "/neon-drift/signin";
+  }, []);
+
+  const onResendVerification = useCallback(async () => {
+    const email = session?.user?.email;
+    if (!email) return;
+    setResendLoading(true);
+    await sendVerificationEmail({
+      email,
+      callbackURL: `${window.location.origin}/neon-drift/verify-email?verified=1`,
+    });
+    setResendLoading(false);
+  }, [session?.user?.email]);
 
   const rarityLabel = (rarity: CosmeticItem["rarity"]) => t(`rarity.${rarity}`);
 
@@ -89,6 +120,8 @@ export function NeonDriftShopClient() {
         terminalOpen={terminalOpen}
         onToggleTerminal={() => setTerminalOpen((o) => !o)}
         signedIn={signedIn}
+        callsign={callsign}
+        onSignOut={signedIn ? onSignOut : undefined}
       />
 
       <div className="shop-depot-main relative flex min-h-0 min-w-0 flex-1 flex-col">
@@ -107,13 +140,22 @@ export function NeonDriftShopClient() {
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/50">
             {t("description")}
           </p>
-          {!signedIn && (
+          {!isPending && !signedIn && (
             <p className="mx-auto mt-3 max-w-md rounded-full border border-amber-400/20 bg-amber-500/[0.06] px-4 py-1.5 text-xs text-amber-200/80">
               {t("browseOnly")}{" "}
               <Link href="/neon-drift/signin" className="font-medium text-amber-100 underline-offset-2 hover:underline">
                 {t("signInCta")}
               </Link>
             </p>
+          )}
+          {signedIn && !verified && (
+            <div className="mx-auto mt-4 max-w-lg px-2">
+              <AuthStatusBanner
+                email={session?.user?.email}
+                onResend={onResendVerification}
+                resendLoading={resendLoading}
+              />
+            </div>
           )}
         </header>
 
@@ -159,7 +201,7 @@ export function NeonDriftShopClient() {
                       owned={owned}
                       equipped={equipped}
                       selected={selectedId === item.id}
-                      signedIn={signedIn}
+                      signedIn={signedIn && verified}
                       onSelect={() => setSelectedId(item.id)}
                       onEquip={() => onEquip(item.id)}
                       onPurchase={() => onPurchase(item.id)}
@@ -210,7 +252,7 @@ export function NeonDriftShopClient() {
                       onClick={() => onPurchase(selectedItem.id)}
                       className="w-full rounded-lg bg-gradient-to-r from-fuchsia-600 to-sky-600 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white transition hover:brightness-110"
                     >
-                      {signedIn ? t("purchase") : t("purchaseSignIn")}
+                      {signedIn && verified ? t("purchase") : t("purchaseSignIn")}
                     </button>
                   ) : null}
                 </div>

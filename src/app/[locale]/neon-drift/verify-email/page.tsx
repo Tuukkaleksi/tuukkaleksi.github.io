@@ -1,18 +1,15 @@
 import { setRequestLocale } from "next-intl/server";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { ArcadeShell } from "@/components/arcade/ArcadeShell";
 import { PilotAuthDisabled } from "@/components/arcade/auth/PilotAuthDisabled";
-import { PilotSignInForm } from "@/components/arcade/auth/PilotSignInForm";
+import { PilotVerifyEmailClient } from "@/components/arcade/auth/PilotVerifyEmailClient";
 import { isAuthConfigured } from "@/lib/auth";
-import { getPilotSession } from "@/lib/auth/session";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ next?: string }>;
 };
 
-export default async function NeonDriftSignInPage({ params, searchParams }: PageProps) {
+export default async function NeonDriftVerifyEmailPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -24,16 +21,10 @@ export default async function NeonDriftSignInPage({ params, searchParams }: Page
     );
   }
 
-  const session = await getPilotSession();
-  const { next } = await searchParams;
-  if (session) {
-    redirect(next ?? "/neon-drift/shop");
-  }
-
   return (
     <ArcadeShell>
       <Suspense fallback={<div className="px-6 py-16 text-center text-sm text-white/40">…</div>}>
-        <PilotSignInForm />
+        <PilotVerifyEmailClient />
       </Suspense>
     </ArcadeShell>
   );

@@ -1,5 +1,17 @@
 import { index, integer, pgTable, smallint, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
+export {
+  account,
+  accountRelations,
+  session,
+  sessionRelations,
+  user,
+  userRelations,
+  verification,
+} from "@/db/auth-schema";
+
+import { account, accountRelations, session, sessionRelations, user, userRelations, verification } from "@/db/auth-schema";
+
 export const neonDriftScores = pgTable(
   "neon_drift_scores",
   {
@@ -21,3 +33,13 @@ export const neonDriftScores = pgTable(
 
 export type NeonDriftScore = typeof neonDriftScores.$inferSelect;
 export type NewNeonDriftScore = typeof neonDriftScores.$inferInsert;
+
+export const authSchema = {
+  user,
+  session,
+  account,
+  verification,
+  userRelations,
+  sessionRelations,
+  accountRelations,
+};

@@ -227,16 +227,8 @@ export function equipCosmetic(profile: CosmeticProfile, id: CosmeticId): Cosmeti
   return next;
 }
 
-const PILOT_SESSION_KEY = "neon-drift-pilot-session";
-
-export function isPilotSignedIn(): boolean {
-  if (typeof window === "undefined") return false;
-  return localStorage.getItem(PILOT_SESSION_KEY) === "1";
-}
-
-/** Mock purchase — real billing/auth will replace this. */
+/** Local unlock — caller must ensure pilot is signed in and email-verified. */
 export function purchaseCosmetic(profile: CosmeticProfile, id: CosmeticId): CosmeticProfile | null {
-  if (!isPilotSignedIn()) return null;
   const item = COSMETIC_CATALOG.find((c) => c.id === id);
   if (!item || profile.unlocked.includes(id)) return profile;
   const next = {
