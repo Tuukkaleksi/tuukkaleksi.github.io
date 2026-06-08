@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ProjectCaseStudy } from "@/components/portfolio/ProjectCaseStudy";
 import { ProjectGallery } from "@/components/portfolio/ProjectGallery";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -117,10 +118,12 @@ export default async function ProjectPage({ params }: PageProps) {
           </div>
         </div>
 
+        {project.caseStudy ? <ProjectCaseStudy caseStudy={project.caseStudy} /> : null}
+
         <div className="mt-10 flex flex-wrap gap-3">
           {project.images.slice(0, 4).map((src, i) => (
             <div
-              key={src}
+              key={`${src}-${i}`}
               className="relative h-20 w-28 overflow-hidden rounded-lg border border-border bg-surface-muted"
             >
               <Image

@@ -15,6 +15,7 @@
     "about": "About",
     "resume": "Résumé",
     "portfolio": "Portfolio",
+    "notes": "Notes",
     "contact": "Contact",
     "mainMenu": "Main menu",
     "openMenu": "Open menu",
@@ -32,6 +33,15 @@
   "hero": {
     "eyebrow": "Portfolio",
     "cta": "Explore my work"
+  },
+  "impactMetrics": {
+    "ariaLabel": "Impact metrics",
+    "items": [
+      { "value": "4", "label": "Featured projects" },
+      { "value": "3+", "label": "Years building software" },
+      { "value": "10+", "label": "Technologies in active use" },
+      { "value": "2", "label": "Locales supported" }
+    ]
   },
   "about": {
     "title": "About",
@@ -140,7 +150,46 @@
       "projects": "Projects",
       "react": "React"
     },
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "viewCaseStudy": "View case study"
+  },
+  "notes": {
+    "title": "Notes",
+    "description": "Short write-ups on game design, web development, and lessons from active projects.",
+    "readMore": "Read note",
+    "viewAll": "All notes",
+    "back": "Back to notes",
+    "backHome": "Back to home",
+    "notFound": "Note not found",
+    "items": {
+      "portfolio-next16-rebuild": {
+        "title": "Rebuilding the portfolio on Next.js 16",
+        "excerpt": "Why I moved from a static site to App Router, next-intl, and a data-driven project model.",
+        "body": [
+          "The old portfolio worked, but every new project meant touching layout code or duplicating HTML patterns. I wanted a system where structure stays stable and content moves through typed data and translation files.",
+          "Next.js 16 with the App Router gave me static project and note routes, server components for SEO, and a contact API without bolting on a separate backend. next-intl keeps Finnish as the default while English stays first-class — same URLs, same components, different message files.",
+          "Projects now split into base data (images, slugs, categories) and locale copy (titles, case studies, metadata). That separation makes it easy to add a project once and ship it in both languages on the next deploy."
+        ]
+      },
+      "neon-drift-survival-loop": {
+        "title": "Designing Neon Drift's survival loop",
+        "excerpt": "How upgrade synergies and pressure from all directions shape a browser arcade that rewards mastery.",
+        "body": [
+          "Neon Drift started as a hidden experiment inside the portfolio and grew into a standalone survival shooter. The core loop is simple: survive, collect upgrades, stack synergies, die, try again — but the threat model comes from every direction at once, so positioning matters as much as reflexes.",
+          "Canvas 2D keeps the frame budget predictable on mid-range laptops and phones. Upgrades are designed as readable combinations rather than opaque stat bumps — players should feel why a build works after one or two runs.",
+          "The global leaderboard adds long-term motivation without forcing competitive mechanics into the first minute. Auth and Postgres came later; the loop had to be fun in a local session first."
+        ]
+      },
+      "narrative-puzzles-on-the-web": {
+        "title": "Narrative puzzles on the web",
+        "excerpt": "Two early prototypes — Nothing Pending and The Archive Incident — and what Papers, Please taught me about pressure.",
+        "body": [
+          "Nothing Pending borrows the document-review tension from Papers, Please: short decisions, visible consequences, and a system that looks bureaucratic until it isn't. The goal is not to clone the genre but to learn how pressure creates story without cutscenes.",
+          "The Archive Incident takes a different angle: semi-hard puzzles inside a digital archive, rendered with PixiJS for responsive scene layers while Next.js handles routing, content, and future auth. Clues are meant to be pieced together across screens, not solved in isolation.",
+          "Both projects are intentionally early. I am validating feel and readability before investing in full content pipelines — the same discipline I apply to arcade loops in Neon Drift."
+        ]
+      }
+    }
   },
   "contact": {
     "title": "Contact",
@@ -194,7 +243,14 @@
     "back": "Back to portfolio",
     "details": "Project details",
     "description": "Description",
-    "notFound": "Project not found"
+    "notFound": "Project not found",
+    "caseStudy": {
+      "role": "Role",
+      "problem": "Problem",
+      "approach": "Approach",
+      "outcome": "Outcome",
+      "learnings": "Key learnings"
+    }
   },
   "gallery": {
     "openImage": "Open image: {title}",
@@ -219,6 +275,18 @@
         "subtitle": "Browser survival arcade",
         "descriptionTitle": "About",
         "description": "Neon Drift is a standalone browser survival shooter: dodge swarms from every direction, stack upgrades and synergies, and push for a spot on the global board. It started as a hidden portfolio experiment and now runs as its own app.",
+        "caseStudy": {
+          "title": "Case study — Neon Drift",
+          "role": "Solo developer — game design, Canvas 2D implementation, Next.js app shell, leaderboard integration",
+          "problem": "I needed a portfolio piece that proved I could ship a complete interactive product, not just UI demos. The game had to run in the browser without installs, feel good on keyboard and touch, and leave room for a real progression hook.",
+          "approach": "I built a tight survival loop on Canvas 2D with readable upgrade synergies and threats from all directions. The app shell uses Next.js for routing and deployment; Neon Postgres and auth arrived when a global leaderboard became worth the operational cost.",
+          "outcome": "Neon Drift graduated from a hidden experiment into a standalone playable product with its own deploy target and optional global scores. It demonstrates end-to-end delivery: feel, performance, persistence, and production hosting.",
+          "learnings": [
+            "Validate the core loop locally before adding auth or database complexity.",
+            "Synergy readability matters more than raw upgrade count in replayable arcades.",
+            "Canvas 2D is still a strong choice when draw calls and particle counts are predictable."
+          ]
+        },
         "meta": [
           {
             "label": "Category",
@@ -239,6 +307,18 @@
         "subtitle": "Video game",
         "descriptionTitle": "Eternal-Cry — overview",
         "description": "An action platformer with a rich story, action, secrets, and enemies. Built with GameMaker Studio. I also started a website for the project. Currently on hold.",
+        "caseStudy": {
+          "title": "Case study — Eternal-Cry",
+          "role": "Solo developer — worldbuilding, level design, GameMaker Studio implementation, promotional site draft",
+          "problem": "I wanted to build a narrative action platformer with exploration and secrets, but scope quickly outpaced solo capacity. Without a clear vertical slice, the project risked becoming an endless design document.",
+          "approach": "I prototyped combat, platforming, and enemy encounters in GameMaker Studio while drafting a companion site for lore and updates. Progress was measured in playable rooms rather than feature lists, and the project was paused when other commitments required focus.",
+          "outcome": "Eternal-Cry produced a tangible vertical slice and art direction, but remains on hold. It still informs how I scope game projects today: story beats follow playable proof, not the other way around.",
+          "learnings": [
+            "Ambitious narrative games need a ruthless vertical slice before world scale expands.",
+            "Tooling familiarity (GameMaker) accelerated iteration more than engine novelty.",
+            "Pausing a project with documented progress is better than shipping an incoherent half-game."
+          ]
+        },
         "meta": [
           {
             "label": "Category",
@@ -255,6 +335,18 @@
         "subtitle": "Next.js — early development",
         "descriptionTitle": "About",
         "description": "A Next.js project inspired by Papers, Please. Players review documents and make judgment calls under pressure. Super early in development.",
+        "caseStudy": {
+          "title": "Case study — Nothing Pending",
+          "role": "Solo developer — systems design, UI flow, Next.js prototype",
+          "problem": "I wanted to learn how document-review tension translates to the web — short decisions, moral weight, and rules that look neutral but carry consequences. The challenge is conveying pressure without a dedicated game engine pipeline.",
+          "approach": "The prototype focuses on a single review desk flow: inspect documents, cross-check rules, approve or deny under time pressure. Next.js handles routing and stateful UI; content is structured so new rule sets can be added without rewriting the shell.",
+          "outcome": "Nothing Pending is in super early development with a playable desk loop and readable rule feedback. It validates that the Papers, Please formula can live inside a web app before investing in full narrative content.",
+          "learnings": [
+            "Bureaucratic UI is a feature — clarity and friction can coexist.",
+            "Rule exceptions are cheaper to test as data than as hard-coded branches.",
+            "Early prototypes should answer one question: does the decision feel consequential?"
+          ]
+        },
         "meta": [
           {
             "label": "Category",
@@ -275,6 +367,18 @@
         "subtitle": "Next.js + PixiJS — early development",
         "descriptionTitle": "About",
         "description": "A semi-hard puzzle experience built with Next.js and PixiJS. Players piece together clues inside a digital archive. Early in development.",
+        "caseStudy": {
+          "title": "Case study — The Archive Incident",
+          "role": "Solo developer — puzzle design, PixiJS scene layers, Next.js app integration",
+          "problem": "I needed a puzzle experience that felt spatial and tactile on the web, not just a form with riddles. Clues had to connect across screens while difficulty stayed semi-hard — challenging without opaque logic leaps.",
+          "approach": "PixiJS renders the archive scenes and interactive hotspots; Next.js owns navigation, content, and future save states. Puzzles are authored as linked clue chains so players assemble understanding over multiple views rather than one modal answer.",
+          "outcome": "The Archive Incident is in early development with core scene navigation and initial puzzle chains playable. It proves the split stack: PixiJS for presence, Next.js for structure.",
+          "learnings": [
+            "Semi-hard puzzles need fair foreshadowing — every clue should point forward and backward.",
+            "Splitting render (PixiJS) from app shell (Next.js) keeps iteration fast on both sides.",
+            "Archive fantasy sells mystery best when the UI looks mundane and the gaps feel intentional."
+          ]
+        },
         "meta": [
           {
             "label": "Category",

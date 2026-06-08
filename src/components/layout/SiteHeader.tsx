@@ -3,6 +3,7 @@
 import {
   BookOpen,
   Briefcase,
+  FileText,
   Home,
   Mail,
   Menu,
@@ -21,10 +22,11 @@ const navIcons: Record<string, LucideIcon> = {
   about: User,
   resume: BookOpen,
   portfolio: Briefcase,
+  notes: FileText,
   contact: Mail,
 };
 
-const navIds = ["hero", "about", "resume", "portfolio", "contact"] as const;
+const navIds = ["hero", "about", "resume", "portfolio", "notes", "contact"] as const;
 
 export function SiteHeader() {
   const tNav = useTranslations("nav");

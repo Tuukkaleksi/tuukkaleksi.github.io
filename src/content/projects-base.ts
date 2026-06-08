@@ -12,10 +12,7 @@ export const projectBases: ProjectBase[] = [
     slug: "neon-drift",
     category: "projects",
     coverImage: "/images/portfolio/neon-drift-cover.svg",
-    images: [
-      "/images/portfolio/neon-drift-cover.svg",
-      "/images/portfolio/neon-drift-cover.svg",
-    ],
+    images: ["/images/portfolio/neon-drift-cover.svg"],
   },
   {
     slug: "eternal-cry",

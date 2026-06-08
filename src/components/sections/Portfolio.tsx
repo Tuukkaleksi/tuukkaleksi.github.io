@@ -67,7 +67,7 @@ export function Portfolio() {
                     href={`/portfolio/${project.slug}`}
                     className="mt-4 inline-flex items-center text-sm font-semibold text-primary hover:text-primary-hover"
                   >
-                    {t("readMore")}
+                    {t("viewCaseStudy")}
                     <span className="ml-1 transition group-hover:translate-x-0.5" aria-hidden>
                       →
                     </span>

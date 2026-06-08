@@ -1,5 +1,5 @@
 import { projectBases, projectMetaLinks } from "@/content/projects-base";
-import type { ProjectMeta } from "@/types";
+import type { ProjectCaseStudy, ProjectMeta } from "@/types";
 
 type ProjectTranslation = {
   title: string;
@@ -7,6 +7,7 @@ type ProjectTranslation = {
   description: string;
   descriptionTitle?: string;
   meta: { label: string; value: string }[];
+  caseStudy?: ProjectCaseStudy;
 };
 
 export function getProjectsFromMessages(
@@ -31,6 +32,7 @@ export function getProjectsFromMessages(
       subtitle: translation.subtitle,
       description: translation.description,
       descriptionTitle: translation.descriptionTitle,
+      caseStudy: translation.caseStudy,
       meta,
     };
   });

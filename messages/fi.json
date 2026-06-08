@@ -15,6 +15,7 @@
     "about": "Tietoa",
     "resume": "Ansioluettelo",
     "portfolio": "Portfolio",
+    "notes": "Muistiinpanot",
     "contact": "Ota yhteyttä",
     "mainMenu": "Päävalikko",
     "openMenu": "Avaa valikko",
@@ -32,6 +33,15 @@
   "hero": {
     "eyebrow": "Portfolio",
     "cta": "Tutustu työhöni"
+  },
+  "impactMetrics": {
+    "ariaLabel": "Vaikutusluvut",
+    "items": [
+      { "value": "4", "label": "Esittelyssä olevaa projektia" },
+      { "value": "3+", "label": "Vuotta ohjelmistokehitystä" },
+      { "value": "10+", "label": "Teknologiaa aktiivisessa käytössä" },
+      { "value": "2", "label": "Tukee kieltä" }
+    ]
   },
   "about": {
     "title": "Tietoa",
@@ -140,7 +150,46 @@
       "projects": "Projektit",
       "react": "React"
     },
-    "readMore": "Lue lisää"
+    "readMore": "Lue lisää",
+    "viewCaseStudy": "Lue case study"
+  },
+  "notes": {
+    "title": "Muistiinpanot",
+    "description": "Lyhyitä kirjoituksia pelisuunnittelusta, web-kehityksestä ja opituista aktiivisissa projekteissa.",
+    "readMore": "Lue muistiinpano",
+    "viewAll": "Kaikki muistiinpanot",
+    "back": "Takaisin muistiinpanoihin",
+    "backHome": "Takaisin etusivulle",
+    "notFound": "Muistiinpanoa ei löytynyt",
+    "items": {
+      "portfolio-next16-rebuild": {
+        "title": "Portfolion uudelleenrakennus Next.js 16:lla",
+        "excerpt": "Miksi siirryin staattisesta sivusta App Routeriin, next-intliin ja datavetoiseen projektimalliin.",
+        "body": [
+          "Vanha portfolio toimi, mutta jokainen uusi projekti tarkoitti layout-koodin muokkaamista tai HTML-toistoa. Halusin järjestelmän, jossa rakenne pysyy vakaana ja sisältö kulkee tyypitetyn datan ja käännöstiedostojen kautta.",
+          "Next.js 16 App Router tarjoaa staattiset projekti- ja muistiinpanoreitit, palvelinkomponentit SEO:lle ja yhteydenotto-API:n ilman erillistä backendiä. next-intl pitää suomen oletuskielenä ja englannin täysiarvoisena — samat URL:t, samat komponentit, eri viestitiedostot.",
+          "Projektit jakautuvat nyt perustietoihin (kuvat, slugit, kategoriat) ja lokalisoidun copyn (otsikot, case studyt, metadata). Erottelu tekee uuden projektin lisäämisestä nopeaa molemmilla kielillä."
+        ]
+      },
+      "neon-drift-survival-loop": {
+        "title": "Neon Driftin survival-loopin suunnittelu",
+        "excerpt": "Miten upgrade-synergiat ja paine joka suunnasta muovaavat selainarcaden, joka palkitsee hallintaa.",
+        "body": [
+          "Neon Drift alkoi piilotettuna kokeiluna portfolion sisällä ja kasvoi erilliseksi survival-shooteriksi. Ydinloop on yksinkertainen: selviydy, kerää upgradeja, pinota synergioita, kuole, yritä uudelleen — mutta uhat tulevat joka suunnasta, joten sijoittuminen on yhtä tärkeää kuin refleksit.",
+          "Canvas 2D pitää ruudunpäivityksen ennustettavana keskitason läppäreillä ja puhelimilla. Upgradet on suunniteltu luettaviksi yhdistelminä eikä epäselvinä stat-buffeina — pelaajan pitää tajuta buildin logiikka parissa yrityksessä.",
+          "Globaali tulostaulu lisää pitkän aikavälin motivaation pakottamatta kilpailumekaniikkaa ensimmäiseen minuuttiin. Auth ja Postgres tulivat myöhemmin; loopin piti olla hauska paikallisessa sessiossa ensin."
+        ]
+      },
+      "narrative-puzzles-on-the-web": {
+        "title": "Narratiiviset pulmat verkossa",
+        "excerpt": "Kaksi varhaista prototyyppia — Nothing Pending ja The Archive Incident — ja mitä Papers, Please opetti paineesta.",
+        "body": [
+          "Nothing Pending ammentaa asiakirjatarkastuksen jännitteestä Papers, Pleasesta: lyhyet päätökset, näkyvät seuraukset ja järjestelmä, joka näyttää byrokraattiselta kunnes ei olekaan. Tavoite ei ole kloonata genreä vaan oppia, miten paine luo tarinaa ilman välianimaa.",
+          "The Archive Incident lähtee toisesta kulmasta: keskivaikeat pulmat digitaalisessa arkistossa, PixiJS renderöi skenekerrokset ja Next.js hoitaa reitityksen, sisällön ja tulevan tallennuksen. Vihjeet on tarkoitus koota usealta näytöltä, ei ratkaista yksinäisessä modaalissa.",
+          "Molemmat projektit ovat tarkoituksella varhaisessa vaiheessa. Validoin tunnetta ja luettavuutta ennen täyttä sisältöputkea — sama kurinalaisuus kuin Neon Driftin arcade-loopeissa."
+        ]
+      }
+    }
   },
   "contact": {
     "title": "Ota yhteyttä",
@@ -194,7 +243,14 @@
     "back": "Takaisin portfolioon",
     "details": "Projektin tiedot",
     "description": "Kuvaus",
-    "notFound": "Projektia ei löytynyt"
+    "notFound": "Projektia ei löytynyt",
+    "caseStudy": {
+      "role": "Rooli",
+      "problem": "Ongelma",
+      "approach": "Lähestymistapa",
+      "outcome": "Lopputulos",
+      "learnings": "Keskeiset opit"
+    }
   },
   "gallery": {
     "openImage": "Avaa kuva: {title}",
@@ -219,6 +275,18 @@
         "subtitle": "Selainpohjainen survival-arcade",
         "descriptionTitle": "Kuvaus",
         "description": "Neon Drift on erillinen selainpeli: väistä parvia joka suunnasta, rakenna synergioita ja kilpaile globaalilla tulostaululla. Alun perin piilotettu portfolio-kokeilu, nyt oma sovellus.",
+        "caseStudy": {
+          "title": "Case study — Neon Drift",
+          "role": "Solo-kehittäjä — pelisuunnittelu, Canvas 2D -toteutus, Next.js-kuori, tulostauluintegraatio",
+          "problem": "Tarvitsin portfolioesimerkin, joka todistaa kokonaisen interaktiivisen tuotteen toimituksen — ei vain UI-demoja. Pelin piti toimia selaimessa ilman asennuksia, tuntua hyvältä näppäimistöllä ja kosketuksella ja jättää tilaa oikealle progression koukulle.",
+          "approach": "Rakensin tiukan survival-loopin Canvas 2D:llä luettavilla upgrade-synergioilla ja uhkilla joka suunnasta. Sovelluskuori käyttää Next.js:ää reititykseen ja deployhin; Neon Postgres ja auth tulivat, kun globaali tulostaulu oli operatiivisesti perusteltu.",
+          "outcome": "Neon Drift kasvoi piilotetusta kokeilusta erilliseksi pelattavaksi tuotteeksi omalla deploy-kohteella ja valinnaisilla globaaleilla pisteillä. Se näyttää end-to-end-toimituksen: tuntuma, suorituskyky, pysyvyys ja tuotantohostaus.",
+          "learnings": [
+            "Validoi ydinloop paikallisesti ennen auth- tai tietokantamonimutkaisuutta.",
+            "Synergioiden luettavuus on tärkeämpää kuin upgradejen määrä toistettavissa arcade-peleissä.",
+            "Canvas 2D on edelleen vahva valinta, kun piirrot ja partikkelit pysyvät ennustettavina."
+          ]
+        },
         "meta": [
           {
             "label": "Kategoria",
@@ -239,6 +307,18 @@
         "subtitle": "Videopeli",
         "descriptionTitle": "Eternal-Cry — selostus",
         "description": "Toimintatasohyppelypeli, jossa on laaja tarina, toimintaa, salaisuuksia ja vihollisia. Pelin toteutukseen on käytetty GameMaker Studioa. Olen aloittanut myös projektin nettisivuston. Projekti on tällä hetkellä tauolla.",
+        "caseStudy": {
+          "title": "Case study — Eternal-Cry",
+          "role": "Solo-kehittäjä — maailmanrakennus, tasonsuunnittelu, GameMaker Studio -toteutus, promosivuluonnos",
+          "problem": "Halusin narratiivisen toimintatasohyppelypelin tutkimuksella ja salaisuuksilla, mutta laajuus kasvoi nopeammin kuin solo-kapasiteetti. Ilman selkeää vertical slicea projekti olisi jäänyt loputtomaan suunnitteluasiakirjaksi.",
+          "approach": "Prototypoin taistelua, platformausta ja viholliskohtaamisia GameMaker Studiossa ja loin luonnoksen kumppanisivustosta loreen ja päivityksiin. Edistyminen mitattiin pelattavissa huoneissa ominaisuuslistojen sijaan, ja projekti pysäytettiin kun muut sitoumukset vaativat fokuksen.",
+          "outcome": "Eternal-Cry tuotti konkreettisen vertical slicen ja visuaalisen suunnan, mutta on edelleen tauolla. Se ohjaa edelleen sitä, miten rajaamme peliprojekteja: tarinan pitää seurata pelattavaa todistetta.",
+          "learnings": [
+            "Kunnitious narratiivipelit tarvitsevat armottoman vertical slicen ennen maailman laajentamista.",
+            "Työkalun hallinta (GameMaker) nopeutti iterointia enemmän kuin moottorin uutuusarvo.",
+            "Projektin tauottaminen dokumentoidulla edistymisellä on parempi kuin epäyhtenäisen puolipelin julkaisu."
+          ]
+        },
         "meta": [
           {
             "label": "Kategoria",
@@ -255,6 +335,18 @@
         "subtitle": "Next.js — varhainen kehitys",
         "descriptionTitle": "Kuvaus",
         "description": "Next.js-projekti, joka ammentaa inspiraationsa Papers, Please -pelistä. Pelaajat tarkistavat asiakirjoja ja tekevät paineen alla ratkaisuja. Erittäin varhaisessa kehitysvaiheessa.",
+        "caseStudy": {
+          "title": "Case study — Nothing Pending",
+          "role": "Solo-kehittäjä — järjestelmäsuunnittelu, UI-flow, Next.js-prototyyppi",
+          "problem": "Halusin oppia, miten asiakirjatarkastuksen jännite toimii verkossa — lyhyet päätökset, moraalinen paino ja säännöt, jotka näyttävät neutraaleilta mutta kantavat seurauksia. Haaste on välittää paine ilman erillistä pelimoottoriputkea.",
+          "approach": "Prototyyppi keskittyy yhteen tarkastuspöytäflow'hun: tarkista asiakirjat, ristiintarkista säännöt, hyväksy tai hylkää aikapaineessa. Next.js hoitaa reitityksen ja tilallisen UI:n; sisältö on strukturoitu niin, että uusia sääntöjä voi lisätä ilman kuoren uudelleenkirjoitusta.",
+          "outcome": "Nothing Pending on erittäin varhaisessa kehityksessä pelattavalla pöytäloopilla ja luettavalla sääntöpalautteella. Se validoi, että Papers, Please -kaava voi elää web-sovelluksessa ennen täyttä narratiivisisältöä.",
+          "learnings": [
+            "Byrokraattinen UI on ominaisuus — selkeys ja kitka voivat olla samaan aikaan.",
+            "Sääntöpoikkeukset on halvempaa testata datana kuin kovakoodattuina haaroina.",
+            "Varhaisen prototyypin pitää vastata yhteen kysymykseen: tuntuuko päätös merkitykselliseltä?"
+          ]
+        },
         "meta": [
           {
             "label": "Kategoria",
@@ -275,6 +367,18 @@
         "subtitle": "Next.js + PixiJS — varhainen kehitys",
         "descriptionTitle": "Kuvaus",
         "description": "Keskivaikea pulmapeli Next.js:llä ja PixiJS:llä. Pelaajat kokoavat vihjeitä digitaalisesta arkistosta. Varhaisessa kehitysvaiheessa.",
+        "caseStudy": {
+          "title": "Case study — The Archive Incident",
+          "role": "Solo-kehittäjä — pulmasuunnittelu, PixiJS-skenekerrokset, Next.js-integraatio",
+          "problem": "Tarvitsin pulmakokemuksen, joka tuntuu tilalliselta ja konkreettiselta verkossa — ei vain lomakkeelta arvoituksilla. Vihjeiden piti linkittyä näyttöjen välillä ja vaikeustason pysyä keskivaikeana ilman epäreiluja loogisia hyppyjä.",
+          "approach": "PixiJS renderöi arkistoskenet ja interaktiiviset hotspotit; Next.js omistaa navigoinnin, sisällön ja tulevan tallennuksen. Pulmat on kirjoitettu linkitetyiksi vihjeketjuiksi, jotta pelaaja rakentaa ymmärrystä usealta näkymältä.",
+          "outcome": "The Archive Incident on varhaisessa kehityksessä ydinscenenavigoinnilla ja ensimmäisillä pulmaketjuilla pelattavana. Se todistaa jaetun pinon: PixiJS läsnäololle, Next.js rakenteelle.",
+          "learnings": [
+            "Keskivaikeat pulmat tarvitsevat reilun ennakoinnin — jokainen vihje osoittaa eteen- ja taaksepäin.",
+            "Renderin (PixiJS) erottaminen sovelluskuoresta (Next.js) pitää iteroinnin nopeana molemmilla puolilla.",
+            "Arkistofantasia myy parhaiten mystiikkaa, kun UI näyttää arkipäiväiseltä ja aukot tarkoituksellisilta."
+          ]
+        },
         "meta": [
           {
             "label": "Kategoria",
