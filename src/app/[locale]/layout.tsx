@@ -79,7 +79,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   return (
     <html
       lang={locale}
-      className={`${sans.variable} ${display.variable} scroll-smooth`}
+      className={`${sans.variable} ${display.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground antialiased">

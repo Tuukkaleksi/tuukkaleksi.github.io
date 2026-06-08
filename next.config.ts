@@ -17,32 +17,32 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/portfolio-asiakaprojekti.html",
-        destination: "/portfolio/asiakasprojekti",
+        destination: "/",
         permanent: true,
       },
       {
         source: "/portfolio-tictactoe.html",
-        destination: "/portfolio/tic-tac-toe",
+        destination: "/",
         permanent: true,
       },
       {
         source: "/portfolio-sudoku.html",
-        destination: "/portfolio/sudoku",
+        destination: "/",
         permanent: true,
       },
       {
         source: "/portfolio-vectorama.html",
-        destination: "/portfolio/vectorama",
+        destination: "/",
         permanent: true,
       },
       {
         source: "/portfolio-txt-adv.html",
-        destination: "/portfolio/text-adventure",
+        destination: "/",
         permanent: true,
       },
       {
         source: "/portfolio-wordle.html",
-        destination: "/portfolio/wordle",
+        destination: "/",
         permanent: true,
       },
     ];

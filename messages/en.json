@@ -247,161 +247,46 @@
           {
             "label": "Languages",
             "value": "C++ / Java / Script"
-          },
-          {
-            "label": "Project URL",
-            "value": "eternalcry.000webhostapp.com"
           }
         ]
       },
-      "asiakasprojekti": {
-        "title": "Client project",
-        "subtitle": "Website",
-        "description": "Website design and implementation with WordPress. Used plugins, custom images, and separate CSS files.",
-        "meta": [
-          {
-            "label": "Category",
-            "value": "Web design & development"
-          },
-          {
-            "label": "Languages",
-            "value": "WordPress / HTML / CSS"
-          },
-          {
-            "label": "Client",
-            "value": "Heikkilän Tila"
-          },
-          {
-            "label": "Started",
-            "value": "November 2022"
-          },
-          {
-            "label": "URL",
-            "value": "heikkilanmarja.fi"
-          }
-        ]
-      },
-      "tic-tac-toe": {
-        "title": "Tic-Tac-Toe",
-        "subtitle": "React app",
-        "description": "My first React project: designed and built by myself. Responsive on mobile. Source code available on GitHub via the link.",
-        "meta": [
-          {
-            "label": "Category",
-            "value": "React app"
-          },
-          {
-            "label": "Languages",
-            "value": "React"
-          },
-          {
-            "label": "Date",
-            "value": "31 March 2023"
-          },
-          {
-            "label": "Demo",
-            "value": "tuukkaleksi.github.io/tic-tac-toe"
-          }
-        ]
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "subtitle": "JavaScript game",
-        "description": "Sudoku project built with HTML, CSS, and JavaScript. Not fully responsive yet. Source code on GitHub.",
+      "nothing-pending": {
+        "title": "Nothing Pending",
+        "subtitle": "Next.js — early development",
+        "descriptionTitle": "About",
+        "description": "A Next.js project inspired by Papers, Please. Players review documents and make judgment calls under pressure. Super early in development.",
         "meta": [
           {
             "label": "Category",
             "value": "Web game"
           },
           {
-            "label": "Languages",
-            "value": "HTML, CSS, JavaScript"
+            "label": "Stack",
+            "value": "Next.js · TypeScript"
           },
           {
-            "label": "Date",
-            "value": "10 April 2023"
-          },
-          {
-            "label": "Demo",
-            "value": "tuukkaleksi.github.io/sudoku"
-          },
-          {
-            "label": "Source",
-            "value": "github.com/Tuukkaleksi/sudoku"
+            "label": "Status",
+            "value": "Early development"
           }
         ]
       },
-      "vectorama": {
-        "title": "Vectorama",
-        "subtitle": "Web game",
-        "description": "A Kahoot-style browser game for the Vectorama event where players guess who is the AI. Uses OpenAI API and Firebase. Chat room still in progress.",
+      "the-archive-incident": {
+        "title": "The Archive Incident",
+        "subtitle": "Next.js + PixiJS — early development",
+        "descriptionTitle": "About",
+        "description": "A semi-hard puzzle experience built with Next.js and PixiJS. Players piece together clues inside a digital archive. Early in development.",
         "meta": [
           {
             "label": "Category",
-            "value": "HTML / web game"
+            "value": "Puzzle game"
           },
           {
-            "label": "Languages",
-            "value": "TypeScript, JavaScript, CSS, Node.js"
+            "label": "Stack",
+            "value": "Next.js · PixiJS · TypeScript"
           },
           {
-            "label": "Date",
-            "value": "20 April 2023"
-          },
-          {
-            "label": "Source",
-            "value": "Github — Mielihurjaus"
-          },
-          {
-            "label": "Demo",
-            "value": "poetic-otter-e26763.netlify.app"
-          }
-        ]
-      },
-      "text-adventure": {
-        "title": "Text Adventure",
-        "subtitle": "AI story game",
-        "descriptionTitle": "Vite React — overview",
-        "description": "Practice project for React modules. A text adventure where AI starts and continues the story; the user can steer direction. Still being improved.",
-        "meta": [
-          {
-            "label": "Category",
-            "value": "Vite + React"
-          },
-          {
-            "label": "Languages",
-            "value": "React / CSS"
-          },
-          {
-            "label": "Started",
-            "value": "July 2023"
-          },
-          {
-            "label": "Source",
-            "value": "github.com/Tuukkaleksi/text-adventure"
-          }
-        ]
-      },
-      "wordle": {
-        "title": "Wordle",
-        "subtitle": "React / React Native",
-        "description": "A Wordle-style game: the player guesses a word in five attempts. Goal is a web and mobile app with React and React Native.",
-        "meta": [
-          {
-            "label": "Category",
-            "value": "React / React Native"
-          },
-          {
-            "label": "Languages",
-            "value": "React / React Native"
-          },
-          {
-            "label": "Started",
-            "value": "November 2022"
-          },
-          {
-            "label": "Source",
-            "value": "github.com/Tuukkaleksi/wordle-project"
+            "label": "Status",
+            "value": "Early development"
           }
         ]
       }

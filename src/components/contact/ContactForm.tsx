@@ -31,7 +31,10 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
   useEffect(() => {
     if (!turnstileSiteKey || !turnstileRef.current) return;
 
+    let cancelled = false;
+
     const renderWidget = () => {
+      if (cancelled) return;
       const ts = window.turnstile;
       if (!ts || !turnstileRef.current || turnstileWidgetId.current) return;
       turnstileWidgetId.current = ts.render(turnstileRef.current, {
@@ -45,18 +48,16 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
 
     if (window.turnstile) {
       renderWidget();
-      return;
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.onload = renderWidget;
+      document.head.appendChild(script);
     }
 
-    const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    script.async = true;
-    script.onload = renderWidget;
-    document.head.appendChild(script);
-
     return () => {
-      script.onload = null;
-      script.remove();
+      cancelled = true;
       if (turnstileWidgetId.current && window.turnstile) {
         window.turnstile.remove(turnstileWidgetId.current);
         turnstileWidgetId.current = null;

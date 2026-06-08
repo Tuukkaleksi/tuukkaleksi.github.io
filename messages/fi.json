@@ -247,161 +247,46 @@
           {
             "label": "Koodikielet",
             "value": "C++ / Java / Script"
-          },
-          {
-            "label": "Projektin URL",
-            "value": "eternalcry.000webhostapp.com"
           }
         ]
       },
-      "asiakasprojekti": {
-        "title": "Asiakasprojekti",
-        "subtitle": "Nettisivusto",
-        "description": "Nettisivuston suunnittelu ja toteutus WordPressillä. Projektissa käytetty plugineja, itse tehtyjä kuvia ja erillisiä CSS-tiedostoja.",
-        "meta": [
-          {
-            "label": "Kategoria",
-            "value": "Web-suunnittelu ja toteutus"
-          },
-          {
-            "label": "Koodikielet",
-            "value": "WordPress / HTML / CSS"
-          },
-          {
-            "label": "Asiakas",
-            "value": "Heikkilän Tila"
-          },
-          {
-            "label": "Aloitettu",
-            "value": "Marraskuu 2022"
-          },
-          {
-            "label": "URL",
-            "value": "heikkilanmarja.fi"
-          }
-        ]
-      },
-      "tic-tac-toe": {
-        "title": "Tic-Tac-Toe",
-        "subtitle": "React-sovellus",
-        "description": "Ensimmäinen React-projektini: suunnittelu ja toteutus itse. Responsiivinen mobiilille. Koodi saatavilla GitHubissa linkin kautta.",
-        "meta": [
-          {
-            "label": "Kategoria",
-            "value": "React App"
-          },
-          {
-            "label": "Koodikielet",
-            "value": "React"
-          },
-          {
-            "label": "Päivämäärä",
-            "value": "31. maaliskuuta 2023"
-          },
-          {
-            "label": "Demo",
-            "value": "tuukkaleksi.github.io/tic-tac-toe"
-          }
-        ]
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "subtitle": "JavaScript-peli",
-        "description": "Sudoku-projekti toteutettu HTML:llä, CSS:llä ja JavaScriptillä. Ei vielä täysin responsiivinen. Lähdekoodi GitHubissa.",
+      "nothing-pending": {
+        "title": "Nothing Pending",
+        "subtitle": "Next.js — varhainen kehitys",
+        "descriptionTitle": "Kuvaus",
+        "description": "Next.js-projekti, joka ammentaa inspiraationsa Papers, Please -pelistä. Pelaajat tarkistavat asiakirjoja ja tekevät paineen alla ratkaisuja. Erittäin varhaisessa kehitysvaiheessa.",
         "meta": [
           {
             "label": "Kategoria",
             "value": "Web-peli"
           },
           {
-            "label": "Koodikielet",
-            "value": "HTML, CSS, JavaScript"
+            "label": "Teknologia",
+            "value": "Next.js · TypeScript"
           },
           {
-            "label": "Päivämäärä",
-            "value": "10. huhtikuuta 2023"
-          },
-          {
-            "label": "Demo",
-            "value": "tuukkaleksi.github.io/sudoku"
-          },
-          {
-            "label": "Lähdekoodi",
-            "value": "github.com/Tuukkaleksi/sudoku"
+            "label": "Tila",
+            "value": "Varhainen kehitys"
           }
         ]
       },
-      "vectorama": {
-        "title": "Vectorama",
-        "subtitle": "Verkkopeli",
-        "description": "Vectorama-tapahtumaan tehty Kahoot-tyylinen selainpeli, jossa pelaajien tarkoitus on arvata kuka on tekoäly. OpenAI API ja Firebase. Chat-huone työn alla.",
+      "the-archive-incident": {
+        "title": "The Archive Incident",
+        "subtitle": "Next.js + PixiJS — varhainen kehitys",
+        "descriptionTitle": "Kuvaus",
+        "description": "Keskivaikea pulmapeli Next.js:llä ja PixiJS:llä. Pelaajat kokoavat vihjeitä digitaalisesta arkistosta. Varhaisessa kehitysvaiheessa.",
         "meta": [
           {
             "label": "Kategoria",
-            "value": "HTML / Web Game"
+            "value": "Pulmapeli"
           },
           {
-            "label": "Koodikielet",
-            "value": "TypeScript, JavaScript, CSS, Node.js"
+            "label": "Teknologia",
+            "value": "Next.js · PixiJS · TypeScript"
           },
           {
-            "label": "Päivämäärä",
-            "value": "20. huhtikuuta 2023"
-          },
-          {
-            "label": "Lähdekoodi",
-            "value": "Github — Mielihurjaus"
-          },
-          {
-            "label": "Demo",
-            "value": "poetic-otter-e26763.netlify.app"
-          }
-        ]
-      },
-      "text-adventure": {
-        "title": "Text Adventure",
-        "subtitle": "AI-tarinapeli",
-        "descriptionTitle": "Vite React — selostus",
-        "description": "Harjoitusprojekti React-moduuleihin. Tekstiseikkailu, jossa tekoäly aloittaa ja jatkaa tarinaa; käyttäjä voi ohjata suuntaa. Kehitystä jatketaan.",
-        "meta": [
-          {
-            "label": "Kategoria",
-            "value": "Vite + React"
-          },
-          {
-            "label": "Koodikielet",
-            "value": "React / CSS"
-          },
-          {
-            "label": "Aloitettu",
-            "value": "Heinäkuu 2023"
-          },
-          {
-            "label": "Lähdekoodi",
-            "value": "github.com/Tuukkaleksi/text-adventure"
-          }
-        ]
-      },
-      "wordle": {
-        "title": "Wordle",
-        "subtitle": "React / React Native",
-        "description": "Wordle-tyylinen peli: pelaaja arvaa sanan viidessä yrityksessä. Tavoitteena web- ja mobiilisovellus Reactilla ja React Nativella.",
-        "meta": [
-          {
-            "label": "Kategoria",
-            "value": "React / React Native"
-          },
-          {
-            "label": "Koodikielet",
-            "value": "React / React Native"
-          },
-          {
-            "label": "Aloitettu",
-            "value": "Marraskuu 2022"
-          },
-          {
-            "label": "Lähdekoodi",
-            "value": "github.com/Tuukkaleksi/wordle-project"
+            "label": "Tila",
+            "value": "Varhainen kehitys"
           }
         ]
       }

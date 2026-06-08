@@ -20,6 +20,9 @@ export function checkContactRateLimit(key: string): { allowed: boolean; retryAft
   const bucket = store.get(key) ?? { timestamps: [] };
 
   const recent = bucket.timestamps.filter((t) => now - t < WINDOW_MS);
+  if (recent.length === 0) {
+    store.delete(key);
+  }
   if (recent.length >= MAX_PER_WINDOW) {
     const oldest = recent[0]!;
     const retryAfterSec = Math.ceil((WINDOW_MS - (now - oldest)) / 1000);

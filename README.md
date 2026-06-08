@@ -1,61 +1,78 @@
-# Tuukka Pitkänen — Portfolio
+<p align="center">
+  <strong>Tuukka Pitkänen — Portfolio</strong><br />
+  <sub>Personal site · project showcase · Oulu, Finland</sub>
+</p>
 
-Personal portfolio and project showcase for **Tuukka Pitkänen**, software developer based in Oulu, Finland. The site presents background, skills, résumé, and selected work in a single-page layout with dedicated project detail pages.
-
-**Live site:** [Portfolio](https://tuukkaleksi-github-io.vercel.app/)
-
----
-
-## Features
-
-- **Single-page home** — Hero, about, skills, résumé, portfolio grid, and contact sections with smooth in-page navigation
-- **Project pages** — Static routes at `/portfolio/[slug]` with image galleries and metadata
-- **Content-driven** — Projects and site copy live in TypeScript modules (`src/content/`) for type-safe updates without touching layout code
-- **SEO-ready** — Open Graph metadata, `sitemap.xml`, and `robots.txt`
-- **Legacy redirects** — Old `portfolio-*.html` URLs redirect to the new routes
-- **Responsive UI** — Mobile navigation and desktop sidebar; accessible focus states and semantic markup
-- **CI** — GitHub Actions runs lint, typecheck, and production build on push/PR
-
-The contact form is intentionally disabled while a server-side email integration is planned (no `mailto:` links).
+<p align="center">
+  <a href="https://tuukkaleksi-github-io.vercel.app/">Live</a>
+  ·
+  <a href="https://github.com/Tuukkaleksi/tuukkaleksi.github.io">Source</a>
+  ·
+  <a href="./LICENSE">License</a>
+</p>
 
 ---
 
-## Tech stack
+A bilingual portfolio built with Next.js — one polished surface for background, skills, résumé, selected work, and contact. Content is data-driven; layout and interaction stay consistent as projects evolve.
 
-| Layer | Technology |
-|--------|------------|
-| Framework | [Next.js 16](https://nextjs.org/) (App Router) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| UI | [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/) |
-| Icons | [Lucide](https://lucide.dev/) |
-| Tooling | ESLint, Turbopack (dev/build) |
+**Live:** [tuukkaleksi-github-io.vercel.app](https://tuukkaleksi-github-io.vercel.app/)
 
 ---
 
-## Project structure
+## Highlights
+
+| | |
+|---|---|
+| **Experience** | Single-page home with anchored sections, project detail routes, and locale-aware routing (FI / EN) |
+| **Content** | Projects, copy, and metadata in typed modules and translation files — no layout edits for new work |
+| **Contact** | Server-side form with HMAC tokens, rate limiting, honeypot, spam heuristics, and optional Cloudflare Turnstile |
+| **Quality** | Open Graph metadata, sitemap, robots.txt, legacy URL redirects, accessible focus states |
+| **Pipeline** | GitHub Actions — lint, typecheck, production build |
+
+---
+
+## Stack
+
+<p>
+  <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
+  <img src="https://img.shields.io/badge/next--intl-i18n-000?style=flat-square" alt="next-intl" />
+</p>
+
+| Layer | Choice |
+|-------|--------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| UI | React 19, Tailwind CSS 4, Lucide |
+| i18n | next-intl (Finnish default, English) |
+| Email | Resend (contact + optional auth flows) |
+| Tooling | ESLint, Turbopack, Vitest |
+
+---
+
+## Structure
 
 ```
-├── public/images/          # Profile and portfolio assets
+├── public/images/              # Profile and portfolio assets
+├── messages/                   # en.json, fi.json — site and project copy
 ├── src/
-│   ├── app/                # Routes, layout, global styles, SEO files
-│   ├── components/         # Layout, sections, UI, portfolio gallery
-│   ├── content/            # projects.ts, site-data.ts (editable copy)
-│   ├── lib/                # Site configuration
-│   └── types/              # Shared TypeScript types
-├── .env.example            # Environment variable template
-└── next.config.ts          # Images, legacy URL redirects
+│   ├── app/                    # Routes, API, layout, SEO
+│   ├── components/             # Layout, sections, contact, portfolio
+│   ├── content/                # projects-base.ts, skills, social links
+│   ├── i18n/                   # Locale routing and message loading
+│   └── lib/                    # Site config, contact pipeline
+├── .env.example
+├── LICENSE
+└── next.config.ts              # Images, legacy redirects
 ```
 
 ---
 
-## Getting started
+## Local development
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) 20+ (22 recommended for CI parity)
-- npm
-
-### Installation
+**Requirements:** Node.js 20+ (22 recommended for CI parity), npm
 
 ```bash
 git clone https://github.com/Tuukkaleksi/tuukkaleksi.github.io.git
@@ -64,94 +81,69 @@ npm install
 cp .env.example .env.local
 ```
 
-Edit `.env.local` and set your public site URL:
+Set at minimum in `.env.local`:
 
 ```env
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
-### Development
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-### Production build
-
-```bash
-npm run build
-npm run start
-```
-
-### Other scripts
-
-| Command | Description |
-|---------|-------------|
-| `npm run lint` | Run ESLint |
-| `npm run typecheck` | TypeScript check without emit |
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Development server → [localhost:3000](http://localhost:3000) |
+| `npm run build` | Production build |
+| `npm run start` | Serve production build |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript (no emit) |
+| `npm run test` | Vitest |
+| `npm run db:migrate` | Database migrations (Neon Drift features) |
 
 ---
 
-## Environment variables
+## Environment
 
-Copy `.env.example` to `.env.local` and fill in values for the features you need.
+Copy [`.env.example`](./.env.example) to `.env.local`. Never commit secrets.
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL for metadata, Open Graph, sitemap, and auth callbacks |
-| `DATABASE_URL` | For Neon Drift auth / leaderboard | Neon Postgres connection string |
-| `BETTER_AUTH_SECRET` | For pilot auth | 32+ char secret (`openssl rand -base64 32`) |
-| `BETTER_AUTH_URL` | For pilot auth | App base URL (often same as `NEXT_PUBLIC_SITE_URL`) |
-| `RESEND_API_KEY` | For contact + auth emails | Resend API key |
-| `CONTACT_TO_EMAIL` | For contact form | Inbox for portfolio messages |
-| `CONTACT_FROM_EMAIL` | Optional | Sender for contact (and auth fallback) |
-| `AUTH_FROM_EMAIL` | Optional | Dedicated sender for pilot verification / reset emails |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Optional | Cloudflare Turnstile site key (register) |
-| `TURNSTILE_SECRET_KEY` | Optional | Turnstile secret (register) |
-| `NEON_DRIFT_SECRET` | For global leaderboard | HMAC secret for run tokens |
-| `NEXT_PUBLIC_NEON_DRIFT_GLOBAL_SUBMIT` | Optional | Set `true` to enable global score submit UI (requires pilot auth) |
-
-Never commit `.env.local` or secrets to the repository.
-
-### Database migrations
-
-```bash
-npm run db:migrate
-```
+| Variable | Required | Role |
+|----------|----------|------|
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URL — metadata, sitemap, callbacks |
+| `CONTACT_FORM_SECRET` | Contact form | HMAC secret (`openssl rand -base64 32`) |
+| `CONTACT_TO_EMAIL` | Contact form | Inbox for messages |
+| `RESEND_API_KEY` | Contact form | Resend API key |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Optional | Cloudflare Turnstile (client) |
+| `TURNSTILE_SECRET_KEY` | Optional | Turnstile verification (server) |
+| `NEXT_PUBLIC_NEON_DRIFT_URL` | Optional | External play link for Neon Drift |
+| `DATABASE_URL` | Neon Drift | Postgres connection string |
+| `BETTER_AUTH_SECRET` | Neon Drift auth | Auth secret |
+| `BETTER_AUTH_URL` | Neon Drift auth | Auth base URL |
+| `NEON_DRIFT_SECRET` | Leaderboard | HMAC for run tokens |
 
 ---
 
 ## Deployment
 
-This app is designed for [Vercel](https://vercel.com/) (or any Node-compatible host that supports Next.js).
+Optimized for [Vercel](https://vercel.com/) or any Node host that runs Next.js App Router.
 
-1. Import the GitHub repository; use the **repository root** as the project root (no subdirectory).
-2. Set `NEXT_PUBLIC_SITE_URL` to your production domain.
-3. Point your domain’s DNS to the hosting provider.
+1. Import the repository (project root — no subdirectory).
+2. Set `NEXT_PUBLIC_SITE_URL` to your production URL.
+3. Configure contact and optional feature env vars.
+4. Point DNS to the host.
 
-GitHub Pages does not run this stack without additional static-export configuration; Vercel is the recommended path for full App Router features and future API routes.
+GitHub Pages does not run this stack without a static export; Vercel is the recommended path.
 
 ---
 
-## Updating content
+## Editing content
 
-| What to change | Where |
-|----------------|--------|
-| Projects (title, images, links, description) | `src/content/projects.ts` |
-| Skills, résumé, about text, social links | `src/content/site-data.ts` |
-| Site name, default URL, meta description | `src/lib/site.ts` |
+| Change | Location |
+|--------|----------|
+| Project images, slugs, categories, links | `src/content/projects-base.ts` |
+| Project titles, descriptions, meta labels | `messages/en.json`, `messages/fi.json` → `projects.items` |
+| Skills | `src/content/skills.ts` |
+| Social links | `src/content/social-links.ts` |
+| Site name, default URL, roles | `src/lib/site.ts` + `messages/*/site` |
 | Images | `public/images/` |
 
-After editing content, run `npm run build` locally to verify before deploying.
-
----
-
-## Roadmap
-
-- [ ] Contact form API route with rate limiting and an email provider (e.g. Resend)
-- [ ] Optional CAPTCHA / bot protection on contact submissions
+Run `npm run build` after content changes before deploying.
 
 ---
 
@@ -159,12 +151,16 @@ After editing content, run `npm run build` locally to verify before deploying.
 
 **Tuukka Pitkänen** — Web developer & programmer
 
-- Website: [portfoliobytuukka.net](https://portfoliobytuukka.net/)
-- GitHub: [@Tuukkaleksi](https://github.com/Tuukkaleksi)
-- LinkedIn: [Tuukka Pitkänen](https://www.linkedin.com/in/tuukka-pitk%C3%A4nen-768009265/)
+- **Site:** [tuukkaleksi-github-io.vercel.app](https://tuukkaleksi-github-io.vercel.app/)
+- **GitHub:** [@Tuukkaleksi](https://github.com/Tuukkaleksi)
+- **LinkedIn:** [Tuukka Pitkänen](https://www.linkedin.com/in/tuukka-pitk%C3%A4nen-768009265/)
 
 ---
 
 ## License
 
-This project is private portfolio code. All rights reserved unless otherwise noted. Third-party assets in `public/images/` remain your property.
+**Proprietary — all rights reserved.** This repository is not open source.
+
+No permission is granted to use, copy, modify, distribute, host, or create derivative works from any part of this project. See [LICENSE](./LICENSE) for full terms.
+
+Third-party libraries remain under their respective licenses. Assets in `public/images/` are the author's property unless otherwise noted.

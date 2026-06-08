@@ -4,10 +4,7 @@ const MIN_SUBMIT_MS = 3_000;
 const MAX_TOKEN_AGE_MS = 30 * 60 * 1000;
 
 function getSecret() {
-  const secret =
-    process.env.CONTACT_FORM_SECRET ??
-    process.env.RESEND_API_KEY ??
-    "";
+  const secret = process.env.CONTACT_FORM_SECRET?.trim();
   if (!secret) return null;
   return secret;
 }
