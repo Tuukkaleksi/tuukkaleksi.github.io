@@ -80,3 +80,105 @@ body {
 .hero-gradient {
   background: radial-gradient(ellipse at top, var(--hero-gradient), transparent 55%);
 }
+
+/* Section ambient backgrounds (portfolio, skills, etc.) */
+.section-dot-grid,
+.portfolio-dot-grid {
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--primary) 28%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+  opacity: 0.5;
+  animation: portfolio-grid-pulse 8s ease-in-out infinite alternate;
+}
+
+.dark .section-dot-grid,
+.dark .portfolio-dot-grid {
+  opacity: 0.35;
+}
+
+.section-orb,
+.portfolio-orb {
+  background: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--primary) 24%, transparent),
+    transparent 68%
+  );
+  opacity: 0.6;
+  filter: blur(48px);
+}
+
+.dark .section-orb,
+.dark .portfolio-orb {
+  opacity: 0.45;
+}
+
+.section-orb-1,
+.portfolio-orb-1 {
+  animation: portfolio-drift-1 26s ease-in-out infinite alternate;
+}
+
+.section-orb-2,
+.portfolio-orb-2 {
+  animation: portfolio-drift-2 22s ease-in-out infinite alternate;
+}
+
+.portfolio-shimmer {
+  animation: portfolio-shimmer 1.4s ease-out forwards;
+}
+
+@keyframes portfolio-drift-1 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+}
+
+@keyframes portfolio-drift-2 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-35px, 25px) scale(1.06);
+  }
+}
+
+@keyframes portfolio-grid-pulse {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+
+@keyframes portfolio-shimmer {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  30% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-bg-animated,
+  .portfolio-bg-animated *,
+  .section-bg-animated,
+  .section-bg-animated * {
+    animation: none !important;
+  }
+
+  .portfolio-shimmer {
+    display: none;
+  }
+}

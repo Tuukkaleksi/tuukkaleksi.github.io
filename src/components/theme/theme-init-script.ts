@@ -1,9 +1,4 @@
-/**
- * Blocking theme script for the initial paint (SSR-safe, no React 19 script-in-component warning).
- * Must be the first child of <body>.
- */
-export function ThemeInitScript() {
-  const script = `
+export const themeInitScript = `
 (function () {
   try {
     var theme = localStorage.getItem('theme') || 'system';
@@ -19,12 +14,4 @@ export function ThemeInitScript() {
     root.style.colorScheme = resolved;
   } catch (e) {}
 })();
-`;
-
-  return (
-    <script
-      dangerouslySetInnerHTML={{ __html: script }}
-      suppressHydrationWarning
-    />
-  );
-}
+`.trim();

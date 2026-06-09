@@ -3,7 +3,8 @@
 import { ArrowRight, Calendar } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/ui/AnimatedSectionHeading";
+import { ScrollReveal, ScrollRevealGroup, ScrollRevealItem } from "@/components/ui/ScrollReveal";
 import { Link } from "@/i18n/navigation";
 import { getNotesFromMessages } from "@/lib/notes";
 
@@ -27,11 +28,11 @@ export function Notes() {
   return (
     <section id="notes" className="section-padding scroll-mt-20">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading title={t("title")} description={t("description")} />
+        <AnimatedSectionHeading title={t("title")} description={t("description")} />
 
-        <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <ScrollRevealGroup as="ul" className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {preview.map((note) => (
-            <li key={note.slug}>
+            <ScrollRevealItem key={note.slug} as="li">
               <article className="section-card flex h-full flex-col p-6 transition hover:-translate-y-0.5 hover:shadow-md">
                 <div className="flex flex-wrap items-center gap-2 text-xs text-secondary">
                   <Calendar className="h-3.5 w-3.5" aria-hidden />
@@ -59,11 +60,11 @@ export function Notes() {
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </article>
-            </li>
+            </ScrollRevealItem>
           ))}
-        </ul>
+        </ScrollRevealGroup>
 
-        <div className="mt-10 text-center">
+        <ScrollReveal className="mt-10 text-center">
           <Link
             href="/notes"
             className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-foreground transition hover:border-primary hover:text-primary"
@@ -71,7 +72,7 @@ export function Notes() {
             {t("viewAll")}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

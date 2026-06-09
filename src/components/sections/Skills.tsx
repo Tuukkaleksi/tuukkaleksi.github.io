@@ -2,7 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { AnimatedSectionHeading } from "@/components/ui/AnimatedSectionHeading";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { SectionAmbientBackground } from "@/components/ui/SectionAmbientBackground";
 import { skills } from "@/content/skills";
 
 function SkillBar({ name, level, animate }: { name: string; level: number; animate: boolean }) {
@@ -54,23 +56,26 @@ export function Skills() {
   const columns = [skills.slice(0, midpoint), skills.slice(midpoint)];
 
   return (
-    <section id="skills" className="section-padding scroll-mt-20 bg-surface-muted/50">
-      <div ref={ref} className="mx-auto max-w-6xl">
-        <SectionHeading title={t("title")} description={t("description")} />
-        <div className="section-card grid gap-8 p-6 sm:p-10 md:grid-cols-2">
-          {columns.map((column, colIndex) => (
-            <div key={colIndex} className="space-y-6">
-              {column.map((skill) => (
-                <SkillBar
-                  key={skill.name}
-                  name={skill.name}
-                  level={skill.level}
-                  animate={animate}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
+    <section id="skills" className="section-padding relative scroll-mt-20 overflow-hidden bg-surface-muted/50">
+      <SectionAmbientBackground />
+      <div ref={ref} className="relative z-10 mx-auto max-w-6xl">
+        <AnimatedSectionHeading title={t("title")} description={t("description")} />
+        <ScrollReveal>
+          <div className="section-card grid gap-8 p-6 sm:p-10 md:grid-cols-2">
+            {columns.map((column, colIndex) => (
+              <div key={colIndex} className="space-y-6">
+                {column.map((skill) => (
+                  <SkillBar
+                    key={skill.name}
+                    name={skill.name}
+                    level={skill.level}
+                    animate={animate}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

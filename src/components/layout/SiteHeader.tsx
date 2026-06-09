@@ -12,10 +12,10 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LocaleSwitcher } from "@/components/preferences/LocaleSwitcher";
 import { ThemeToggle } from "@/components/preferences/ThemeToggle";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 
 const navIcons: Record<string, LucideIcon> = {
   hero: Home,
@@ -27,22 +27,76 @@ const navIcons: Record<string, LucideIcon> = {
 };
 
 const navIds = ["hero", "about", "resume", "portfolio", "notes", "contact"] as const;
+type NavId = (typeof navIds)[number];
+
+function isNavId(value: string): value is NavId {
+  return (navIds as readonly string[]).includes(value);
+}
+
+function getActiveIdFromHash(): NavId {
+  if (typeof window === "undefined") return "hero";
+  const hash = window.location.hash.replace("#", "");
+  return isNavId(hash) ? hash : "hero";
+}
 
 export function SiteHeader() {
   const tNav = useTranslations("nav");
   const tSite = useTranslations("site");
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeId, setActiveId] = useState("hero");
+  const [activeId, setActiveId] = useState<NavId>("hero");
+  const scrollLockRef = useRef(false);
 
   const navItems = useMemo(
     () =>
       navIds.map((id) => ({
         id,
         label: tNav(id),
-        href: `#${id}`,
+        href: `/#${id}`,
       })),
     [tNav],
   );
+
+  const handleNavClick = useCallback((id: NavId) => {
+    setMobileOpen(false);
+    setActiveId(id);
+    scrollLockRef.current = true;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById(id)?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+
+    const nextHash = `#${id}`;
+    if (window.location.hash !== nextHash) {
+      window.history.pushState(null, "", nextHash);
+    }
+
+    window.setTimeout(() => {
+      scrollLockRef.current = false;
+    }, 900);
+  }, []);
+
+  useEffect(() => {
+    const syncFromHash = () => {
+      setActiveId(getActiveIdFromHash());
+    };
+
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
+
+  useEffect(() => {
+    const hash = getActiveIdFromHash();
+    if (hash !== "hero") {
+      requestAnimationFrame(() => {
+        document.getElementById(hash)?.scrollIntoView({ block: "start" });
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const sections = navItems
@@ -51,10 +105,12 @@ export function SiteHeader() {
 
     const observer = new IntersectionObserver(
       (entries) => {
+        if (scrollLockRef.current) return;
+
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) {
+        if (visible?.target.id && isNavId(visible.target.id)) {
           setActiveId(visible.target.id);
         }
       },
@@ -64,12 +120,6 @@ export function SiteHeader() {
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, [navItems]);
-
-  const handleNavClick = (href: string) => {
-    setMobileOpen(false);
-    const id = href.replace("#", "");
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   return (
     <>
@@ -101,11 +151,12 @@ export function SiteHeader() {
                 const isActive = activeId === item.id;
                 return (
                   <li key={item.id}>
-                    <a
+                    <Link
                       href={item.href}
                       onClick={(e) => {
+                        if (!isHomePage) return;
                         e.preventDefault();
-                        handleNavClick(item.href);
+                        handleNavClick(item.id);
                       }}
                       className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
                         isActive
@@ -115,7 +166,7 @@ export function SiteHeader() {
                     >
                       <Icon className="h-4 w-4" aria-hidden />
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 );
               })}
@@ -137,12 +188,13 @@ export function SiteHeader() {
             const Icon = navIcons[item.id] ?? Home;
             const isActive = activeId === item.id;
             return (
-              <a
+              <Link
                 key={item.id}
                 href={item.href}
                 onClick={(e) => {
+                  if (!isHomePage) return;
                   e.preventDefault();
-                  handleNavClick(item.href);
+                  handleNavClick(item.id);
                 }}
                 title={item.label}
                 className={`group relative flex h-11 w-11 items-center justify-center rounded-xl transition ${
@@ -155,7 +207,7 @@ export function SiteHeader() {
                 <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-foreground px-2 py-1 text-xs text-background opacity-0 transition group-hover:opacity-100 xl:block">
                   {item.label}
                 </span>
-              </a>
+              </Link>
             );
           })}
         </nav>

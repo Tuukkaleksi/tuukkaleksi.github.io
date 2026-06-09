@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Raleway } from "next/font/google";
+import Script from "next/script";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { AppProviders } from "@/components/providers/AppProviders";
-import { ThemeInitScript } from "@/components/theme/ThemeInitScript";
+import { themeInitScript } from "@/components/theme/theme-init-script";
 import { routing, type Locale } from "@/i18n/routing";
 import { siteConfig } from "@/lib/site";
 import "../globals.css";
@@ -84,7 +85,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <ThemeInitScript />
+        <Script id="theme-init" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
         <AppProviders locale={locale as Locale} messages={messages}>
           <SiteHeader />
           <div className="lg:pl-20 xl:pl-24">{children}</div>
