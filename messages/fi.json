@@ -17,6 +17,7 @@
     "portfolio": "Portfolio",
     "notes": "Muistiinpanot",
     "contact": "Ota yhteyttä",
+    "market": "Palvelut",
     "mainMenu": "Päävalikko",
     "openMenu": "Avaa valikko",
     "home": "Etusivu"
@@ -394,6 +395,59 @@
           }
         ]
       }
+    }
+  },
+  "market": {
+    "meta": {
+      "title": "Palvelut — Tuukka Pitkänen",
+      "description": "Premium digitaaliset palvelut: brändisivustot, SaaS-sovellukset ja koodipohjat."
+    },
+    "hero": {
+      "eyebrow": "Premium digitaaliset palvelut",
+      "title": "Käsityönä koodattua ",
+      "titleAccent": "digitaalista luksusta.",
+      "description": "Tavalliset verkkosivut ovat menneisyyttä. Rakennan moderneja, salamannopeita ja mieleenpainuvia kokemuksia yrityksille, jotka vaativat parasta.",
+      "ctaPrimary": "Käynnistä projekti",
+      "ctaSecondary": "Selaa palveluita"
+    },
+    "services": {
+      "title": "Erikoisosaaminen",
+      "brand": {
+        "title": "Brändisivustot",
+        "description": "Täysin mittatilaustyönä koodatut verkkosivustot, jotka viestivät yrityksesi arvoa. Ei valmisteemoja, vain puhdasta suorituskykyä (Next.js).",
+        "features": [
+          "Pikselintarkka design",
+          "Salamannopea latausaika",
+          "Täysi SEO-optimointi"
+        ],
+        "cta": "Kysy lisää"
+      },
+      "saas": {
+        "badge": "Suosituin",
+        "title": "SaaS & Web App",
+        "description": "Monimutkaisemmat verkkosovellukset, käyttöliittymät ja palveluiden MVP-versiot. Integroituna tietokantoihin ja autentikointiin.",
+        "features": [
+          "Käyttäjähallinta (Auth)",
+          "Tietokanta-arkkitehtuuri",
+          "Skaalautuva koodikanta"
+        ],
+        "cta": "Aloita suunnittelu"
+      },
+      "templates": {
+        "title": "Koodipohjat",
+        "description": "Nopea ja kustannustehokas ratkaisu. Lisenssoi koodamiani valmiita, korkealaatuisia templaatteja ja komponentteja.",
+        "features": [
+          "Välitön toimitus",
+          "Helppo kustomointi",
+          "Korkea laatu"
+        ],
+        "cta": "Katso valikoima"
+      }
+    },
+    "cta": {
+      "title": "Oletko valmis aloittamaan?",
+      "description": "Kerro minulle visiostasi. Suunnitellaan yhdessä ratkaisu, joka erottuu joukosta ja tuottaa tulosta.",
+      "button": "Ota yhteyttä"
     }
   }
 }

@@ -4,6 +4,7 @@ import {
   BookOpen,
   Briefcase,
   FileText,
+  Globe,
   Home,
   Mail,
   Menu,
@@ -24,10 +25,13 @@ const navIcons: Record<string, LucideIcon> = {
   portfolio: Briefcase,
   notes: FileText,
   contact: Mail,
+  market: Globe,
 };
 
-const navIds = ["hero", "about", "resume", "portfolio", "notes", "contact"] as const;
+const navIds = ["market", "hero", "about", "resume", "portfolio", "notes", "contact"] as const;
 type NavId = (typeof navIds)[number];
+
+const routeNavIds = new Set<NavId>(["market"]);
 
 function isNavId(value: string): value is NavId {
   return (navIds as readonly string[]).includes(value);
@@ -44,6 +48,7 @@ export function SiteHeader() {
   const tSite = useTranslations("site");
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isMarketPage = pathname === "/market";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeId, setActiveId] = useState<NavId>("hero");
   const scrollLockRef = useRef(false);
@@ -53,7 +58,8 @@ export function SiteHeader() {
       navIds.map((id) => ({
         id,
         label: tNav(id),
-        href: `/#${id}`,
+        href: routeNavIds.has(id) ? `/${id}` : `/#${id}`,
+        isRoute: routeNavIds.has(id),
       })),
     [tNav],
   );
@@ -80,6 +86,11 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
+    if (isMarketPage) {
+      setActiveId("market");
+      return;
+    }
+
     const syncFromHash = () => {
       setActiveId(getActiveIdFromHash());
     };
@@ -87,19 +98,22 @@ export function SiteHeader() {
     syncFromHash();
     window.addEventListener("hashchange", syncFromHash);
     return () => window.removeEventListener("hashchange", syncFromHash);
-  }, []);
+  }, [isMarketPage]);
 
   useEffect(() => {
+    if (isMarketPage) return;
+
     const hash = getActiveIdFromHash();
     if (hash !== "hero") {
       requestAnimationFrame(() => {
         document.getElementById(hash)?.scrollIntoView({ block: "start" });
       });
     }
-  }, []);
+  }, [isMarketPage]);
 
   useEffect(() => {
     const sections = navItems
+      .filter((item) => !item.isRoute)
       .map((item) => document.getElementById(item.id))
       .filter(Boolean) as HTMLElement[];
 
@@ -154,6 +168,10 @@ export function SiteHeader() {
                     <Link
                       href={item.href}
                       onClick={(e) => {
+                        if (item.isRoute) {
+                          setMobileOpen(false);
+                          return;
+                        }
                         if (!isHomePage) return;
                         e.preventDefault();
                         handleNavClick(item.id);
@@ -192,6 +210,7 @@ export function SiteHeader() {
                 key={item.id}
                 href={item.href}
                 onClick={(e) => {
+                  if (item.isRoute) return;
                   if (!isHomePage) return;
                   e.preventDefault();
                   handleNavClick(item.id);

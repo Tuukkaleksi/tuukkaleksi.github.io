@@ -174,11 +174,58 @@ body {
   .portfolio-bg-animated,
   .portfolio-bg-animated *,
   .section-bg-animated,
-  .section-bg-animated * {
+  .section-bg-animated *,
+  .market-bg-animated,
+  .market-bg-animated * {
     animation: none !important;
   }
 
   .portfolio-shimmer {
     display: none;
   }
+}
+
+/* Market page background animations */
+.market-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+@keyframes market-spin-3d {
+  0% {
+    transform: rotateX(10deg) rotateY(0deg) rotateZ(5deg);
+  }
+  100% {
+    transform: rotateX(370deg) rotateY(360deg) rotateZ(365deg);
+  }
+}
+
+@keyframes market-float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-40px);
+  }
+}
+
+.market-animate-float-slow {
+  animation: market-float-slow 12s ease-in-out infinite;
+}
+
+@keyframes market-ambient-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+.market-animate-ambient {
+  animation: market-ambient-drift 20s ease-in-out infinite;
 }

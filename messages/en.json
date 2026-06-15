@@ -17,6 +17,7 @@
     "portfolio": "Portfolio",
     "notes": "Notes",
     "contact": "Contact",
+    "market": "Services",
     "mainMenu": "Main menu",
     "openMenu": "Open menu",
     "home": "Home"
@@ -394,6 +395,59 @@
           }
         ]
       }
+    }
+  },
+  "market": {
+    "meta": {
+      "title": "Services — Tuukka Pitkänen",
+      "description": "Premium digital services: brand websites, SaaS applications, and code templates."
+    },
+    "hero": {
+      "eyebrow": "Premium digital services",
+      "title": "Hand-coded ",
+      "titleAccent": "digital luxury.",
+      "description": "Ordinary websites are a thing of the past. I build modern, lightning-fast, and memorable experiences for businesses that demand the best.",
+      "ctaPrimary": "Start a project",
+      "ctaSecondary": "Browse services"
+    },
+    "services": {
+      "title": "Specializations",
+      "brand": {
+        "title": "Brand websites",
+        "description": "Fully custom-coded websites that communicate your company's value. No off-the-shelf themes — just pure performance (Next.js).",
+        "features": [
+          "Pixel-perfect design",
+          "Lightning-fast load times",
+          "Full SEO optimization"
+        ],
+        "cta": "Learn more"
+      },
+      "saas": {
+        "badge": "Most popular",
+        "title": "SaaS & Web App",
+        "description": "More complex web applications, interfaces, and service MVPs. Integrated with databases and authentication.",
+        "features": [
+          "User management (Auth)",
+          "Database architecture",
+          "Scalable codebase"
+        ],
+        "cta": "Start planning"
+      },
+      "templates": {
+        "title": "Code templates",
+        "description": "A fast and cost-effective solution. License my ready-made, high-quality templates and components.",
+        "features": [
+          "Instant delivery",
+          "Easy customization",
+          "High quality"
+        ],
+        "cta": "View catalog"
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "description": "Tell me about your vision. Let's design a solution together that stands out and delivers results.",
+      "button": "Get in touch"
     }
   }
 }
