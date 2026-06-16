@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { getMessagesForLocale } from "@/i18n/messages";
 import type { Locale } from "@/i18n/routing";
 import { getNotesFromMessages } from "@/lib/notes";
+import { buildSocialMetadata } from "@/lib/seo/metadata";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -19,7 +20,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "notes" });
-  return { title: t("title"), description: t("description") };
+  const title = t("title");
+  const description = t("description");
+
+  return {
+    title,
+    description,
+    ...buildSocialMetadata({ title, description }),
+  };
 }
 
 function formatDate(iso: string, locale: string) {

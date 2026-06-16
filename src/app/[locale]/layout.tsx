@@ -7,8 +7,10 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { AppProviders } from "@/components/providers/AppProviders";
+import { MouseAmbientLayer } from "@/components/ui/MouseAmbientLayer";
 import { themeInitScript } from "@/components/theme/theme-init-script";
 import { routing, type Locale } from "@/i18n/routing";
+import { DEFAULT_OG_IMAGE, buildSocialMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site";
 import "../globals.css";
 
@@ -43,25 +45,31 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
     languages[loc] = `${siteConfig.url}${path}`;
   }
 
+  const title = t("title");
+  const description = t("description");
+  const social = buildSocialMetadata({ title, description });
+
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
-      default: t("title"),
-      template: "%s",
+      default: title,
+      template: `%s | ${t("name")}`,
     },
-    description: t("description"),
+    description,
     alternates: {
       canonical: languages[locale as Locale],
       languages,
     },
+    manifest: "/site.webmanifest",
     openGraph: {
-      title: t("title"),
-      description: t("description"),
+      ...social.openGraph,
       url: languages[locale as Locale],
       siteName: t("name"),
       locale: locale === "fi" ? "fi_FI" : "en_US",
       type: "website",
+      images: [{ url: DEFAULT_OG_IMAGE }],
     },
+    twitter: social.twitter,
     robots: { index: true, follow: true },
     icons: { icon: "/images/favicon.png" },
   };
@@ -85,12 +93,13 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground antialiased">
+        <MouseAmbientLayer />
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInitScript}
         </Script>
         <AppProviders locale={locale as Locale} messages={messages}>
           <SiteHeader />
-          <div className="lg:pl-20 xl:pl-24">{children}</div>
+          <div className="relative z-10 lg:pl-20 xl:pl-24">{children}</div>
           <BackToTop />
         </AppProviders>
       </body>

@@ -232,13 +232,21 @@
         "SUBJECT_TOO_SHORT": "Subject must be at least 2 characters.",
         "SUBJECT_TOO_LONG": "Subject is too long.",
         "MESSAGE_TOO_SHORT": "Message must be at least 20 characters.",
-        "MESSAGE_TOO_LONG": "Message is too long (max 2000 characters)."
+        "MESSAGE_TOO_LONG": "Message is too long (max 2000 characters).",
+        "SCRIPT_NOT_ALLOWED": "Your message contains content that is not allowed. Remove HTML or script-like text."
       },
       "messageMinHint": "At least 20 characters"
     }
   },
   "footer": {
+    "handle": "@Tuukkaleksi",
     "rights": "All rights reserved."
+  },
+  "homeMarket": {
+    "title": "Digital services",
+    "subtitle": "Premium hand-coded websites, SaaS applications, and templates for businesses that want more than an off-the-shelf theme.",
+    "ctaPrimary": "Explore services",
+    "ctaSecondary": "Get in touch"
   },
   "projectPage": {
     "back": "Back to portfolio",

@@ -229,3 +229,111 @@ body {
 .market-animate-ambient {
   animation: market-ambient-drift 20s ease-in-out infinite;
 }
+
+.mouse-ambient-layer {
+  --mouse-x: 0.5;
+  --mouse-y: 0.5;
+  mix-blend-mode: soft-light;
+}
+
+.dark .mouse-ambient-layer {
+  mix-blend-mode: screen;
+}
+
+.mouse-spotlight {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    720px circle at var(--mouse-px, 50%) var(--mouse-py, 50%),
+    color-mix(in srgb, var(--primary) 14%, transparent),
+    transparent 65%
+  );
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.mouse-grid-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: radial-gradient(
+      circle at var(--mouse-px, 50%) var(--mouse-py, 50%),
+      color-mix(in srgb, var(--primary) 22%, transparent) 0%,
+      transparent 45%
+    ),
+    linear-gradient(color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px);
+  background-size:
+    auto,
+    48px 48px,
+    48px 48px;
+  mask-image: radial-gradient(
+    520px circle at var(--mouse-px, 50%) var(--mouse-py, 50%),
+    black 0%,
+    transparent 75%
+  );
+}
+
+.mouse-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.mouse-orb-1 {
+  top: 8%;
+  left: 12%;
+  width: 32rem;
+  height: 32rem;
+  background: color-mix(in srgb, var(--primary) 60%, transparent);
+  transform: translate(
+    calc((var(--mouse-x) - 0.5) * 140px),
+    calc((var(--mouse-y) - 0.5) * 100px)
+  );
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mouse-orb-2 {
+  right: 8%;
+  bottom: 12%;
+  width: 28rem;
+  height: 28rem;
+  background: color-mix(in srgb, var(--primary) 40%, transparent);
+  transform: translate(
+    calc((0.5 - var(--mouse-x)) * 120px),
+    calc((0.5 - var(--mouse-y)) * 90px)
+  );
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mouse-orb-3 {
+  top: 42%;
+  left: 38%;
+  width: 22rem;
+  height: 22rem;
+  background: color-mix(in srgb, var(--primary) 30%, transparent);
+  opacity: 0.35;
+  transform: translate(
+    calc((var(--mouse-x) - 0.5) * 80px),
+    calc((var(--mouse-y) - 0.5) * -70px)
+  );
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-mouse-glow {
+  background: radial-gradient(
+    520px circle at var(--mouse-px, 50%) var(--mouse-py, 50%),
+    rgba(90, 180, 255, 0.22),
+    transparent 68%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mouse-orb,
+  .mouse-spotlight,
+  .mouse-grid-glow {
+    display: none;
+  }
+}

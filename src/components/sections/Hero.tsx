@@ -1,8 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { motion, useSpring, useTransform } from "motion/react";
 import { useEffect, useState } from "react";
+import { HeroParticles } from "@/components/hero/HeroParticles";
 import { SocialLinks } from "@/components/ui/SocialLinks";
+import { useMousePosition } from "@/hooks/useMousePosition";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { socialLinks } from "@/content/social-links";
 
 export function Hero() {
@@ -11,6 +15,18 @@ export function Hero() {
   const roles = tSite.raw("typedRoles") as string[];
   const [roleIndex, setRoleIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const reducedMotion = useReducedMotion();
+  const mouse = useMousePosition(!reducedMotion);
+
+  const springX = useSpring(0, { stiffness: 60, damping: 20 });
+  const springY = useSpring(0, { stiffness: 60, damping: 20 });
+  const parallaxX = useTransform(springX, (v) => v * 28);
+  const parallaxY = useTransform(springY, (v) => v * 20);
+
+  useEffect(() => {
+    springX.set((mouse.x - 0.5) * 2);
+    springY.set((mouse.y - 0.5) * 2);
+  }, [mouse.x, mouse.y, springX, springY]);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -32,9 +48,18 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="hero-section relative flex min-h-[100svh] items-center justify-center px-4 pt-16 text-white lg:pt-0"
+      className="hero-section relative flex min-h-[100svh] items-center justify-center overflow-hidden px-4 pt-16 text-white lg:pt-0"
     >
-      <div className="hero-gradient pointer-events-none absolute inset-0" aria-hidden />
+      <HeroParticles className="pointer-events-none absolute inset-0 z-[1] opacity-80" />
+      <motion.div
+        className="hero-gradient pointer-events-none absolute inset-0 z-[2]"
+        aria-hidden
+        style={reducedMotion ? undefined : { x: parallaxX, y: parallaxY }}
+      />
+      <motion.div
+        className="hero-mouse-glow pointer-events-none absolute inset-0 z-[2]"
+        aria-hidden
+      />
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-white/70">
           {t("eyebrow")}

@@ -37,6 +37,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     });
 
+    entries.push({
+      url: localePath(locale, "/market"),
+      changeFrequency: "weekly",
+      priority: 0.85,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((loc) => [loc, localePath(loc, "/market")]),
+        ),
+      },
+    });
+
     for (const slug of projectSlugs) {
       entries.push({
         url: localePath(locale, `/portfolio/${slug}`),

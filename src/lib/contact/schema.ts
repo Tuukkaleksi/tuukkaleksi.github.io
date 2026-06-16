@@ -2,28 +2,35 @@ import { z } from "zod";
 
 const MAX_URLS = 3;
 
-export const contactBodySchema = z.object({
-  name: z
+export const SCRIPT_PATTERN =
+  /<script|<\/script>|javascript:|onerror\s*=|onload\s*=|<iframe|data:text\/html/i;
+
+export function containsScriptPattern(value: string) {
+  return SCRIPT_PATTERN.test(value);
+}
+
+function noScriptContent(value: string) {
+  return !containsScriptPattern(value);
+}
+
+const scriptSafeString = (min: number, max: number, minCode: string, maxCode: string) =>
+  z
     .string()
     .trim()
-    .min(2, "NAME_TOO_SHORT")
-    .max(80, "NAME_TOO_LONG"),
+    .min(min, minCode)
+    .max(max, maxCode)
+    .refine(noScriptContent, "SCRIPT_NOT_ALLOWED");
+
+export const contactBodySchema = z.object({
+  name: scriptSafeString(2, 80, "NAME_TOO_SHORT", "NAME_TOO_LONG"),
   email: z
     .string()
     .trim()
     .toLowerCase()
     .email("EMAIL_INVALID")
     .max(254, "EMAIL_TOO_LONG"),
-  subject: z
-    .string()
-    .trim()
-    .min(2, "SUBJECT_TOO_SHORT")
-    .max(120, "SUBJECT_TOO_LONG"),
-  message: z
-    .string()
-    .trim()
-    .min(20, "MESSAGE_TOO_SHORT")
-    .max(2000, "MESSAGE_TOO_LONG"),
+  subject: scriptSafeString(2, 120, "SUBJECT_TOO_SHORT", "SUBJECT_TOO_LONG"),
+  message: scriptSafeString(20, 2000, "MESSAGE_TOO_SHORT", "MESSAGE_TOO_LONG"),
   formToken: z.string().min(10, "TOKEN_INVALID"),
   startedAt: z.number().int().positive("TIMING_INVALID"),
   locale: z.enum(["en", "fi"]).optional(),

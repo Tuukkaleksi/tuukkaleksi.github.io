@@ -9,6 +9,9 @@ import { routing } from "@/i18n/routing";
 import { getMessagesForLocale } from "@/i18n/messages";
 import type { Locale } from "@/i18n/routing";
 import { getAllProjectSlugs, getProjectsFromMessages } from "@/lib/projects";
+import { buildSocialMetadata } from "@/lib/seo/metadata";
+import { buildCreativeWorkJsonLd } from "@/lib/seo/jsonld";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -33,11 +36,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: project.title,
     description: project.description,
-    openGraph: {
+    ...buildSocialMetadata({
       title: project.title,
       description: project.description,
-      images: [{ url: project.coverImage }],
-    },
+      images: [project.coverImage],
+    }),
   };
 }
 
@@ -56,6 +59,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
   return (
     <>
+      <JsonLd data={buildCreativeWorkJsonLd(locale as Locale, project)} />
       <main className="section-padding mx-auto max-w-6xl">
         <ProjectPageMotion
           backLabel={t("back")}

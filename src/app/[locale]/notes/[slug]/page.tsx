@@ -8,6 +8,9 @@ import { routing } from "@/i18n/routing";
 import { getMessagesForLocale } from "@/i18n/messages";
 import type { Locale } from "@/i18n/routing";
 import { getAllNoteSlugs, getNotesFromMessages } from "@/lib/notes";
+import { buildSocialMetadata } from "@/lib/seo/metadata";
+import { buildArticleJsonLd } from "@/lib/seo/jsonld";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -31,6 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: note.title,
     description: note.excerpt,
+    ...buildSocialMetadata({ title: note.title, description: note.excerpt }),
   };
 }
 
@@ -54,6 +58,7 @@ export default async function NotePage({ params }: PageProps) {
 
   return (
     <>
+      <JsonLd data={buildArticleJsonLd(locale as Locale, note)} />
       <main className="section-padding mx-auto max-w-3xl">
         <Link
           href="/notes"

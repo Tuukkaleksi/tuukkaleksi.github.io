@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Tuukka Pitkänen — Portfolio",
   description:
     "Tuukka Pitkäsen portfolio: web-kehitys, React, ohjelmointiprojektit ja yhteistyöhön liittyvät tiedot.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuukkaleksi-github-io.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuukkadev.com",
   locale: "fi",
   location: "Oulu, Suomi",
   typedRoles: ["Innokas", "Suunnittelija", "Ohjelmoija"],

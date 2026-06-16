@@ -3,6 +3,7 @@
 import { CheckCircle2, Loader2, Mail, MessageSquare, Send, User } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { containsScriptPattern } from "@/lib/contact/schema";
 
 type ContactFormProps = {
   formToken: string | null;
@@ -21,6 +22,7 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
   const turnstileRef = useRef<HTMLDivElement>(null);
   const turnstileWidgetId = useRef<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileMountKey, setTurnstileMountKey] = useState(0);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorCode, setErrorCode] = useState<string | null>(null);
   const [messageLen, setMessageLen] = useState(0);
@@ -63,7 +65,7 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
         turnstileWidgetId.current = null;
       }
     };
-  }, [turnstileSiteKey]);
+  }, [turnstileSiteKey, turnstileMountKey]);
 
   const resetTurnstile = useCallback(() => {
     if (turnstileWidgetId.current && window.turnstile) {
@@ -92,13 +94,23 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
       return;
     }
 
+    const name = String(fd.get("name") ?? "");
+    const email = String(fd.get("email") ?? "");
+    const subject = String(fd.get("subject") ?? "");
+
+    if ([name, subject, message].some(containsScriptPattern)) {
+      setErrorCode("SCRIPT_NOT_ALLOWED");
+      setStatus("error");
+      return;
+    }
+
     setStatus("submitting");
     setErrorCode(null);
 
     const payload = {
-      name: String(fd.get("name") ?? ""),
-      email: String(fd.get("email") ?? ""),
-      subject: String(fd.get("subject") ?? ""),
+      name,
+      email,
+      subject,
       message,
       company: String(fd.get("company") ?? ""),
       formToken,
@@ -152,7 +164,11 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
         <p className="mt-2 max-w-sm text-sm leading-relaxed text-secondary">{t("successBody")}</p>
         <button
           type="button"
-          onClick={() => setStatus("idle")}
+          onClick={() => {
+            setTurnstileToken(null);
+            setTurnstileMountKey((key) => key + 1);
+            setStatus("idle");
+          }}
           className="mt-6 text-sm font-semibold text-primary hover:text-primary-hover"
         >
           {t("sendAnother")}
@@ -280,7 +296,7 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
 
       {turnstileSiteKey && (
         <div className="flex justify-center">
-          <div ref={turnstileRef} />
+          <div key={turnstileMountKey} ref={turnstileRef} />
         </div>
       )}
 

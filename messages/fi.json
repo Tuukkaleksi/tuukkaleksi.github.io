@@ -232,13 +232,21 @@
         "SUBJECT_TOO_SHORT": "Aiheen on oltava vähintään 2 merkkiä.",
         "SUBJECT_TOO_LONG": "Aihe on liian pitkä.",
         "MESSAGE_TOO_SHORT": "Viestin on oltava vähintään 20 merkkiä.",
-        "MESSAGE_TOO_LONG": "Viesti on liian pitkä (enintään 2000 merkkiä)."
+        "MESSAGE_TOO_LONG": "Viesti on liian pitkä (enintään 2000 merkkiä).",
+        "SCRIPT_NOT_ALLOWED": "Viestissä on sisältöä, jota ei sallita. Poista HTML- tai skriptimäinen teksti."
       },
       "messageMinHint": "Vähintään 20 merkkiä"
     }
   },
   "footer": {
+    "handle": "@Tuukkaleksi",
     "rights": "Kaikki oikeudet pidätetään."
+  },
+  "homeMarket": {
+    "title": "Digitaaliset palvelut",
+    "subtitle": "Premium käsityönä koodatut verkkosivut, SaaS-sovellukset ja pohjat yrityksille, jotka haluavat enemmän kuin valmiin teeman.",
+    "ctaPrimary": "Tutustu palveluihin",
+    "ctaSecondary": "Ota yhteyttä"
   },
   "projectPage": {
     "back": "Takaisin portfolioon",

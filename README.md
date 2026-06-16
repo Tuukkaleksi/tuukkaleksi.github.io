@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="https://tuukkaleksi-github-io.vercel.app/">Live</a>
+  <a href="https://www.tuukkadev.com/">Live</a>
   ·
   <a href="https://github.com/Tuukkaleksi/tuukkaleksi.github.io">Source</a>
   ·
@@ -15,7 +15,7 @@
 
 A bilingual portfolio built with Next.js — one polished surface for background, skills, résumé, selected work, and contact. Content is data-driven; layout and interaction stay consistent as projects evolve.
 
-**Live:** [tuukkaleksi-github-io.vercel.app](https://tuukkaleksi-github-io.vercel.app/)
+**Live:** [tuukkadev.com](https://www.tuukkadev.com/)
 
 ---
 
@@ -55,7 +55,7 @@ A bilingual portfolio built with Next.js — one polished surface for background
 ## Structure
 
 ```
-├── public/images/              # Profile and portfolio assets
+├── public/images/              # Portfolio and site assets
 ├── messages/                   # en.json, fi.json — site and project copy
 ├── src/
 │   ├── app/                    # Routes, API, layout, SEO
@@ -151,7 +151,7 @@ Run `npm run build` after content changes before deploying.
 
 **Tuukka Pitkänen** — Web developer & programmer
 
-- **Site:** [tuukkaleksi-github-io.vercel.app](https://tuukkaleksi-github-io.vercel.app/)
+- **Site:** [tuukkadev.com](https://www.tuukkadev.com/)
 - **GitHub:** [@Tuukkaleksi](https://github.com/Tuukkaleksi)
 - **LinkedIn:** [Tuukka Pitkänen](https://www.linkedin.com/in/tuukka-pitk%C3%A4nen-768009265/)
 

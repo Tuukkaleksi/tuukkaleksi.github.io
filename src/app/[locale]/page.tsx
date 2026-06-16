@@ -3,11 +3,15 @@ import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Hero } from "@/components/sections/Hero";
 import { ImpactMetrics } from "@/components/sections/ImpactMetrics";
+import { MarketTeaser } from "@/components/sections/MarketTeaser";
 import { Notes } from "@/components/sections/Notes";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { Resume } from "@/components/sections/Resume";
 import { Skills } from "@/components/sections/Skills";
-import { setRequestLocale } from "next-intl/server";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildHomeJsonLd } from "@/lib/seo/jsonld";
+import type { Locale } from "@/i18n/routing";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -16,9 +20,11 @@ type PageProps = {
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("site");
 
   return (
     <>
+      <JsonLd data={buildHomeJsonLd(locale as Locale, t("name"), t("description"))} />
       <main>
         <Hero />
         <ImpactMetrics />
@@ -26,6 +32,7 @@ export default async function HomePage({ params }: PageProps) {
         <Skills />
         <Resume />
         <Portfolio />
+        <MarketTeaser />
         <Notes />
         <Contact />
       </main>

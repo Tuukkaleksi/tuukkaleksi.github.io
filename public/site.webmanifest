@@ -1,0 +1,16 @@
+{
+  "name": "Tuukka Pitkänen — Portfolio",
+  "short_name": "Tuukka Dev",
+  "description": "Tuukka Pitkäsen portfolio: web-kehitys, React, ohjelmointiprojektit ja yhteistyöhön liittyvät tiedot.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121316",
+  "theme_color": "#0563bb",
+  "icons": [
+    {
+      "src": "/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

@@ -4,7 +4,6 @@ import { socialLinks } from "@/content/social-links";
 
 export async function SiteFooter() {
   const t = await getTranslations("footer");
-  const tSite = await getTranslations("site");
   const year = new Date().getFullYear();
 
   return (
@@ -14,12 +13,12 @@ export async function SiteFooter() {
         <p className="text-sm text-secondary">
           &copy; {year}{" "}
           <a
-            href="https://github.com/Tuukkaleksi/tuukkaleksi.github.io"
+            href="https://github.com/Tuukkaleksi"
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-foreground hover:text-primary"
           >
-            {tSite("name")}
+            {t("handle")}
           </a>
           . {t("rights")}
         </p>
