@@ -1,4 +1,5 @@
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { HomeExperience } from "@/components/home/HomeExperience";
 import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Hero } from "@/components/sections/Hero";
@@ -25,18 +26,20 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <>
       <JsonLd data={buildHomeJsonLd(locale as Locale, t("name"), t("description"))} />
-      <main>
-        <Hero />
-        <ImpactMetrics />
-        <About />
-        <Skills />
-        <Resume />
-        <Portfolio />
-        <MarketTeaser />
-        <Notes />
-        <Contact />
-      </main>
-      <SiteFooter />
+      <HomeExperience>
+        <main>
+          <Hero />
+          <ImpactMetrics />
+          <About />
+          <Skills />
+          <Resume />
+          <Portfolio />
+          <MarketTeaser />
+          <Notes />
+          <Contact />
+        </main>
+        <SiteFooter />
+      </HomeExperience>
     </>
   );
 }

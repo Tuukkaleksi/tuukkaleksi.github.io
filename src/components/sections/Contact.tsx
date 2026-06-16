@@ -1,8 +1,8 @@
 import { MapPin } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { AnimatedSectionHeading } from "@/components/ui/AnimatedSectionHeading";
-import { ScrollRevealGroup, ScrollRevealItem } from "@/components/ui/ScrollReveal";
+import { GsapReveal } from "@/components/ui/GsapReveal";
+import { GsapSectionHeading } from "@/components/ui/GsapSectionHeading";
 import { SocialLinks } from "@/components/ui/SocialLinks";
 import { socialLinks } from "@/content/social-links";
 import { createContactFormToken } from "@/lib/contact/token";
@@ -16,9 +16,9 @@ export async function Contact() {
   return (
     <section id="contact" className="section-padding scroll-mt-20">
       <div className="mx-auto max-w-6xl">
-        <AnimatedSectionHeading title={t("title")} description={t("sectionDescription")} />
-        <ScrollRevealGroup className="grid gap-8 lg:grid-cols-2">
-          <ScrollRevealItem>
+        <GsapSectionHeading title={t("title")} description={t("sectionDescription")} />
+        <div className="grid gap-8 lg:grid-cols-2">
+          <GsapReveal>
             <div className="section-card h-full p-6 sm:p-8">
               <h3 className="font-display text-lg font-semibold">{t("detailsTitle")}</h3>
               <ul className="mt-6 space-y-5">
@@ -35,21 +35,21 @@ export async function Contact() {
               <p className="mt-8 text-sm text-secondary">{t("socialHint")}</p>
               <SocialLinks links={socialLinks} className="mt-6" />
             </div>
-          </ScrollRevealItem>
+          </GsapReveal>
 
-          <ScrollRevealItem>
-            <div className="section-card relative h-full overflow-hidden p-6 sm:p-8">
-              <div
-                className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-primary/10 blur-3xl"
-                aria-hidden
-              />
+          <div className="section-card relative h-full overflow-hidden p-6 sm:p-8">
+            <div
+              className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-primary/10 blur-3xl"
+              aria-hidden
+            />
+            <GsapReveal delay={0.1}>
               <h3 className="relative font-display text-lg font-semibold">{t("formTitle")}</h3>
-              <div className="relative mt-6">
-                <ContactForm formToken={formToken} turnstileSiteKey={turnstileSiteKey} />
-              </div>
+            </GsapReveal>
+            <div className="relative mt-6">
+              <ContactForm formToken={formToken} turnstileSiteKey={turnstileSiteKey} />
             </div>
-          </ScrollRevealItem>
-        </ScrollRevealGroup>
+          </div>
+        </div>
       </div>
     </section>
   );

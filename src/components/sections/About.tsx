@@ -1,9 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import { AnimatedSectionHeading } from "@/components/ui/AnimatedSectionHeading";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
-
-const SOUNDCLOUD_EMBED =
-  "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2169952617&color=%230563bb&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true";
+import { SoundCloudEmbed } from "@/components/about/SoundCloudEmbed";
+import { GsapReveal } from "@/components/ui/GsapReveal";
+import { GsapSectionHeading } from "@/components/ui/GsapSectionHeading";
 
 export async function About() {
   const t = await getTranslations("about");
@@ -13,9 +11,9 @@ export async function About() {
   return (
     <section id="about" className="section-padding scroll-mt-20">
       <div className="mx-auto max-w-6xl">
-        <AnimatedSectionHeading title={t("title")} />
-        <ScrollReveal>
-          <div className="section-card p-6 sm:p-10">
+        <GsapSectionHeading title={t("title")} />
+        <GsapReveal>
+          <div className="section-card p-8 sm:p-12">
             <h3 className="font-display text-2xl font-semibold text-foreground">{t("role")}</h3>
             <p className="mt-2 text-secondary italic">{t("tagline")}</p>
             <dl className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -38,36 +36,11 @@ export async function About() {
                 <p key={paragraph.slice(0, 32)}>{paragraph}</p>
               ))}
             </div>
-            <div className="mt-8 overflow-hidden rounded-xl border border-border">
-              <iframe
-                title={t("soundcloudTitle")}
-                src={SOUNDCLOUD_EMBED}
-                className="h-[166px] w-full border-0"
-                loading="lazy"
-                allow="autoplay"
-              />
-              <p className="border-t border-border bg-surface-muted px-3 py-2 text-xs text-secondary">
-                <a
-                  href="https://soundcloud.com/tjxkpulse"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="prose-link"
-                >
-                  TJXKPULSE
-                </a>
-                {" · "}
-                <a
-                  href="https://soundcloud.com/tjxkpulse/fin-de-semana"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="prose-link"
-                >
-                  FIN DE SEMANA
-                </a>
-              </p>
-            </div>
           </div>
-        </ScrollReveal>
+        </GsapReveal>
+        <div className="mt-8">
+          <SoundCloudEmbed />
+        </div>
       </div>
     </section>
   );

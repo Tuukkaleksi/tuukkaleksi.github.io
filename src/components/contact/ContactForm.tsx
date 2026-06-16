@@ -3,6 +3,7 @@
 import { CheckCircle2, Loader2, Mail, MessageSquare, Send, User } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 import { containsScriptPattern } from "@/lib/contact/schema";
 
 type ContactFormProps = {
@@ -23,6 +24,7 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
   const turnstileWidgetId = useRef<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [turnstileMountKey, setTurnstileMountKey] = useState(0);
+  const [turnstileReady, setTurnstileReady] = useState(!turnstileSiteKey);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorCode, setErrorCode] = useState<string | null>(null);
   const [messageLen, setMessageLen] = useState(0);
@@ -31,7 +33,13 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
   const configured = Boolean(formToken);
 
   useEffect(() => {
-    if (!turnstileSiteKey || !turnstileRef.current) return;
+    if (!turnstileSiteKey) return;
+    const frame = requestAnimationFrame(() => setTurnstileReady(true));
+    return () => cancelAnimationFrame(frame);
+  }, [turnstileSiteKey]);
+
+  useEffect(() => {
+    if (!turnstileSiteKey || !turnstileReady || !turnstileRef.current) return;
 
     let cancelled = false;
 
@@ -65,7 +73,7 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
         turnstileWidgetId.current = null;
       }
     };
-  }, [turnstileSiteKey, turnstileMountKey]);
+  }, [turnstileSiteKey, turnstileMountKey, turnstileReady]);
 
   const resetTurnstile = useCallback(() => {
     if (turnstileWidgetId.current && window.turnstile) {
@@ -294,13 +302,13 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
         </p>
       </div>
 
-      {turnstileSiteKey && (
+      {turnstileSiteKey && turnstileReady ? (
         <div className="flex justify-center">
           <div key={turnstileMountKey} ref={turnstileRef} />
         </div>
-      )}
+      ) : null}
 
-      <button
+      <MagneticButton
         type="submit"
         disabled={status === "submitting"}
         className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-primary/25 transition hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-70"
@@ -316,7 +324,7 @@ export function ContactForm({ formToken, turnstileSiteKey }: ContactFormProps) {
             {t("submit")}
           </>
         )}
-      </button>
+      </MagneticButton>
 
       <p className="text-center text-[11px] leading-relaxed text-secondary/80">{t("privacy")}</p>
     </form>

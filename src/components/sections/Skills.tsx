@@ -2,12 +2,25 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { AnimatedSectionHeading } from "@/components/ui/AnimatedSectionHeading";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { GsapReveal } from "@/components/ui/GsapReveal";
+import { GsapSectionHeading } from "@/components/ui/GsapSectionHeading";
 import { SectionAmbientBackground } from "@/components/ui/SectionAmbientBackground";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { skills } from "@/content/skills";
 
-function SkillBar({ name, level, animate }: { name: string; level: number; animate: boolean }) {
+function SkillBar({
+  name,
+  level,
+  animate,
+  reducedMotion,
+}: {
+  name: string;
+  level: number;
+  animate: boolean;
+  reducedMotion: boolean;
+}) {
+  const width = reducedMotion || animate ? `${level}%` : "0%";
+
   return (
     <div>
       <div className="mb-2 flex items-center justify-between text-sm">
@@ -16,8 +29,8 @@ function SkillBar({ name, level, animate }: { name: string; level: number; anima
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-surface-muted">
         <div
-          className="h-full rounded-full bg-primary transition-[width] duration-1000 ease-out"
-          style={{ width: animate ? `${level}%` : "0%" }}
+          className={`h-full rounded-full bg-primary ${reducedMotion ? "" : "transition-[width] duration-500 ease-out"}`}
+          style={{ width }}
           role="progressbar"
           aria-valuenow={level}
           aria-valuemin={0}
@@ -31,10 +44,16 @@ function SkillBar({ name, level, animate }: { name: string; level: number; anima
 
 export function Skills() {
   const t = useTranslations("skills");
+  const reducedMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const [animate, setAnimate] = useState(false);
+  const [animate, setAnimate] = useState(reducedMotion);
 
   useEffect(() => {
+    if (reducedMotion) {
+      setAnimate(true);
+      return;
+    }
+
     const node = ref.current;
     if (!node) return;
 
@@ -50,7 +69,7 @@ export function Skills() {
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   const midpoint = Math.ceil(skills.length / 2);
   const columns = [skills.slice(0, midpoint), skills.slice(midpoint)];
@@ -59,9 +78,9 @@ export function Skills() {
     <section id="skills" className="section-padding relative scroll-mt-20 overflow-hidden bg-surface-muted/50">
       <SectionAmbientBackground />
       <div ref={ref} className="relative z-10 mx-auto max-w-6xl">
-        <AnimatedSectionHeading title={t("title")} description={t("description")} />
-        <ScrollReveal>
-          <div className="section-card grid gap-8 p-6 sm:p-10 md:grid-cols-2">
+        <GsapSectionHeading title={t("title")} description={t("description")} />
+        <GsapReveal>
+          <div className="section-card grid gap-8 p-8 sm:p-12 md:grid-cols-2">
             {columns.map((column, colIndex) => (
               <div key={colIndex} className="space-y-6">
                 {column.map((skill) => (
@@ -70,12 +89,13 @@ export function Skills() {
                     name={skill.name}
                     level={skill.level}
                     animate={animate}
+                    reducedMotion={reducedMotion}
                   />
                 ))}
               </div>
             ))}
           </div>
-        </ScrollReveal>
+        </GsapReveal>
       </div>
     </section>
   );

@@ -1,71 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { MonitorSmartphone, Zap, ChevronRight, Rocket, Layers } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Link } from "@/i18n/navigation";
-
-const useIntersectionObserver = (options: IntersectionObserverInit = {}) => {
-  const [isIntersecting, setIsIntersecting] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-      },
-      { threshold: 0.1, ...options },
-    );
-
-    const element = ref.current;
-    if (element) {
-      observer.observe(element);
-    }
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, [options]);
-
-  return [ref, isIntersecting] as const;
-};
-
-interface FadeInProps {
-  children: ReactNode;
-  delay?: number;
-  direction?: "up" | "down" | "left" | "right";
-}
-
-const FadeIn = ({ children, delay = 0, direction = "up" }: FadeInProps) => {
-  const [ref, isVisible] = useIntersectionObserver();
-
-  const getTransform = () => {
-    switch (direction) {
-      case "up":
-        return "translateY(40px)";
-      case "down":
-        return "translateY(-40px)";
-      case "left":
-        return "translateX(40px)";
-      case "right":
-        return "translateX(-40px)";
-      default:
-        return "translateY(0)";
-    }
-  };
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translate(0)" : getTransform(),
-        transition: `opacity 1s ease-out ${delay}ms, transform 1s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-      }}
-    >
-      {children}
-    </div>
-  );
-};
 
 interface Dynamic3DCubeProps {
   size?: number;
@@ -98,7 +37,7 @@ const Dynamic3DCube = ({
 
   return (
     <div
-      className={`absolute ${positionClasses} ${opacity} pointer-events-none z-0`}
+      className={`market-3d-decor absolute ${positionClasses} ${opacity} pointer-events-none z-0`}
       style={{ width: size, height: size, perspective: "1200px" }}
     >
       <div className="market-animate-float-slow h-full w-full" style={{ animationDelay: floatDelay }}>
@@ -123,37 +62,43 @@ const Dynamic3DCube = ({
   );
 };
 
-const HubtownBackground = () => {
+function HubtownBackground() {
+  const reducedMotion = useReducedMotion();
+
   return (
-  <div className="market-bg-animated">
+    <div className="market-bg-animated">
       <div className="market-animate-ambient absolute left-[-10%] top-[-10%] h-[50%] w-[50%] rounded-full bg-blue-200/40 blur-[150px] mix-blend-multiply dark:bg-blue-900/20 dark:mix-blend-screen" />
       <div
         className="market-animate-ambient absolute bottom-[-10%] right-[-10%] h-[50%] w-[50%] rounded-full bg-purple-200/40 blur-[150px] mix-blend-multiply dark:bg-purple-900/20 dark:mix-blend-screen"
         style={{ animationDelay: "-10s" }}
       />
 
-      <Dynamic3DCube
-        size={280}
-        positionClasses="top-[20%] -right-10 lg:right-[10%]"
-        spinDuration="30s"
-      />
-      <Dynamic3DCube
-        size={120}
-        positionClasses="top-[15%] left-[5%] lg:left-[15%]"
-        floatDelay="-4s"
-        spinDuration="22s"
-        reverse
-        opacity="opacity-40"
-      />
-      <Dynamic3DCube
-        size={180}
-        positionClasses="bottom-[10%] left-[-5%] lg:left-[5%]"
-        floatDelay="-8s"
-        spinDuration="28s"
-      />
+      {!reducedMotion ? (
+        <>
+          <Dynamic3DCube
+            size={280}
+            positionClasses="top-[20%] -right-10 lg:right-[10%]"
+            spinDuration="30s"
+          />
+          <Dynamic3DCube
+            size={120}
+            positionClasses="top-[15%] left-[5%] lg:left-[15%]"
+            floatDelay="-4s"
+            spinDuration="22s"
+            reverse
+            opacity="opacity-40"
+          />
+          <Dynamic3DCube
+            size={180}
+            positionClasses="bottom-[10%] left-[-5%] lg:left-[5%]"
+            floatDelay="-8s"
+            spinDuration="28s"
+          />
+        </>
+      ) : null}
     </div>
   );
-};
+}
 
 export default function MarketPage() {
   const t = useTranslations("market");
@@ -180,18 +125,18 @@ export default function MarketPage() {
 
       <main className="relative z-10 mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
         <div className="relative mb-40 max-w-4xl pt-16 lg:pt-24">
-          <FadeIn delay={50} direction="left">
+          <ScrollReveal delay={0.05}>
             <div className="mb-8 h-1 w-12 rounded-full bg-blue-600 dark:bg-blue-500" />
-          </FadeIn>
+          </ScrollReveal>
 
-          <FadeIn delay={100}>
+          <ScrollReveal delay={0.08}>
             <div className="mb-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400">
               <Zap size={16} className="text-blue-600 dark:text-blue-500" />
               <span>{t("hero.eyebrow")}</span>
             </div>
-          </FadeIn>
+          </ScrollReveal>
 
-          <FadeIn delay={200}>
+          <ScrollReveal delay={0.12}>
             <h1 className="mb-8 text-5xl font-extrabold leading-[1.1] tracking-tight text-slate-900 dark:text-white sm:text-6xl lg:text-7xl">
               {t("hero.title")}
               <br className="hidden md:block" />
@@ -199,15 +144,15 @@ export default function MarketPage() {
                 {t("hero.titleAccent")}
               </span>
             </h1>
-          </FadeIn>
+          </ScrollReveal>
 
-          <FadeIn delay={300}>
+          <ScrollReveal delay={0.16}>
             <p className="mb-12 max-w-2xl text-lg font-light leading-relaxed text-slate-600 dark:text-slate-400 sm:text-xl">
               {t("hero.description")}
             </p>
-          </FadeIn>
+          </ScrollReveal>
 
-          <FadeIn delay={400}>
+          <ScrollReveal delay={0.2}>
             <div className="flex flex-wrap items-center gap-6">
               <Link
                 href="/#contact"
@@ -227,21 +172,21 @@ export default function MarketPage() {
                 {t("hero.ctaSecondary")}
               </a>
             </div>
-          </FadeIn>
+          </ScrollReveal>
         </div>
 
         <div id="services" className="mt-32 pt-20">
-          <FadeIn>
+          <ScrollReveal>
             <div className="mb-16 flex items-center justify-between">
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
                 {t("services.title")}
               </h2>
               <div className="mx-8 hidden h-px flex-grow bg-slate-200 dark:bg-white/10 sm:block" />
             </div>
-          </FadeIn>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            <FadeIn delay={100}>
+            <ScrollReveal delay={0.08}>
               <div className="group relative flex h-full flex-col rounded-3xl border border-slate-200 bg-white/40 p-10 backdrop-blur-xl transition-all duration-500 hover:border-blue-500/30 hover:bg-white/80 dark:border-white/5 dark:bg-[#0A0A0F]/60 dark:hover:bg-white/[0.03]">
                 <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-900 transition-all duration-500 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white dark:bg-white/5 dark:text-white">
                   <MonitorSmartphone size={24} strokeWidth={1.5} />
@@ -271,9 +216,9 @@ export default function MarketPage() {
                   <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
-            </FadeIn>
+            </ScrollReveal>
 
-            <FadeIn delay={200}>
+            <ScrollReveal delay={0.14}>
               <div className="group relative flex h-full flex-col rounded-3xl border border-slate-800 bg-slate-900 p-10 shadow-2xl shadow-slate-900/20 transition-all duration-500 hover:border-slate-600 dark:border-slate-700 dark:bg-slate-800/50">
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-blue-600/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="relative z-10 flex h-full flex-col">
@@ -306,9 +251,9 @@ export default function MarketPage() {
                   </Link>
                 </div>
               </div>
-            </FadeIn>
+            </ScrollReveal>
 
-            <FadeIn delay={300}>
+            <ScrollReveal delay={0.2}>
               <div className="group relative flex h-full flex-col rounded-3xl border border-slate-200 bg-white/40 p-10 backdrop-blur-xl transition-all duration-500 hover:border-blue-500/30 hover:bg-white/80 dark:border-white/5 dark:bg-[#0A0A0F]/60 dark:hover:bg-white/[0.03]">
                 <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-900 transition-all duration-500 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white dark:bg-white/5 dark:text-white">
                   <Layers size={24} strokeWidth={1.5} />
@@ -338,12 +283,12 @@ export default function MarketPage() {
                   <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
-            </FadeIn>
+            </ScrollReveal>
           </div>
         </div>
 
         <div className="relative z-20 mb-20 mt-40">
-          <FadeIn>
+          <ScrollReveal>
             <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-800 bg-slate-900 p-10 text-center dark:border-slate-700 dark:bg-slate-800 sm:p-20">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-transparent to-purple-600/20 opacity-50" />
               <div className="relative z-10 mx-auto max-w-2xl">
@@ -359,7 +304,7 @@ export default function MarketPage() {
                 </Link>
               </div>
             </div>
-          </FadeIn>
+          </ScrollReveal>
         </div>
       </main>
     </div>

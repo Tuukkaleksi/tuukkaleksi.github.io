@@ -93,11 +93,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <MouseAmbientLayer />
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInitScript}
         </Script>
         <AppProviders locale={locale as Locale} messages={messages}>
+          <MouseAmbientLayer />
           <SiteHeader />
           <div className="relative z-10 lg:pl-20 xl:pl-24">{children}</div>
           <BackToTop />

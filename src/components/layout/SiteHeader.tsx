@@ -17,6 +17,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LocaleSwitcher } from "@/components/preferences/LocaleSwitcher";
 import { ThemeToggle } from "@/components/preferences/ThemeToggle";
 import { Link, usePathname } from "@/i18n/navigation";
+import { getActiveLenis } from "@/lib/lenis/instance";
 
 const navIcons: Record<string, LucideIcon> = {
   hero: Home,
@@ -69,11 +70,18 @@ export function SiteHeader() {
     setActiveId(id);
     scrollLockRef.current = true;
 
+    const target = document.getElementById(id);
+    const lenis = getActiveLenis();
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    document.getElementById(id)?.scrollIntoView({
-      behavior: prefersReducedMotion ? "auto" : "smooth",
-      block: "start",
-    });
+
+    if (lenis && target && !prefersReducedMotion) {
+      lenis.scrollTo(target, { offset: -80, duration: 1.1 });
+    } else {
+      target?.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    }
 
     const nextHash = `#${id}`;
     if (window.location.hash !== nextHash) {

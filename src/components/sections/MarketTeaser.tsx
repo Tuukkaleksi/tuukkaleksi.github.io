@@ -1,8 +1,8 @@
-import { MonitorSmartphone, Layers, Zap, ArrowRight } from "lucide-react";
+import { MonitorSmartphone, Layers, Zap } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { AnimatedSectionHeading } from "@/components/ui/AnimatedSectionHeading";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { SectionAmbientBackground } from "@/components/ui/SectionAmbientBackground";
+import { MarketTeaserPrimaryCta } from "@/components/sections/MarketTeaserPrimaryCta";
+import { GsapReveal } from "@/components/ui/GsapReveal";
+import { GsapSectionHeading } from "@/components/ui/GsapSectionHeading";
 import { Link } from "@/i18n/navigation";
 
 const serviceKeys = ["brand", "saas", "templates"] as const;
@@ -18,11 +18,10 @@ export async function MarketTeaser() {
   const tMarket = await getTranslations("market.services");
 
   return (
-    <section id="services" className="section-padding relative scroll-mt-20 overflow-hidden">
-      <SectionAmbientBackground />
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <AnimatedSectionHeading title={t("title")} description={t("subtitle")} />
-        <ScrollReveal>
+    <section id="services" className="section-padding scroll-mt-20">
+      <div className="mx-auto max-w-6xl">
+        <GsapSectionHeading title={t("title")} description={t("subtitle")} />
+        <GsapReveal>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {serviceKeys.map((key) => {
               const Icon = serviceIcons[key];
@@ -45,13 +44,7 @@ export async function MarketTeaser() {
             })}
           </div>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Link
-              href="/market"
-              className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md shadow-primary/20 transition hover:bg-primary-hover"
-            >
-              {t("ctaPrimary")}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <MarketTeaserPrimaryCta label={t("ctaPrimary")} />
             <Link
               href="/#contact"
               className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition hover:border-primary/40 hover:text-primary"
@@ -59,7 +52,7 @@ export async function MarketTeaser() {
               {t("ctaSecondary")}
             </Link>
           </div>
-        </ScrollReveal>
+        </GsapReveal>
       </div>
     </section>
   );

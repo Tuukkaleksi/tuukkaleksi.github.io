@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { motion, type HTMLMotionProps } from "motion/react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { fadeUp, gentleSpring, motionTransition, staggerContainer, staggerItem } from "@/lib/motion";
+import { fadeUp, motionTransition, premiumTween, staggerContainer, staggerItem } from "@/lib/motion";
 
 export const scrollRevealViewport = {
   once: true,
@@ -26,7 +26,7 @@ export function ScrollReveal({ children, className, delay = 0, ...props }: Scrol
       initial="hidden"
       whileInView="visible"
       viewport={scrollRevealViewport}
-      transition={motionTransition(reducedMotion, { ...gentleSpring, delay })}
+      transition={motionTransition(reducedMotion, { ...premiumTween, delay })}
       {...props}
     >
       {children}

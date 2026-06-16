@@ -3,6 +3,7 @@
 import { NextIntlClientProvider } from "next-intl";
 import type { AbstractIntlMessages } from "next-intl";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { MouseProvider } from "@/components/providers/MouseProvider";
 import { defaultTimeZone } from "@/i18n/request";
 import type { Locale } from "@/i18n/routing";
 
@@ -15,9 +16,11 @@ type AppProvidersProps = {
 export function AppProviders({ children, locale, messages }: AppProvidersProps) {
   return (
     <ThemeProvider>
-      <NextIntlClientProvider locale={locale} messages={messages} timeZone={defaultTimeZone}>
-        {children}
-      </NextIntlClientProvider>
+      <MouseProvider>
+        <NextIntlClientProvider locale={locale} messages={messages} timeZone={defaultTimeZone}>
+          {children}
+        </NextIntlClientProvider>
+      </MouseProvider>
     </ThemeProvider>
   );
 }

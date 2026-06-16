@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { fadeUp, motionTransition } from "@/lib/motion";
+import { fadeUp, motionTransition, premiumEase, premiumTween } from "@/lib/motion";
 import { scrollRevealViewport } from "@/components/ui/ScrollReveal";
 
 type AnimatedSectionHeadingProps = {
@@ -15,7 +15,7 @@ export function AnimatedSectionHeading({ title, description }: AnimatedSectionHe
 
   return (
     <motion.div
-      className="mb-12 text-center"
+      className="mb-16 text-center lg:mb-20"
       initial="hidden"
       whileInView="visible"
       viewport={scrollRevealViewport}
@@ -36,7 +36,7 @@ export function AnimatedSectionHeading({ title, description }: AnimatedSectionHe
         initial={{ width: 0, opacity: 0 }}
         whileInView={{ width: 64, opacity: 1 }}
         viewport={scrollRevealViewport}
-        transition={motionTransition(reducedMotion, { duration: 0.55, ease: "easeOut" })}
+        transition={motionTransition(reducedMotion, { duration: 0.4, ease: premiumEase })}
       />
       {description ? (
         <motion.p
